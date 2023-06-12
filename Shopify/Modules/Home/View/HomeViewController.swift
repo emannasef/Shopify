@@ -12,8 +12,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     
     @IBOutlet weak var homeCollection: UICollectionView!
     var viewmodel = HomeViewModel.getInstatnce(network: NetworkManager())
-    var brandsList : [SmartCollections] = []
-    
+   
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -113,6 +112,23 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
             }
         return sectionHeader
     }
+    
+    
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch(indexPath.section){
+        case 0:
+            break
+        default:
+            let brand = viewmodel.getBrandAtIndexPath(row: indexPath.row)
+            let productsScreen = storyboard?.instantiateViewController(withIdentifier: "collectionproducts") as! ProductsViewController
+            productsScreen.collectionId = brand.id
+            print(String(brand.id))
+            navigationController?.pushViewController(productsScreen, animated: true)
+        }
+    }
+    
+    
     
     func AdsSection() -> NSCollectionLayoutSection{
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))

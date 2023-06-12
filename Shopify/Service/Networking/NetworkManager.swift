@@ -18,6 +18,7 @@ class NetworkManager : NetworkServicing{
     
     
     var baseUrl = "https://mad43-sv-ios2.myshopify.com/admin/api/2023-04/"
+
     
     func getDataOverNetwork<T:Decodable>(tag :String,endPoint : BrandEndPoint, compilitionHandler: @escaping (T?) -> Void)
     {
@@ -27,7 +28,7 @@ class NetworkManager : NetworkServicing{
             "Content-Type": "application/json"
         ]
         
-        AF.request("\(baseUrl)\(endPoint.rawValue)", method: .get, headers: header).responseJSON{ response in
+        AF.request("\(baseUrl)\(endPoint.path)", method: .get, headers: header).responseJSON{ response in
             print(response)
             do{
                 let result = try JSONDecoder().decode(T.self, from: response.data ?? Data())
@@ -45,6 +46,21 @@ class NetworkManager : NetworkServicing{
     
 }
 
-enum BrandEndPoint: String {
-    case  brands = "smart_collections.json"
+enum BrandEndPoint{
+  
+    case  brands
+    case products(tag:Int)
+    
+    var path:String{
+        switch self {
+        case .brands:
+            return "smart_collections.json"
+            
+        case .products(tag: var productId):
+            return "collections/\(productId)/products.json"
+            //return "collections/448186581301/products.json"
+            
+            
+        }
+    }
 }
