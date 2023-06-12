@@ -17,7 +17,7 @@
 		043771462A371414006C2233 /* ShopifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771452A371414006C2233 /* ShopifyTests.swift */; };
 		043771502A371414006C2233 /* ShopifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437714F2A371414006C2233 /* ShopifyUITests.swift */; };
 		043771522A371414006C2233 /* ShopifyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771512A371414006C2233 /* ShopifyUITestsLaunchTests.swift */; };
-		043771612A37160C006C2233 /* MyEndPints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771602A37160C006C2233 /* MyEndPints.swift */; };
+		043771612A37160C006C2233 /* MyEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771602A37160C006C2233 /* MyEndPoints.swift */; };
 		043771632A371619006C2233 /* MyNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771622A371619006C2233 /* MyNetwork.swift */; };
 		043771652A371626006C2233 /* MyNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771642A371626006C2233 /* MyNetworkProtocol.swift */; };
 		043771682A371641006C2233 /* DBManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771672A371641006C2233 /* DBManger.swift */; };
@@ -77,7 +77,7 @@
 		0437714B2A371414006C2233 /* ShopifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0437714F2A371414006C2233 /* ShopifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopifyUITests.swift; sourceTree = "<group>"; };
 		043771512A371414006C2233 /* ShopifyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopifyUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		043771602A37160C006C2233 /* MyEndPints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEndPints.swift; sourceTree = "<group>"; };
+		043771602A37160C006C2233 /* MyEndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEndPoints.swift; sourceTree = "<group>"; };
 		043771622A371619006C2233 /* MyNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNetwork.swift; sourceTree = "<group>"; };
 		043771642A371626006C2233 /* MyNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNetworkProtocol.swift; sourceTree = "<group>"; };
 		043771672A371641006C2233 /* DBManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManger.swift; sourceTree = "<group>"; };
@@ -197,7 +197,7 @@
 		0437715F2A3715D2006C2233 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				043771602A37160C006C2233 /* MyEndPints.swift */,
+				043771602A37160C006C2233 /* MyEndPoints.swift */,
 				043771622A371619006C2233 /* MyNetwork.swift */,
 				043771642A371626006C2233 /* MyNetworkProtocol.swift */,
 			);
@@ -532,7 +532,7 @@
 				04DE93652A37234B0084F21B /* NetworkProtocol.swift in Sources */,
 				0437712E2A371411006C2233 /* SceneDelegate.swift in Sources */,
 				043771722A371695006C2233 /* CustomerModel.swift in Sources */,
-				043771612A37160C006C2233 /* MyEndPints.swift in Sources */,
+				043771612A37160C006C2233 /* MyEndPoints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
