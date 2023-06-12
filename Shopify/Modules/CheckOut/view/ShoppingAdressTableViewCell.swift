@@ -22,12 +22,7 @@ class ShoppingAdressTableViewCell: UITableViewCell {
     
     @IBAction func setAsDefaultBtn(_ sender: Any) {
        
-        if street.text != viewModel.getDefaultAdress().address1 {
-            checkAsDefaultBtn.backgroundColor = UIColor.black
-            checkAsDefaultBtn.tintColor = UIColor.white
-            checkAsDefaultBtn.setImage(UIImage(systemName: "checkmark"), for: .normal)
-            
-        }
+    
     
     }
 }

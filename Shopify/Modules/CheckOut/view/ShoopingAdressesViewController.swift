@@ -16,7 +16,15 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
         super.viewWillAppear(true)
         network = Network()
         viewModel = AdressViewModel(network: network)
-        adressTable.reloadData()
+        viewModel.bindAdressesToViewController = { [weak self] in
+            DispatchQueue.main.async{
+                self?.adressTable.reloadData()
+                print("Data saved")
+            }
+            
+        }
+        viewModel.getCustomerAdresses(customerId: 7037983686965)
+       
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -25,26 +33,20 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
     
     func numberOfSections(in tableView: UITableView) -> Int {
         //return viewModel.adresses.count
-        return 1
+        return viewModel.getCountOfAdress() ?? 0
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = adressTable.dequeueReusableCell(withIdentifier: "adressCell") as! ShoppingAdressTableViewCell
-        let adress = self.viewModel.getAdress(index: indexPath.row)
+        let adress = self.viewModel.getAdress(index: indexPath.section)
+        setAsDefault(adress: adress, cell: cell)
         self.setCelldata(cell: cell, adress: adress)
         cell.checkAsDefaultBtn.layer.borderWidth = 1
         cell.checkAsDefaultBtn.layer.borderColor = UIColor.black.cgColor
         cell.checkAsDefaultBtn.layer.cornerRadius = 5
-        if cell.checkAsDefaultBtn.isSelected{
-           // setAsDefault(cell: cell)
-            viewModel.addAdressAsDefault(adress: adress)
-            adressTable.reloadData()
-        }
-        if !ischeckedAsDefault(cell: cell){
-            cell.checkAsDefaultBtn.backgroundColor = UIColor.white
-        }
+      
         return cell 
     }
 
@@ -59,18 +61,10 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 153
     }
-    
-    func ischeckedAsDefault(cell:ShoppingAdressTableViewCell) -> Bool{
-        
-        if cell.street.text == viewModel.getDefaultAdress().address1{
-            
-            return true
-        }
-       return false
-    }
+ 
   
-    func setAsDefault(cell:ShoppingAdressTableViewCell){
-        if !ischeckedAsDefault(cell: cell){
+    func setAsDefault(adress:Adress,cell:ShoppingAdressTableViewCell){
+        if adress.default == true{
             cell.checkAsDefaultBtn.backgroundColor = UIColor.black
             cell.checkAsDefaultBtn.tintColor = UIColor.white
             cell.checkAsDefaultBtn.setImage(UIImage(systemName: "checkmark"), for: .normal)

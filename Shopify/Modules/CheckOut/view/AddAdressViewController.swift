@@ -37,8 +37,9 @@ class AddAdressViewController: UIViewController {
         let region = region.text
         let postalCode = zipCode.text
         let country = country.text
-        
-        return Adress(address1: region ?? "Not found", city: city ?? "Not found", name: customerName ?? "Not found", country: country ?? "Not found", zip: postalCode ?? "Not found", phone: phoneNum ?? "Not found")
+      
+        var adress = Adress(name: customerName ?? "", city: city ?? "", region: region ?? "")
+        return adress
     }
 
     @IBAction func chooseCountryBtn(_ sender: Any) {
@@ -48,7 +49,7 @@ class AddAdressViewController: UIViewController {
     
 
     @IBAction func saveAdress(_ sender: Any) {
-        viewModel .addAdress(adress: setAdressObj())
+       // viewModel .addAdress(adress: setAdressObj())
         print("savedddd............")
     }
 }

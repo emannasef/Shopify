@@ -1,68 +1,73 @@
-//
-//  AdressViewModel2.swift
-//  Shopify
-//
-//  Created by Mac on 12/06/2023.
-//
-
 import Foundation
-
+import Alamofire
 class AdressViewModel {
     
-   // var adresses : [Adress]!
-    var adresses = [Adress(address1: "6 O October", city: "Cairo", name: "Manal Hamada", country: "Egypt", zip: "1234", phone: "0123456789"),Adress(address1: "6 O October", city: "Cairo", name: "Manal Hamada", country: "Egypt", zip: "1234", phone: "0123456789")]
+    var adresses : [Adress]?
     var addedAdress : Adress!
-    var binddressesToViewController : () ->() = {}
+    var bindAdressesToViewController : (() -> ())?
     var network : NetworkProtocol!
-
+    
     
     init(network:NetworkProtocol){
         
         self.network = network
     }
     
-   
-    func getCountOfAdress() -> Int?{
+    func getCustomerAdresses(customerId:Int){
         
-        return adresses.count
+        network.get(endPoint: .getCustomerAdresses(id: customerId), completionHandeler: { [weak self] (response:AllAdresses?, err) in
+            
+            guard let result = response else {
+                print ("No response")
+                return
+            }
+            self?.adresses = result.addresses ?? []
+            print("city...\(String(describing: self?.adresses?[0].id))")
+            self!.bindAdressesToViewController!()
+        })
+        
     }
     
-    func addAdress(adress : Adress){
+    
+    func getCountOfAdress() -> Int?{
         
-        print("ad adress......")
+        return adresses?.count ?? 0
+    }
+    
+    func addAdress(adress : Adress, customerId:Int){
         
-      /*  network.post(endPoint: .createCustomerAdress(id: 207119551), params: ["addedAdress" : adress]){ postAdress, error in
+        print("add adress......")
+        
+        network.post(endPoint: .createCustomerAdress(id: customerId), params: ["addedAdress" : adress]){ [weak self] (postAdress:Adress?, error) in
             
             guard let result = postAdress else{
                 print(error ?? "there is an errror while posting a new adress")
                 return}
-            self.addedAdress = result
-            print("\(result.city)")
-          //  print("\(result.id)")
-        }*/
+            self!.addedAdress = result
+            print("\(String(describing: result.city))")
+            //  print("\(result.id)")
+        }
         
     }
     
     func getAdress(index :Int) -> Adress{
         
-        return (adresses[index])
+        return (adresses?[index])!
         
     }
     func updateSdress(adress : Adress , index :Int){
-       // network.update(endPoint: <#T##EndPoints#>, params: <#T##[String : Any]#>, completionHandeler: <#T##(((Decodable & Encodable)?), Error?) -> Void#>)
+        // network.get(endPoint: ., completionHandeler: T##(((Decodable & Encodable)?), Error?) -> Void)
+        
+    }
+
+    func setAdressAsDefault(adress:Adress){
+       // LocalDefaultAdress.adressCodableObject = adress
+        //print("\(String(describing: LocalDefaultAdress.adressCodableObject?.name))")
+        
         
     }
     
-    func addAdressAsDefault(adress:Adress){
-        
-        LocalDefaultAdress.adressCodableObject = adress
-        
-        print("\(String(describing: LocalDefaultAdress.adressCodableObject?.name))")
-    }
-    
-    func getDefaultAdress() -> Adress{
-        
-        return LocalDefaultAdress.adressCodableObject ?? Adress()
-    }
+
 }
+
 
