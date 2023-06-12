@@ -23,6 +23,10 @@
 		043771682A371641006C2233 /* DBManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771672A371641006C2233 /* DBManger.swift */; };
 		043771722A371695006C2233 /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771712A371695006C2233 /* CustomerModel.swift */; };
 		043771752A3716CE006C2233 /* ProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771742A3716CE006C2233 /* ProductInfo.swift */; };
+		04DE934F2A371C5B0084F21B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE934E2A371C5B0084F21B /* Kingfisher */; };
+		04DE93552A371D150084F21B /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE93542A371D150084F21B /* Cosmos */; };
+		04DE93582A371DC30084F21B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE93572A371DC30084F21B /* Alamofire */; };
+		04DE935B2A371EA40084F21B /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE935A2A371EA40084F21B /* Reachability */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +74,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04DE93582A371DC30084F21B /* Alamofire in Frameworks */,
+				04DE935B2A371EA40084F21B /* Reachability in Frameworks */,
+				04DE93552A371D150084F21B /* Cosmos in Frameworks */,
+				04DE934F2A371C5B0084F21B /* Kingfisher in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,6 +236,12 @@
 			dependencies = (
 			);
 			name = Shopify;
+			packageProductDependencies = (
+				04DE934E2A371C5B0084F21B /* Kingfisher */,
+				04DE93542A371D150084F21B /* Cosmos */,
+				04DE93572A371DC30084F21B /* Alamofire */,
+				04DE935A2A371EA40084F21B /* Reachability */,
+			);
 			productName = Shopify;
 			productReference = 043771282A371411006C2233 /* Shopify.app */;
 			productType = "com.apple.product-type.application";
@@ -300,6 +314,12 @@
 				Base,
 			);
 			mainGroup = 0437711F2A371411006C2233;
+			packageReferences = (
+				04DE934D2A371C5B0084F21B /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				04DE93532A371D150084F21B /* XCRemoteSwiftPackageReference "Cosmos" */,
+				04DE93562A371DC30084F21B /* XCRemoteSwiftPackageReference "Alamofire" */,
+				04DE93592A371EA40084F21B /* XCRemoteSwiftPackageReference "Reachability.swift" */,
+			);
 			productRefGroup = 043771292A371411006C2233 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -688,6 +708,64 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		04DE934D2A371C5B0084F21B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		04DE93532A371D150084F21B /* XCRemoteSwiftPackageReference "Cosmos" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/Cosmos.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		04DE93562A371DC30084F21B /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		04DE93592A371EA40084F21B /* XCRemoteSwiftPackageReference "Reachability.swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ashleymills/Reachability.swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		04DE934E2A371C5B0084F21B /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04DE934D2A371C5B0084F21B /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		04DE93542A371D150084F21B /* Cosmos */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04DE93532A371D150084F21B /* XCRemoteSwiftPackageReference "Cosmos" */;
+			productName = Cosmos;
+		};
+		04DE93572A371DC30084F21B /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04DE93562A371DC30084F21B /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		04DE935A2A371EA40084F21B /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04DE93592A371EA40084F21B /* XCRemoteSwiftPackageReference "Reachability.swift" */;
+			productName = Reachability;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		043771342A371411006C2233 /* Shopify.xcdatamodeld */ = {
