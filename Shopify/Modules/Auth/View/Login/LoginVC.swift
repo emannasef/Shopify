@@ -12,9 +12,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var emailTF: UITextField!
     
-    var loginViewModel = LoginViewModel(network: Network())
-    
- 
+    var loginViewModel = LoginViewModel(network: MyNetwork())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,7 +31,7 @@ class LoginVC: UIViewController {
 //
 //                    hhVC.modalPresentationStyle = .fullScreen
 //                    self?.present(hhVC , animated: true, completion: nil)
-                    
+                    self?.showToast(message: "NavigateToHome", seconds: 2.0)
                     print("NavigateToHome")
                     
                 }

@@ -19,3 +19,7 @@ struct Customer:Codable {
     var email:String?
     var tags:String?
 }
+
+struct ResponseCustomer:Codable{
+    var customer:Customer
+}

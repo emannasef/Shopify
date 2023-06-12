@@ -8,14 +8,17 @@
 import Foundation
 
 enum MyEndPoints {
-
+    
+    case allCustomer
     case productDetails(id: Int)
- 
+    
     
     var path:String{
         switch self {
-      case .productDetails(id: let productId):
-                return "products/\(productId).json"
+        case .allCustomer:
+            return "customers.json"
+        case .productDetails(id: let productId):
+            return "products/\(productId).json"
         }
     }
     

@@ -55,10 +55,6 @@ class RegisterVC: UIViewController {
                       //  hhVC.modalPresentationStyle = .fullScreen
                        // self?.present(hhVC , animated: true, completion: nil)
                         
-                        UserDefaults.standard.set(self?.customer.id, forKey: "customerId")
-                        UserDefaults.standard.set(self?.customer.first_name, forKey: "customerName")
-                        UserDefaults.standard.set(true, forKey: "isLogin")
-                        
                     } else if self?.registerViewModel.statusCode == 422{
                         self?.showToast(message: "Already Exist", seconds: 2.0)
                     }

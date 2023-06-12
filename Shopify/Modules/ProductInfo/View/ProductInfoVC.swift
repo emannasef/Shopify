@@ -9,7 +9,9 @@ import UIKit
 import Kingfisher
 
 class ProductInfoVC: UIViewController{
-    @IBOutlet weak var discriptionTxt: UITextView!
+//    @IBOutlet weak var discriptionTxt: UITextView!
+    @IBOutlet weak var scrollview: UIScrollView!
+    @IBOutlet weak var descriptionLbl: UILabel!
     @IBOutlet weak var favImg: UIImageView!
     @IBOutlet weak var reviewsTableView: UITableView!
     @IBOutlet weak var sizeLB: UILabel!
@@ -27,9 +29,13 @@ class ProductInfoVC: UIViewController{
     
     let revierText = ["I Love This","Meduim quality Product","It's pretty much and I liked it"]
     
+    override func viewDidAppear(_ animated: Bool) {
+        scrollview.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+300)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+//        scrollview.contentSize = CGSize(width: 400, height: 2300)
 //        let userDefultId =  UserDefaults.standard.integer(forKey:"customerId")
 //        let userDefaultsName = UserDefaults.standard.string(forKey: "customerName")
 //        let isLogedIn = UserDefaults.standard.bool(forKey: "isLogin")
@@ -53,7 +59,8 @@ class ProductInfoVC: UIViewController{
                 let myProduct = self?.viewModel.product?.product
                 self?.productName.text = myProduct?.title
                 self?.price.text = myProduct?.variants?[0].price
-                self?.discriptionTxt.text = myProduct?.description
+              //  self?.sizeLB.text = myProduct?
+                self?.descriptionLbl.text = myProduct?.description
                 self?.slider.numberOfPages = myProduct?.images?.count ?? 0
                 self?.proImages = myProduct?.images ?? []
                 self?.imsgesCollectionView.reloadData()

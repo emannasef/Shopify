@@ -8,6 +8,6 @@
 import Foundation
 import Foundation
 protocol NetworkProtocol{
-    func customerRegister(customer:Customer,compilition: @escaping(Int?) -> Void)
-    func allCustomers(complition:@escaping ((MyCustomer?),Error?) -> Void)
+    func customerRegister(customer:Customer,compilition: @escaping(Int?,ResponseCustomer?) -> Void)
+   // func allCustomers(complition:@escaping ((MyCustomer?),Error?) -> Void)
 }

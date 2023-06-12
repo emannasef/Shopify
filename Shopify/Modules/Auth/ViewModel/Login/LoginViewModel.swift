@@ -9,9 +9,9 @@ import Foundation
 
 class LoginViewModel{
     
-    var network:NetworkProtocol!
+    var network:MyNetworkProtocol!
     
-    init(network: NetworkProtocol!) {
+    init(network: MyNetworkProtocol!) {
         self.network = network
     }
     
@@ -24,9 +24,13 @@ class LoginViewModel{
     }
     
     func getCustomer(){
-       network.allCustomers { retrivecustomer,_ in
-            self.customerLogin = retrivecustomer
+//       network.allCustomers { retrivecustomer,_ in
+//            self.customerLogin = retrivecustomer
+//        }
+        network.get(endPoint: .allCustomer) { [weak self] (retrivecustomer:MyCustomer?, err) in
+            self?.customerLogin = retrivecustomer
         }
+        
     }
     
     func vaildateCustomer(customerEmail:String,customerPasssword:String)->Int{
@@ -39,6 +43,7 @@ class LoginViewModel{
                 if customerEmail == myCustomerLogin.customers[i].email && customerPasssword == myCustomerLogin.customers[i].tags{
                     UserDefaults.standard.set(myCustomerLogin.customers[i].id, forKey: "customerId")
                     UserDefaults.standard.set(myCustomerLogin.customers[i].first_name, forKey: "customerName")
+                    UserDefaults.standard.set(myCustomerLogin.customers[i].email, forKey: "customerEmail")
                     UserDefaults.standard.set(true, forKey: "isLogin")
 
 //                    let userDefultId =  UserDefaults.standard.integer(forKey:"customerId")
