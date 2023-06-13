@@ -30,7 +30,7 @@ class ProductInfoVC: UIViewController{
     let revierText = ["I Love This","Meduim quality Product","It's pretty much and I liked it"]
     
     override func viewDidAppear(_ animated: Bool) {
-        scrollview.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height+300)
+        scrollview.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }
     
     override func viewDidLoad() {
