@@ -59,7 +59,7 @@ class ProductInfoVC: UIViewController{
                 let myProduct = self?.viewModel.product?.product
                 self?.productName.text = myProduct?.title
                 self?.price.text = myProduct?.variants?[0].price
-              //  self?.sizeLB.text = myProduct?
+                self?.sizeLB.text = myProduct?.variants?[0].title
                 self?.descriptionLbl.text = myProduct?.description
                 self?.slider.numberOfPages = myProduct?.images?.count ?? 0
                 self?.proImages = myProduct?.images ?? []
