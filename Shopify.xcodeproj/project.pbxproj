@@ -23,6 +23,10 @@
 		043771682A371641006C2233 /* DBManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771672A371641006C2233 /* DBManger.swift */; };
 		043771722A371695006C2233 /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771712A371695006C2233 /* CustomerModel.swift */; };
 		043771752A3716CE006C2233 /* ProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771742A3716CE006C2233 /* ProductInfo.swift */; };
+		047F471A2A3A1D0A0039C9BE /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 047F47192A3A1D0A0039C9BE /* FacebookBasics */; };
+		047F471C2A3A1D0A0039C9BE /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 047F471B2A3A1D0A0039C9BE /* FacebookCore */; };
+		047F471E2A3A1D0A0039C9BE /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 047F471D2A3A1D0A0039C9BE /* FacebookLogin */; };
+		047F47202A3A1D0A0039C9BE /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 047F471F2A3A1D0A0039C9BE /* FacebookShare */; };
 		04DE934F2A371C5B0084F21B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE934E2A371C5B0084F21B /* Kingfisher */; };
 		04DE93552A371D150084F21B /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE93542A371D150084F21B /* Cosmos */; };
 		04DE93582A371DC30084F21B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE93572A371DC30084F21B /* Alamofire */; };
@@ -85,6 +89,7 @@
 		043771672A371641006C2233 /* DBManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManger.swift; sourceTree = "<group>"; };
 		043771712A371695006C2233 /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
 		043771742A3716CE006C2233 /* ProductInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfo.swift; sourceTree = "<group>"; };
+		047F47212A3A24BF0039C9BE /* Shopify.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Shopify.entitlements; sourceTree = "<group>"; };
 		04DE935D2A37234A0084F21B /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		04DE935E2A37234A0084F21B /* NetworkProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		04DE93612A37234A0084F21B /* RegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
@@ -108,12 +113,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				047F471A2A3A1D0A0039C9BE /* FacebookBasics in Frameworks */,
 				04FAF0722A389C7600BBC042 /* GoogleSignIn in Frameworks */,
 				04DE93582A371DC30084F21B /* Alamofire in Frameworks */,
 				04DE935B2A371EA40084F21B /* Reachability in Frameworks */,
 				04FAF0742A389C7600BBC042 /* GoogleSignInSwift in Frameworks */,
+				047F471E2A3A1D0A0039C9BE /* FacebookLogin in Frameworks */,
 				04DE93552A371D150084F21B /* Cosmos in Frameworks */,
 				04DE934F2A371C5B0084F21B /* Kingfisher in Frameworks */,
+				047F47202A3A1D0A0039C9BE /* FacebookShare in Frameworks */,
+				047F471C2A3A1D0A0039C9BE /* FacebookCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,6 +166,7 @@
 		0437712A2A371411006C2233 /* Shopify */ = {
 			isa = PBXGroup;
 			children = (
+				047F47212A3A24BF0039C9BE /* Shopify.entitlements */,
 				0437715E2A3715C9006C2233 /* Service */,
 				04DE93852A3726F50084F21B /* Utlites */,
 				043771692A371647006C2233 /* Modules */,
@@ -391,6 +401,10 @@
 				04DE935A2A371EA40084F21B /* Reachability */,
 				04FAF0712A389C7600BBC042 /* GoogleSignIn */,
 				04FAF0732A389C7600BBC042 /* GoogleSignInSwift */,
+				047F47192A3A1D0A0039C9BE /* FacebookBasics */,
+				047F471B2A3A1D0A0039C9BE /* FacebookCore */,
+				047F471D2A3A1D0A0039C9BE /* FacebookLogin */,
+				047F471F2A3A1D0A0039C9BE /* FacebookShare */,
 			);
 			productName = Shopify;
 			productReference = 043771282A371411006C2233 /* Shopify.app */;
@@ -470,6 +484,7 @@
 				04DE93562A371DC30084F21B /* XCRemoteSwiftPackageReference "Alamofire" */,
 				04DE93592A371EA40084F21B /* XCRemoteSwiftPackageReference "Reachability.swift" */,
 				04FAF0702A389C7600BBC042 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
+				047F47182A3A1D0A0039C9BE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 			);
 			productRefGroup = 043771292A371411006C2233 /* Products */;
 			projectDirPath = "";
@@ -714,6 +729,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Shopify/Shopify.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -741,6 +757,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Shopify/Shopify.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -877,6 +894,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		047F47182A3A1D0A0039C9BE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		04DE934D2A371C5B0084F21B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -920,6 +945,26 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		047F47192A3A1D0A0039C9BE /* FacebookBasics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 047F47182A3A1D0A0039C9BE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookBasics;
+		};
+		047F471B2A3A1D0A0039C9BE /* FacebookCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 047F47182A3A1D0A0039C9BE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookCore;
+		};
+		047F471D2A3A1D0A0039C9BE /* FacebookLogin */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 047F47182A3A1D0A0039C9BE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookLogin;
+		};
+		047F471F2A3A1D0A0039C9BE /* FacebookShare */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 047F47182A3A1D0A0039C9BE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
+			productName = FacebookShare;
+		};
 		04DE934E2A371C5B0084F21B /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 04DE934D2A371C5B0084F21B /* XCRemoteSwiftPackageReference "Kingfisher" */;

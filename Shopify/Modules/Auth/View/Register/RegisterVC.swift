@@ -7,6 +7,8 @@
 
 import UIKit
 import GoogleSignIn
+import FacebookCore
+import FacebookLogin
 
 class RegisterVC: UIViewController {
   
@@ -21,6 +23,15 @@ class RegisterVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let loginButton = FBLoginButton()
+               loginButton.center = view.center
+               view.addSubview(loginButton)
+        loginButton.permissions = ["public_profile", "email"]
+        
+        if let token = AccessToken.current,
+             !token.isExpired {
+             // User is logged in, do work such as go to next view controller.
+         }
     }
     
     @IBAction func signUpBtn(_ sender: Any) {
@@ -110,7 +121,9 @@ class RegisterVC: UIViewController {
     }
     
 
-
+    @IBAction func signUpFacebook(_ sender: Any) {
+    }
+    
 }
 
 

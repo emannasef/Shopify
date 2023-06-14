@@ -327,6 +327,9 @@
                                                         <rect key="frame" x="88" y="0.0" width="48" height="38"/>
                                                         <state key="normal" title="Button"/>
                                                         <buttonConfiguration key="configuration" style="plain" image="facebook"/>
+                                                        <connections>
+                                                            <action selector="signUpFacebook:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="aVP-hg-UWk"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
