@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import GoogleSignIn
 
 class RegisterVC: UIViewController {
   
@@ -93,7 +94,21 @@ class RegisterVC: UIViewController {
             }
         }
     
+    @IBAction func signUpGoogle(_ sender: Any) {
+        
+        GIDSignIn.sharedInstance.signIn(
+            withPresenting: self) { signInResult, error in
+            guard let result = signInResult else {
+              // Inspect error
+              return
+            }
+            // If sign in succeeded, display the app's main content View.
+                self.showToast(message: "Account Created", seconds: 2.0)
+                UserDefaults.standard.set(true, forKey: "isLogin")
+          }
 
+    }
+    
 
 
 }

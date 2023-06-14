@@ -23,7 +23,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func checkIfLogin() {
             // rootnav
         let isLogined =  UserDefaults.standard.bool(forKey: "isLogin")
-            print("LogedIn is In AppDelegate", isLogined )
+            print("LogedIn is In SeneDelegate", isLogined )
 
             if(isLogined) {
                 let storyBoard = UIStoryboard(name: "ProductInfo", bundle: nil)
