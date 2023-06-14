@@ -13,7 +13,12 @@ class orderdItemTableCell: UITableViewCell {
     @IBOutlet weak var decreaseBtn: UIButton!
     @IBOutlet weak var itemPrice: UILabel!
     @IBOutlet weak var itemsNum: UILabel!
-    @IBOutlet weak var menuItem: UIButton!
+    @IBOutlet weak var menuItem: UIButton!    
+    @IBOutlet weak var itemColor: UILabel!
+    @IBOutlet weak var itemsize: UILabel!
+    @IBOutlet weak var itemTitle: UILabel!
+    @IBOutlet weak var itemImg: UIImageView!
+    
     var deleteitem : () ->() = {}
     var itemsCount = 0
     var menu : UIMenu!

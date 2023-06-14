@@ -11,8 +11,52 @@ struct AllAdresses : Codable{
     var addresses : [Adress]?
 }
 
+struct PostedAdress:Codable{
+    
+    var  address1: String?
+    var  address2: String?
+    var  city: String?
+    var  company: String?
+    var  first_name: String?
+    var  last_name: String?
+    var  phone: String?
+    var  province: String?
+    var  country: String?
+    var  zip: String?
+    var  name: String?
+    var  province_code: String?
+    var  country_code: String?
+    var  country_name: String?
+  
+    enum CodingKeys: String, CodingKey {
 
-struct Adress: Codable {
+        case  address1 =  "address1"
+        case  address2 =  "address2"
+        case  city =  "city"
+        case  company =  "company"
+        case  first_name =  "first_name"
+        case  last_name =  "last_name"
+        case  phone =  "phone"
+        case  province =  "province"
+        case  country =  "country"
+        case  zip =  "zip"
+        case  name =  "name"
+        case  province_code =  "province_code"
+        case  country_code =  "country_code"
+        case  country_name =  "country_name"
+   
+     
+    
+    }
+    init(name:String ,city:String,region:String){
+        self.name = name
+        self.city = city
+        self.address1 = region
+        
+    }
+    }
+
+struct Adress: Codable,Equatable {
 
   var id           : Int?    = nil
   var customerId   : Int?    = nil
@@ -60,6 +104,8 @@ struct Adress: Codable {
         self.address1 = region
         self.name = name
     }
+    
+   
     
 /*  init(from decoder: Decoder) throws {
     let values = try decoder.container(keyedBy: CodingKeys.self)

@@ -29,16 +29,13 @@ class AddAdressViewController: UIViewController {
         viewModel = AdressViewModel(network: network)
         
     }
-    func setAdressObj() -> Adress{
+    func setAdressObj() -> PostedAdress{
         
         let customerName = customerName.text
-        let phoneNum = phoneNum.text
         let city = city.text
         let region = region.text
-        let postalCode = zipCode.text
-        let country = country.text
-      
-        var adress = Adress(name: customerName ?? "", city: city ?? "", region: region ?? "")
+        //let adress = Adress(name: customerName ?? "", city: city ?? "", region: region ?? "")
+        let adress = PostedAdress(name: customerName ?? "", city: city ?? "", region: region ?? "")
         return adress
     }
 
@@ -49,7 +46,7 @@ class AddAdressViewController: UIViewController {
     
 
     @IBAction func saveAdress(_ sender: Any) {
-       // viewModel .addAdress(adress: setAdressObj())
+       viewModel .addAdress(adress: setAdressObj(),customerId: 7037983686965)
         print("savedddd............")
     }
 }

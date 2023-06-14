@@ -12,7 +12,8 @@ enum EndPoints {
     case createCustomerAdress(id:Int)
     case getCustomerAdresses(id:Int)
     case setadefaultAdress(customerId:Int , adressId:Int)
-    
+    case deleteAdress(customerId:Int , adressId:Int)
+    case getDraftOrder
     var path:String{
         switch self {
             
@@ -25,6 +26,10 @@ enum EndPoints {
             return "customers/\(customerId)/addresses.json"
         case .setadefaultAdress(customerId: let customerId, adressId: let adressId):
             return "customers/\(customerId)/addresses/\(adressId)/default.json.json"
+        case .deleteAdress(customerId: let customerId, adressId: let adressId):
+            return "customers/\(customerId)/addresses/\(adressId)/default.json.json"
+        case .getDraftOrder:
+            return "draft_orders.json"
         }
     }
     

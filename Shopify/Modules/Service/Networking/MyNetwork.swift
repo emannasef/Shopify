@@ -9,9 +9,9 @@ let headers : HTTPHeaders = [
       "Content-Type" : "application/json"]
     //  "X-Shopify-Access-Token" : "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"]
 class Network : NetworkProtocol{
- 
+
     
-    
+
     func get<T:Codable>(endPoint: EndPoints, completionHandeler: @escaping ((T?), Error?) -> Void){
 
        let path = "\(BASE_URL)\(endPoint.path)"
@@ -25,7 +25,7 @@ class Network : NetworkProtocol{
                       print("success while decoding............")
                    debugPrint(jsonData)
                  } catch {
-                    print(error.localizedDescription)
+                    //print(error.localizedDescription)
                      print(String(describing: error))
                      print("error while decoding............")
                  }
@@ -37,12 +37,13 @@ class Network : NetworkProtocol{
           }
 
    }
+
     
     func post<T>(endPoint: EndPoints, params: [String : Any], completionHandeler: @escaping ((T?), Error?) -> Void) where T : Decodable, T : Encodable   {
         let path = "\(BASE_URL)\(endPoint.path)"
 
 
-       AF.request(path,method: .post,parameters: params,headers: headers).responseJSON { response in
+       AF.request(path,method: .post,parameters: params).responseJSON { response in
             do{
                 guard let responseData = response.data else{return}
                 let result = try JSONDecoder().decode(T.self, from: responseData)
@@ -58,6 +59,15 @@ class Network : NetworkProtocol{
         
      
     }
+
+
+     
+    
+
+     
+    
+
+
     
     func update<T>(endPoint: EndPoints, params: [String : Any], completionHandeler: @escaping ((T?), Error?) -> Void) where T : Decodable, T : Encodable {
         let path = "\(BASE_URL)\(endPoint.path)"

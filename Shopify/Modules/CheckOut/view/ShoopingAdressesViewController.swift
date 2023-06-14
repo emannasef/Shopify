@@ -40,9 +40,16 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = adressTable.dequeueReusableCell(withIdentifier: "adressCell") as! ShoppingAdressTableViewCell
-        let adress = self.viewModel.getAdress(index: indexPath.section)
-        setAsDefault(adress: adress, cell: cell)
+        var adress = self.viewModel.getAdress(index: indexPath.section)
+        getAsDefault(adress: adress, cell: cell)
         self.setCelldata(cell: cell, adress: adress)
+        cell.setDefaultAction = {
+            print("set default btn pressed .............")
+            adress.default = true
+          //  self.viewModel.setAdressAsDefault(adress: adress,customerId:7037983686965 , adressId: adress.id ?? 0)
+            self.setDefaultadress(adress: adress)
+            self.adressTable.reloadData()
+        }
         cell.checkAsDefaultBtn.layer.borderWidth = 1
         cell.checkAsDefaultBtn.layer.borderColor = UIColor.black.cgColor
         cell.checkAsDefaultBtn.layer.cornerRadius = 5
@@ -63,7 +70,7 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
     }
  
   
-    func setAsDefault(adress:Adress,cell:ShoppingAdressTableViewCell){
+    func getAsDefault(adress:Adress,cell:ShoppingAdressTableViewCell){
         if adress.default == true{
             cell.checkAsDefaultBtn.backgroundColor = UIColor.black
             cell.checkAsDefaultBtn.tintColor = UIColor.white
@@ -73,6 +80,40 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
       
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+       
+        let adressTobeDeleted = viewModel.getAdress(index: indexPath.section)
+       if editingStyle == .delete {
+           
+           let alert = UIAlertController(title: "Confirmation!", message: "Remove Adress..?", preferredStyle: UIAlertController.Style.alert)
+           alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
+             //  self.viewModel.deleteAdress(customerId: 7037983686965, adressId: viewModel.getAdress(index: indexPath.row).id!)
+               //self.viewModel.getCustomerAdresses(customerId: 7037983686965)
+               self.adressTable.deleteRows(at: [indexPath], with: .automatic)
+              
+              
+           }))
+           alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler:{_ in
+               alert.dismiss(animated: true)
+           }))
+           
+           self.present(alert, animated: true, completion: nil)
+          
+       }
+   }
+    func setDefaultadress(adress:Adress){
+       
+        let i = 0
+        while viewModel.getCountOfAdress()! > 0{
+            if viewModel.adresses?[i] != adress{
+                viewModel.adresses?[i].default == false
+            }
+        }
+    }
+    
+    
     @IBAction func addAdress(_ sender: Any) {
+        
+        
     }
 }

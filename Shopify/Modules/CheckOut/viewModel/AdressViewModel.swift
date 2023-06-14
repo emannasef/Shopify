@@ -34,11 +34,12 @@ class AdressViewModel {
         return adresses?.count ?? 0
     }
     
-    func addAdress(adress : Adress, customerId:Int){
+    func addAdress(adress : PostedAdress, customerId:Int){
         
         print("add adress......")
+        let params = self.encodeToJson(objectClass: adress) ?? [:]
         
-        network.post(endPoint: .createCustomerAdress(id: customerId), params: ["addedAdress" : adress]){ [weak self] (postAdress:Adress?, error) in
+        network.post(endPoint: .createCustomerAdress(id: customerId), params: params){ [weak self] (postAdress:Adress?, error) in
             
             guard let result = postAdress else{
                 print(error ?? "there is an errror while posting a new adress")
@@ -50,6 +51,23 @@ class AdressViewModel {
         
     }
     
+    func encodeToJson<T: Codable>(objectClass: T) -> [String: Any]?{
+            do{
+                let jsonData = try JSONEncoder().encode(objectClass)
+                let json = String(data: jsonData, encoding: String.Encoding.utf8)!
+                return jsonToDictionary(from: json)
+            }catch let error{
+                print(error.localizedDescription)
+                return nil
+            }
+        }
+        
+        func jsonToDictionary(from text: String) -> [String: Any]? {
+            guard let data = text.data(using: .utf8) else { return nil }
+            let anyResult = try? JSONSerialization.jsonObject(with: data, options: [])
+            return anyResult as? [String : Any]
+        }
+    
     func getAdress(index :Int) -> Adress{
         
         return (adresses?[index])!
@@ -59,15 +77,20 @@ class AdressViewModel {
         // network.get(endPoint: ., completionHandeler: T##(((Decodable & Encodable)?), Error?) -> Void)
         
     }
-
-    func setAdressAsDefault(adress:Adress){
-       // LocalDefaultAdress.adressCodableObject = adress
-        //print("\(String(describing: LocalDefaultAdress.adressCodableObject?.name))")
+    func deleteAdress( customerId: Int, adressId: Int){
+        network.delete(endPoint: .deleteAdress(customerId: customerId, adressId: adressId))
+        
+    }
+    func setAdressAsDefault(customerId:Int,adressId:Int){
+      
+       // network.update(endPoint: .setadefaultAdress(customerId: customerId, adressId: adressId), params: ["updatedAdress" : adress]) {  [weak self] (updatedAdress:Adress?, error)in
+           // print("\(String(describing: updatedAdress?.default))")
+        }
         
         
     }
     
 
-}
+
 
 

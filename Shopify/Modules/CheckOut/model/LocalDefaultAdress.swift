@@ -9,7 +9,7 @@ class LocalDefaultAdress{
       }
       set {
         UserDefaults.standard.setCodableObject(newValue, forKey: adressObjectKey)
-          print("\(newValue?.name)")
+          print("\(String(describing: newValue?.name))")
       }
     }
 }

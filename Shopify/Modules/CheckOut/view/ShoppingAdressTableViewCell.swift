@@ -8,6 +8,7 @@ class ShoppingAdressTableViewCell: UITableViewCell {
     @IBOutlet weak var checkAsDefaultBtn: UIButton!    
     var viewModel : AdressViewModel!
     var network : Network!
+    var setDefaultAction : (()->())?
     override func awakeFromNib() {
         super.awakeFromNib()
         network = Network()
@@ -22,7 +23,7 @@ class ShoppingAdressTableViewCell: UITableViewCell {
     
     @IBAction func setAsDefaultBtn(_ sender: Any) {
        
-    
+        self.setDefaultAction!()
     
     }
 }
