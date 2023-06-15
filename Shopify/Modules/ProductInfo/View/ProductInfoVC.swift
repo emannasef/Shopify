@@ -20,7 +20,7 @@ class ProductInfoVC: UIViewController{
     @IBOutlet weak var imsgesCollectionView: UICollectionView!
     @IBOutlet weak var productName: UILabel!
     var productId = 8326804767029
-    var viewModel:ProductInfoViewModel = ProductInfoViewModel(network: MyNetwork())
+    var viewModel:ProductInfoViewModel = ProductInfoViewModel(network: Network())
     var timer : Timer?
     var currentIndex = 0
     var proImages:[ProductImage] = []

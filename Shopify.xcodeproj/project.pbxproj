@@ -17,22 +17,26 @@
 		043771462A371414006C2233 /* ShopifyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771452A371414006C2233 /* ShopifyTests.swift */; };
 		043771502A371414006C2233 /* ShopifyUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437714F2A371414006C2233 /* ShopifyUITests.swift */; };
 		043771522A371414006C2233 /* ShopifyUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771512A371414006C2233 /* ShopifyUITestsLaunchTests.swift */; };
-		043771612A37160C006C2233 /* MyEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771602A37160C006C2233 /* MyEndPoints.swift */; };
-		043771632A371619006C2233 /* MyNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771622A371619006C2233 /* MyNetwork.swift */; };
-		043771652A371626006C2233 /* MyNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771642A371626006C2233 /* MyNetworkProtocol.swift */; };
+		043771612A37160C006C2233 /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771602A37160C006C2233 /* EndPoints.swift */; };
+		043771632A371619006C2233 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771622A371619006C2233 /* Network.swift */; };
+		043771652A371626006C2233 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771642A371626006C2233 /* NetworkProtocol.swift */; };
 		043771682A371641006C2233 /* DBManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771672A371641006C2233 /* DBManger.swift */; };
 		043771722A371695006C2233 /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771712A371695006C2233 /* CustomerModel.swift */; };
 		043771752A3716CE006C2233 /* ProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771742A3716CE006C2233 /* ProductInfo.swift */; };
+		0453D3232A3B753F008A2345 /* DefaultAdress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0453D3222A3B753F008A2345 /* DefaultAdress.swift */; };
+		0453D3342A3B789A008A2345 /* CheckOut.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0453D3332A3B789A008A2345 /* CheckOut.storyboard */; };
 		047F471A2A3A1D0A0039C9BE /* FacebookBasics in Frameworks */ = {isa = PBXBuildFile; productRef = 047F47192A3A1D0A0039C9BE /* FacebookBasics */; };
 		047F471C2A3A1D0A0039C9BE /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 047F471B2A3A1D0A0039C9BE /* FacebookCore */; };
 		047F471E2A3A1D0A0039C9BE /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 047F471D2A3A1D0A0039C9BE /* FacebookLogin */; };
 		047F47202A3A1D0A0039C9BE /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 047F471F2A3A1D0A0039C9BE /* FacebookShare */; };
+		04C228DC2A3B4F2300AC1F1B /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 04C228DB2A3B4F2300AC1F1B /* Toast */; };
+		04C228E02A3B525D00AC1F1B /* ShoppingCart in Resources */ = {isa = PBXBuildFile; fileRef = 04C228DF2A3B525D00AC1F1B /* ShoppingCart */; };
 		04DE934F2A371C5B0084F21B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE934E2A371C5B0084F21B /* Kingfisher */; };
 		04DE93552A371D150084F21B /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE93542A371D150084F21B /* Cosmos */; };
 		04DE93582A371DC30084F21B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE93572A371DC30084F21B /* Alamofire */; };
 		04DE935B2A371EA40084F21B /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE935A2A371EA40084F21B /* Reachability */; };
-		04DE93642A37234B0084F21B /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE935D2A37234A0084F21B /* Network.swift */; };
-		04DE93652A37234B0084F21B /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE935E2A37234A0084F21B /* NetworkProtocol.swift */; };
+		04DE93642A37234B0084F21B /* AuthNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE935D2A37234A0084F21B /* AuthNetwork.swift */; };
+		04DE93652A37234B0084F21B /* AuthNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE935E2A37234A0084F21B /* AuthNetworkProtocol.swift */; };
 		04DE93662A37234B0084F21B /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE93612A37234A0084F21B /* RegisterViewModel.swift */; };
 		04DE93672A37234B0084F21B /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE93632A37234A0084F21B /* LoginViewModel.swift */; };
 		04DE936F2A3723DE0084F21B /* WelcomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE936A2A3723DE0084F21B /* WelcomeVC.swift */; };
@@ -83,15 +87,24 @@
 		0437714B2A371414006C2233 /* ShopifyUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShopifyUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0437714F2A371414006C2233 /* ShopifyUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopifyUITests.swift; sourceTree = "<group>"; };
 		043771512A371414006C2233 /* ShopifyUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopifyUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		043771602A37160C006C2233 /* MyEndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyEndPoints.swift; sourceTree = "<group>"; };
-		043771622A371619006C2233 /* MyNetwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNetwork.swift; sourceTree = "<group>"; };
-		043771642A371626006C2233 /* MyNetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyNetworkProtocol.swift; sourceTree = "<group>"; };
+		043771602A37160C006C2233 /* EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
+		043771622A371619006C2233 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		043771642A371626006C2233 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
 		043771672A371641006C2233 /* DBManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManger.swift; sourceTree = "<group>"; };
 		043771712A371695006C2233 /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
 		043771742A3716CE006C2233 /* ProductInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfo.swift; sourceTree = "<group>"; };
+		0453D3222A3B753F008A2345 /* DefaultAdress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAdress.swift; sourceTree = "<group>"; };
+		0453D32A2A3B772B008A2345 /* AdressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdressViewModel.swift; sourceTree = "<group>"; };
+		0453D32C2A3B772B008A2345 /* PostedAdress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostedAdress.swift; sourceTree = "<group>"; };
+		0453D32E2A3B772B008A2345 /* ShoopingAdressesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoopingAdressesViewController.swift; sourceTree = "<group>"; };
+		0453D32F2A3B772B008A2345 /* CheckOutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckOutViewController.swift; sourceTree = "<group>"; };
+		0453D3302A3B772B008A2345 /* ShoppingAdressTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShoppingAdressTableViewCell.swift; sourceTree = "<group>"; };
+		0453D3312A3B772B008A2345 /* AddAdressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAdressViewController.swift; sourceTree = "<group>"; };
+		0453D3332A3B789A008A2345 /* CheckOut.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = CheckOut.storyboard; sourceTree = "<group>"; };
 		047F47212A3A24BF0039C9BE /* Shopify.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Shopify.entitlements; sourceTree = "<group>"; };
-		04DE935D2A37234A0084F21B /* Network.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
-		04DE935E2A37234A0084F21B /* NetworkProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
+		04C228DF2A3B525D00AC1F1B /* ShoppingCart */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ShoppingCart; sourceTree = "<group>"; };
+		04DE935D2A37234A0084F21B /* AuthNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthNetwork.swift; sourceTree = "<group>"; };
+		04DE935E2A37234A0084F21B /* AuthNetworkProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthNetworkProtocol.swift; sourceTree = "<group>"; };
 		04DE93612A37234A0084F21B /* RegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
 		04DE93632A37234A0084F21B /* LoginViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		04DE936A2A3723DE0084F21B /* WelcomeVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WelcomeVC.swift; sourceTree = "<group>"; };
@@ -113,6 +126,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04C228DC2A3B4F2300AC1F1B /* Toast in Frameworks */,
 				047F471A2A3A1D0A0039C9BE /* FacebookBasics in Frameworks */,
 				04FAF0722A389C7600BBC042 /* GoogleSignIn in Frameworks */,
 				04DE93582A371DC30084F21B /* Alamofire in Frameworks */,
@@ -211,9 +225,9 @@
 		0437715F2A3715D2006C2233 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				043771602A37160C006C2233 /* MyEndPoints.swift */,
-				043771622A371619006C2233 /* MyNetwork.swift */,
-				043771642A371626006C2233 /* MyNetworkProtocol.swift */,
+				043771602A37160C006C2233 /* EndPoints.swift */,
+				043771622A371619006C2233 /* Network.swift */,
+				043771642A371626006C2233 /* NetworkProtocol.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -229,6 +243,8 @@
 		043771692A371647006C2233 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				0453D3282A3B772B008A2345 /* CheckOut */,
+				04C228DF2A3B525D00AC1F1B /* ShoppingCart */,
 				0437716B2A37165B006C2233 /* ProductInfo */,
 				0437716A2A371653006C2233 /* Auth */,
 			);
@@ -260,6 +276,7 @@
 			isa = PBXGroup;
 			children = (
 				043771712A371695006C2233 /* CustomerModel.swift */,
+				0453D3222A3B753F008A2345 /* DefaultAdress.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -272,11 +289,49 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		0453D3282A3B772B008A2345 /* CheckOut */ = {
+			isa = PBXGroup;
+			children = (
+				0453D3292A3B772B008A2345 /* viewModel */,
+				0453D32B2A3B772B008A2345 /* model */,
+				0453D32D2A3B772B008A2345 /* view */,
+			);
+			path = CheckOut;
+			sourceTree = "<group>";
+		};
+		0453D3292A3B772B008A2345 /* viewModel */ = {
+			isa = PBXGroup;
+			children = (
+				0453D32A2A3B772B008A2345 /* AdressViewModel.swift */,
+			);
+			path = viewModel;
+			sourceTree = "<group>";
+		};
+		0453D32B2A3B772B008A2345 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				0453D32C2A3B772B008A2345 /* PostedAdress.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
+		0453D32D2A3B772B008A2345 /* view */ = {
+			isa = PBXGroup;
+			children = (
+				0453D32E2A3B772B008A2345 /* ShoopingAdressesViewController.swift */,
+				0453D32F2A3B772B008A2345 /* CheckOutViewController.swift */,
+				0453D3302A3B772B008A2345 /* ShoppingAdressTableViewCell.swift */,
+				0453D3312A3B772B008A2345 /* AddAdressViewController.swift */,
+				0453D3332A3B789A008A2345 /* CheckOut.storyboard */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
 		04DE935C2A37234A0084F21B /* Networking */ = {
 			isa = PBXGroup;
 			children = (
-				04DE935D2A37234A0084F21B /* Network.swift */,
-				04DE935E2A37234A0084F21B /* NetworkProtocol.swift */,
+				04DE935D2A37234A0084F21B /* AuthNetwork.swift */,
+				04DE935E2A37234A0084F21B /* AuthNetworkProtocol.swift */,
 			);
 			path = Networking;
 			sourceTree = "<group>";
@@ -405,6 +460,7 @@
 				047F471B2A3A1D0A0039C9BE /* FacebookCore */,
 				047F471D2A3A1D0A0039C9BE /* FacebookLogin */,
 				047F471F2A3A1D0A0039C9BE /* FacebookShare */,
+				04C228DB2A3B4F2300AC1F1B /* Toast */,
 			);
 			productName = Shopify;
 			productReference = 043771282A371411006C2233 /* Shopify.app */;
@@ -485,6 +541,7 @@
 				04DE93592A371EA40084F21B /* XCRemoteSwiftPackageReference "Reachability.swift" */,
 				04FAF0702A389C7600BBC042 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				047F47182A3A1D0A0039C9BE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
+				04C228DA2A3B4F2300AC1F1B /* XCRemoteSwiftPackageReference "Toast-Swift" */,
 			);
 			productRefGroup = 043771292A371411006C2233 /* Products */;
 			projectDirPath = "";
@@ -502,11 +559,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0453D3342A3B789A008A2345 /* CheckOut.storyboard in Resources */,
 				04DE93732A3724690084F21B /* Auth.storyboard in Resources */,
 				0437713B2A371413006C2233 /* LaunchScreen.storyboard in Resources */,
 				04DE93792A3725890084F21B /* ProductInfo.storyboard in Resources */,
 				043771382A371413006C2233 /* Assets.xcassets in Resources */,
 				043771332A371411006C2233 /* Main.storyboard in Resources */,
+				04C228E02A3B525D00AC1F1B /* ShoppingCart in Resources */,
 				04DE93822A37260D0084F21B /* ReviewsCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -540,21 +599,22 @@
 				043771752A3716CE006C2233 /* ProductInfo.swift in Sources */,
 				04DE93842A37260D0084F21B /* ReviewsVC.swift in Sources */,
 				04DE93712A3723DE0084F21B /* RegisterVC.swift in Sources */,
-				043771632A371619006C2233 /* MyNetwork.swift in Sources */,
+				043771632A371619006C2233 /* Network.swift in Sources */,
 				04DE93832A37260D0084F21B /* ProductInfoVC.swift in Sources */,
-				04DE93642A37234B0084F21B /* Network.swift in Sources */,
+				04DE93642A37234B0084F21B /* AuthNetwork.swift in Sources */,
 				04DE936F2A3723DE0084F21B /* WelcomeVC.swift in Sources */,
 				04DE93672A37234B0084F21B /* LoginViewModel.swift in Sources */,
-				043771652A371626006C2233 /* MyNetworkProtocol.swift in Sources */,
+				043771652A371626006C2233 /* NetworkProtocol.swift in Sources */,
 				043771362A371411006C2233 /* Shopify.xcdatamodeld in Sources */,
 				04DE93872A3726F50084F21B /* Utilites.swift in Sources */,
 				04DE93802A37260D0084F21B /* ProductImgCell.swift in Sources */,
 				04DE93702A3723DE0084F21B /* LoginVC.swift in Sources */,
 				04DE93662A37234B0084F21B /* RegisterViewModel.swift in Sources */,
-				04DE93652A37234B0084F21B /* NetworkProtocol.swift in Sources */,
+				04DE93652A37234B0084F21B /* AuthNetworkProtocol.swift in Sources */,
 				0437712E2A371411006C2233 /* SceneDelegate.swift in Sources */,
+				0453D3232A3B753F008A2345 /* DefaultAdress.swift in Sources */,
 				043771722A371695006C2233 /* CustomerModel.swift in Sources */,
-				043771612A37160C006C2233 /* MyEndPoints.swift in Sources */,
+				043771612A37160C006C2233 /* EndPoints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -735,7 +795,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Shopify/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -763,7 +823,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Shopify/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -902,6 +962,14 @@
 				kind = branch;
 			};
 		};
+		04C228DA2A3B4F2300AC1F1B /* XCRemoteSwiftPackageReference "Toast-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/scalessec/Toast-Swift";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
 		04DE934D2A371C5B0084F21B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -964,6 +1032,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 047F47182A3A1D0A0039C9BE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
 			productName = FacebookShare;
+		};
+		04C228DB2A3B4F2300AC1F1B /* Toast */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04C228DA2A3B4F2300AC1F1B /* XCRemoteSwiftPackageReference "Toast-Swift" */;
+			productName = Toast;
 		};
 		04DE934E2A371C5B0084F21B /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;

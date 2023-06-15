@@ -9,9 +9,9 @@ import Foundation
 
 class LoginViewModel{
     
-    var network:MyNetworkProtocol!
+    var network:NetworkProtocol!
     
-    init(network: MyNetworkProtocol!) {
+    init(network: NetworkProtocol!) {
         self.network = network
     }
     
@@ -42,7 +42,7 @@ class LoginViewModel{
             for i in 0..<(myCustomerLogin.customers.count){
                 if customerEmail == myCustomerLogin.customers[i].email && customerPasssword == myCustomerLogin.customers[i].tags{
                     UserDefaults.standard.set(myCustomerLogin.customers[i].id, forKey: "customerId")
-                    UserDefaults.standard.set(myCustomerLogin.customers[i].first_name, forKey: "customerName")
+                    UserDefaults.standard.set(myCustomerLogin.customers[i].firstName, forKey: "customerName")
                     UserDefaults.standard.set(myCustomerLogin.customers[i].email, forKey: "customerEmail")
                     UserDefaults.standard.set(true, forKey: "isLogin")
 

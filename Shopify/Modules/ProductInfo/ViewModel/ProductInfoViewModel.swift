@@ -17,8 +17,8 @@ class ProductInfoViewModel{
         }
     }
     
-    var network:MyNetworkProtocol!
-    init(network: MyNetworkProtocol!) {
+    var network:NetworkProtocol!
+    init(network: NetworkProtocol!) {
         self.network = network
     }
     

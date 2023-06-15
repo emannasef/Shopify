@@ -18,7 +18,7 @@ class RegisterVC: UIViewController {
     
     var confirmPasswordCheck :String?
     var customer:Customer = Customer()
-    var registerViewModel = RegisterViewModel(network: Network())
+    var registerViewModel = RegisterViewModel(network: AuthNetwork())
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +26,7 @@ class RegisterVC: UIViewController {
     
     @IBAction func signUpBtn(_ sender: Any) {
         
-        customer.first_name = name.text
+        customer.firstName = name.text
         customer.email = email.text
         customer.tags = password.text
         confirmPasswordCheck = confirmPassword.text

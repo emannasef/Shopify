@@ -7,7 +7,7 @@
 
 import Foundation
 import Alamofire
-class Network : NetworkProtocol{
+class AuthNetwork : AuthNetworkProtocol{
 
     
     let headers : HTTPHeaders = [
@@ -17,7 +17,7 @@ class Network : NetworkProtocol{
     
     func customerRegister(customer:Customer,compilition: @escaping(Int?,ResponseCustomer?) -> Void ) {
 
-            let params: Parameters =  ["customer": ["first_name": customer.first_name,
+            let params: Parameters =  ["customer": ["first_name": customer.firstName,
                                                     "email": customer.email,
                                                     "tags": customer.tags
                                                    ]]

@@ -20,9 +20,9 @@ class RegisterViewModel{
     }
     
     
-    var network:NetworkProtocol
+    var network:AuthNetworkProtocol
     
-    init(network: NetworkProtocol) {
+    init(network: AuthNetworkProtocol) {
         self.network = network
     }
     
@@ -33,7 +33,7 @@ class RegisterViewModel{
             self.statusCode = check
             // print("######",cust)
             UserDefaults.standard.set(cust?.customer.id, forKey: "customerId")
-            UserDefaults.standard.set(cust?.customer.first_name, forKey: "customerName")
+            UserDefaults.standard.set(cust?.customer.firstName, forKey: "customerName")
             UserDefaults.standard.set(cust?.customer.email, forKey: "customerEmail")
             UserDefaults.standard.set(true, forKey: "isLogin")
             let userDefultId =  UserDefaults.standard.integer(forKey:"customerId")

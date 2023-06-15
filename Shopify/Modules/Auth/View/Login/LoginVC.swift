@@ -12,7 +12,7 @@ class LoginVC: UIViewController {
     @IBOutlet weak var passwordTF: UITextField!
     @IBOutlet weak var emailTF: UITextField!
     
-    var loginViewModel = LoginViewModel(network: MyNetwork())
+    var loginViewModel = LoginViewModel(network: Network())
     
     override func viewDidLoad() {
         super.viewDidLoad()
