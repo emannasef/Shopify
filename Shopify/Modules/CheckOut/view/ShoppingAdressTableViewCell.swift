@@ -5,7 +5,9 @@ class ShoppingAdressTableViewCell: UITableViewCell {
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var street: UILabel!
     @IBOutlet weak var city: UILabel!
-    @IBOutlet weak var checkAsDefaultBtn: UIButton!    
+    @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var checkAsDefaultBtn: UIButton!
+    var bindAdressToBeUodated : (()-> ())?
     var viewModel : AdressViewModel!
     var network : Network!
     var setDefaultAction : (()->())?
@@ -14,16 +16,21 @@ class ShoppingAdressTableViewCell: UITableViewCell {
         network = Network()
         viewModel = AdressViewModel(network: network)
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
+        
+        
     }
     
     
-    @IBAction func setAsDefaultBtn(_ sender: Any) {
-       
-        self.setDefaultAction!()
+    @IBAction func editAdress(_ sender: Any) {
+        self.bindAdressToBeUodated!()
+    }
     
+    @IBAction func setAsDefaultBtn(_ sender: Any) {
+        
+        self.setDefaultAction!()
+        
     }
 }

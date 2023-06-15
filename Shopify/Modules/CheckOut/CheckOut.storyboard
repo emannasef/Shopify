@@ -171,6 +171,9 @@
                     <connections>
                         <outlet property="applePayBtn" destination="Pjz-dx-G9N" id="M7Z-nT-e3O"/>
                         <outlet property="cashbtn" destination="ypM-Vm-ioE" id="L7b-X6-fIg"/>
+                        <outlet property="city" destination="h4v-ca-oc5" id="Ugv-k2-zpL"/>
+                        <outlet property="region" destination="WVC-S7-c4D" id="bbE-ct-phB"/>
+                        <outlet property="userName" destination="isd-f8-hpd" id="K1M-UJ-Ncc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -233,24 +236,24 @@
                                                             <state key="normal" title="Button"/>
                                                             <buttonConfiguration key="configuration" style="plain" title="Edit"/>
                                                             <connections>
-                                                                <segue destination="b0K-WV-mIo" kind="push" id="xVX-Vf-qKF"/>
+                                                                <action selector="editAdress:" destination="3rK-pw-dLA" eventType="touchUpInside" id="cwS-1Y-7zn"/>
                                                             </connections>
                                                         </button>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Jane Doe" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pt2-Hu-uBS">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pt2-Hu-uBS">
                                                             <rect key="frame" x="8" y="15" width="247" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="NotoSansKannada-Regular" family="Noto Sans Kannada" pointSize="16"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="chino Hills, CA 12344 United State" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbs-Qg-tIR">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gbs-Qg-tIR">
                                                             <rect key="frame" x="8" y="73" width="325" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="NotoSansKannada-Light" family="Noto Sans Kannada" pointSize="15"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="3 Newbride court" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXl-uY-8qK">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VXl-uY-8qK">
                                                             <rect key="frame" x="8" y="44" width="247" height="21"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <fontDescription key="fontDescription" name="NotoSansKannada-Light" family="Noto Sans Kannada" pointSize="15"/>
@@ -285,6 +288,7 @@
                                         <connections>
                                             <outlet property="checkAsDefaultBtn" destination="ARt-zz-xsU" id="0nl-Yx-Co6"/>
                                             <outlet property="city" destination="gbs-Qg-tIR" id="MVw-J4-5zk"/>
+                                            <outlet property="editBtn" destination="QVz-qL-hXC" id="EWq-sf-KDK"/>
                                             <outlet property="street" destination="VXl-uY-8qK" id="2bF-y7-ieY"/>
                                             <outlet property="userName" destination="pt2-Hu-uBS" id="qGk-Tg-8Eg"/>
                                         </connections>
@@ -302,7 +306,7 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" image="Shapeplus" cornerStyle="capsule"/>
                                 <connections>
-                                    <segue destination="b0K-WV-mIo" kind="push" id="rCH-vR-Qnv"/>
+                                    <action selector="addAdress:" destination="Ffk-58-RjF" eventType="touchUpInside" id="3iA-39-aTJ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -321,7 +325,7 @@
         <!--Add shipping adress-->
         <scene sceneID="J97-St-iQ5">
             <objects>
-                <viewController id="b0K-WV-mIo" customClass="AddAdressViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="addAdressScreen" id="b0K-WV-mIo" customClass="AddAdressViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NmF-CB-uqX">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -465,6 +469,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Add shipping adress" id="dMz-82-Evh"/>
                     <connections>
+                        <outlet property="addAdressBtn" destination="wAI-Ov-CEE" id="SNh-nj-tlY"/>
                         <outlet property="adressView" destination="hhg-OJ-zEp" id="nnm-q1-PPf"/>
                         <outlet property="city" destination="jxi-A4-BVC" id="M4L-Fy-hgI"/>
                         <outlet property="cityView" destination="f02-6R-bXk" id="M94-IR-OMs"/>
@@ -484,9 +489,6 @@
             <point key="canvasLocation" x="2817.5572519083967" y="-35.211267605633807"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="xVX-Vf-qKF"/>
-    </inferredMetricsTieBreakers>
     <resources>
         <image name="Shapeplus" width="14" height="14"/>
         <image name="applepay" width="666" height="375"/>

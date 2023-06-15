@@ -13,23 +13,26 @@ enum EndPoints {
     case getCustomerAdresses(id:Int)
     case setadefaultAdress(customerId:Int , adressId:Int)
     case deleteAdress(customerId:Int , adressId:Int)
+    case updateAdress(customerId:Int , adressId:Int)
     case getDraftOrder
     var path:String{
         switch self {
             
             
-            case .createCustomerAdress(id: let customerId):
-                return "customers/\(customerId)/addresses.json"
-            case .updateCustomerAdress(customerId: let customerId, adressId: let adressId):
-                return "\(customerId)/addresses/\(adressId).json"
+        case .createCustomerAdress(id: let customerId):
+            return "customers/\(customerId)/addresses.json"
+        case .updateCustomerAdress(customerId: let customerId, adressId: let adressId):
+            return "\(customerId)/addresses/\(adressId).json"
         case .getCustomerAdresses(id: let customerId):
             return "customers/\(customerId)/addresses.json"
         case .setadefaultAdress(customerId: let customerId, adressId: let adressId):
-            return "customers/\(customerId)/addresses/\(adressId)/default.json.json"
+            return "customers/\(customerId)/addresses/\(adressId)/default.json"
         case .deleteAdress(customerId: let customerId, adressId: let adressId):
-            return "customers/\(customerId)/addresses/\(adressId)/default.json.json"
+            return "customers/\(customerId)/addresses/\(adressId).json"
         case .getDraftOrder:
             return "draft_orders.json"
+        case .updateAdress(customerId: let customerId, adressId: let adressId):
+            return "customers/\(customerId)/addresses/\(adressId).json"
         }
     }
     

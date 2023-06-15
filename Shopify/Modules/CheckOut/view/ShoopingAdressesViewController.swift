@@ -1,4 +1,5 @@
 import UIKit
+import Toast
 
 class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
@@ -23,16 +24,15 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
             }
             
         }
-        viewModel.getCustomerAdresses(customerId: 7037983686965)
+        viewModel.getCustomerAdresses(customerId: 7046569754933)
        
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
         return 1
-    }
+        }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        //return viewModel.adresses.count
+        
         return viewModel.getCountOfAdress() ?? 0
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
@@ -43,12 +43,17 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
         var adress = self.viewModel.getAdress(index: indexPath.section)
         getAsDefault(adress: adress, cell: cell)
         self.setCelldata(cell: cell, adress: adress)
+        cell.bindAdressToBeUodated = { [weak self] in
+           
+            self?.setEditBtnAction(adress: adress)
+            
+        }
         cell.setDefaultAction = {
             print("set default btn pressed .............")
-            adress.default = true
           //  self.viewModel.setAdressAsDefault(adress: adress,customerId:7037983686965 , adressId: adress.id ?? 0)
             self.setDefaultadress(adress: adress)
-            self.adressTable.reloadData()
+            self.viewModel.getCustomerAdresses(customerId:7046569754933)
+            self.getAsDefault(adress: adress, cell: cell)
         }
         cell.checkAsDefaultBtn.layer.borderWidth = 1
         cell.checkAsDefaultBtn.layer.borderColor = UIColor.black.cgColor
@@ -57,7 +62,16 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
         return cell 
     }
 
-    func setCelldata(cell:ShoppingAdressTableViewCell,adress:Adress){
+    func setEditBtnAction(adress:PostedAdress){
+        
+        let updateAdressVc = self.storyboard?.instantiateViewController(identifier: "addAdressScreen") as! AddAdressViewController
+        updateAdressVc.adressToBeUpdated = adress
+        updateAdressVc.staus = "edit"
+        self.navigationController?.pushViewController(updateAdressVc, animated: true)
+        
+    }
+    
+    func setCelldata(cell:ShoppingAdressTableViewCell,adress:PostedAdress){
         
         cell.userName.text = adress.name
         cell.city.text = adress.city
@@ -70,12 +84,16 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
     }
  
   
-    func getAsDefault(adress:Adress,cell:ShoppingAdressTableViewCell){
+    func getAsDefault(adress:PostedAdress,cell:ShoppingAdressTableViewCell){
         if adress.default == true{
             cell.checkAsDefaultBtn.backgroundColor = UIColor.black
             cell.checkAsDefaultBtn.tintColor = UIColor.white
             cell.checkAsDefaultBtn.setImage(UIImage(systemName: "checkmark"), for: .normal)
            
+        }
+        else {
+            print("from else")
+            cell.checkAsDefaultBtn.backgroundColor = UIColor.white
         }
       
     }
@@ -87,10 +105,16 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
            
            let alert = UIAlertController(title: "Confirmation!", message: "Remove Adress..?", preferredStyle: UIAlertController.Style.alert)
            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
-             //  self.viewModel.deleteAdress(customerId: 7037983686965, adressId: viewModel.getAdress(index: indexPath.row).id!)
-               //self.viewModel.getCustomerAdresses(customerId: 7037983686965)
-               self.adressTable.deleteRows(at: [indexPath], with: .automatic)
-              
+               if adressTobeDeleted.default != true{
+                   self.viewModel.deleteAdress(customerId: adressTobeDeleted.customerId ?? 0, adressId: adressTobeDeleted.id ?? 0, address: adressTobeDeleted)
+                   self.viewModel.adresses?.remove(at: indexPath.section)
+                   tableView.deleteSections([indexPath.section], with: .top)
+               }
+               else {
+                   
+                   createToastMessage(message: "You can't delete your default message",view: self.view)
+                   
+               }
               
            }))
            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler:{_ in
@@ -101,19 +125,19 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
           
        }
    }
-    func setDefaultadress(adress:Adress){
+    func setDefaultadress(adress:PostedAdress){
        
-        let i = 0
-        while viewModel.getCountOfAdress()! > 0{
-            if viewModel.adresses?[i] != adress{
-                viewModel.adresses?[i].default == false
-            }
-        }
+        var updatedAdressReq = UpdatedAdressRequest(address: adress)
+        updatedAdressReq.address?.default = true
+        viewModel.updateSdress(adress: updatedAdressReq, customerId: adress.customerId ?? 0)
     }
     
     
     @IBAction func addAdress(_ sender: Any) {
         
+        let addAdressVc = self.storyboard?.instantiateViewController(identifier: "addAdressScreen") as! AddAdressViewController
+        addAdressVc.staus = "add"
+        self.navigationController?.pushViewController(addAdressVc, animated: true)
         
     }
 }
