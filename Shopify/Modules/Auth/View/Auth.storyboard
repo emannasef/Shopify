@@ -400,10 +400,10 @@
             </objects>
             <point key="canvasLocation" x="965.64885496183206" y="-2.1126760563380285"/>
         </scene>
-        <!--HomeStoryboard-->
+        <!--ProductInfo-->
         <scene sceneID="w2C-UO-Mpu">
             <objects>
-                <viewControllerPlaceholder storyboardName="HomeStoryboard" id="Vot-Ap-p9B" sceneMemberID="viewController">
+                <viewControllerPlaceholder storyboardName="ProductInfo" id="Vot-Ap-p9B" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="BQa-qJ-fod"/>
                 </viewControllerPlaceholder>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BUh-zN-D89" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

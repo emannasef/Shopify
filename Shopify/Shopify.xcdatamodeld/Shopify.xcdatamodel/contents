@@ -4,6 +4,7 @@
         <attribute name="product_Id" optional="YES" attributeType="Decimal" defaultValueString="0.0"/>
         <attribute name="product_Img" optional="YES" attributeType="String"/>
         <attribute name="product_price" optional="YES" attributeType="String"/>
+        <attribute name="product_rate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="product_title" optional="YES" attributeType="String"/>
     </entity>
 </model>

@@ -9,7 +9,8 @@ import UIKit
 import Kingfisher
 
 class ProductInfoVC: UIViewController{
-//    @IBOutlet weak var discriptionTxt: UITextView!
+    
+    //    @IBOutlet weak var discriptionTxt: UITextView!
     @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet weak var descriptionLbl: UILabel!
     @IBOutlet weak var favImg: UIImageView!
@@ -19,7 +20,8 @@ class ProductInfoVC: UIViewController{
     @IBOutlet weak var slider: UIPageControl!
     @IBOutlet weak var imsgesCollectionView: UICollectionView!
     @IBOutlet weak var productName: UILabel!
-    var productId = 8326804767029
+    
+    var productId = 8360376402229
     var viewModel:ProductInfoViewModel = ProductInfoViewModel(network: Network())
     var timer : Timer?
     var currentIndex = 0
@@ -39,10 +41,6 @@ class ProductInfoVC: UIViewController{
 //        let userDefultId =  UserDefaults.standard.integer(forKey:"customerId")
 //        let userDefaultsName = UserDefaults.standard.string(forKey: "customerName")
 //        let isLogedIn = UserDefaults.standard.bool(forKey: "isLogin")
-        
-//        print("ID in Home\(userDefultId)\n")
-//        print("Name in Home \(String(describing: userDefaultsName)) \n")
-//        print("Is Logined in Home \(isLogedIn) ")
         
         imsgesCollectionView.dataSource = self
         imsgesCollectionView.delegate = self
@@ -76,8 +74,10 @@ class ProductInfoVC: UIViewController{
     @IBAction func moreBtn(_ sender: Any) {
         
         let reviewsVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewsVC") as! ReviewsVC
-        
+        reviewsVC.modalPresentationStyle = .fullScreen
         self.present(reviewsVC, animated: true)
+        
+        
         
     }
 }
