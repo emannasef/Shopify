@@ -52,10 +52,13 @@ class RegisterVC: UIViewController {
                         
                         self?.showToast(message: "Account Created", seconds: 2.0)
                         
-                        // let hhVC = self?.storyboard?.instantiateViewController(withIdentifier: "Hh") as! Hh
-                        
-                        //  hhVC.modalPresentationStyle = .fullScreen
-                        // self?.present(hhVC , animated: true, completion: nil)
+//                         let homeVC = self?.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+//
+//                        self?.navigationController?.pushViewController(homeVC, animated: true)
+                        let storyBoard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+                        let mainViewController = storyBoard.instantiateInitialViewController()
+                       
+                        self?.navigationController?.pushViewController(mainViewController!, animated: true)
                         
                     } else if self?.registerViewModel.statusCode == 422{
                         self?.showToast(message: "Already Exist", seconds: 2.0)
@@ -105,15 +108,20 @@ class RegisterVC: UIViewController {
                 }
                 // If sign in succeeded, display the app's main content View.
                 let user = result.user
+                self.customer.email = user.profile?.email
+                self.customer.firstName = user.profile?.name
+                self.customer.tags = user.profile?.email
                 
-                let emailAddress = user.profile?.email
-                
-                let fullName = user.profile?.name
-                print("IIIIIIDDDDDDDD",user.userID)
-                print(emailAddress)
-                print(fullName)
-                self.showToast(message: "Account Created", seconds: 2.0)
+                self.registerViewModel.registerCustomer(customer: self.customer)
+              
+                self.showToast(message: "Account Created Sucessfully", seconds: 2.0)
                 UserDefaults.standard.set(true, forKey: "isLogin")
+                let homeVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                
+                let storyBoard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+                let mainViewController = storyBoard.instantiateInitialViewController()
+               
+                self.navigationController?.pushViewController(mainViewController!, animated: true)
             }
         
     }
@@ -129,8 +137,8 @@ class RegisterVC: UIViewController {
                 if result?.token?.tokenString != nil {
                     print("Logged in")
                     print(result?.token)
-                  //  self.getUserProfile(token: result?.token, userId: result?.token?.userID)
-                    self.getFBLoggedInUserData()
+                    self.getUserProfile(token: result?.token, userId: result?.token?.userID)
+                 
                 } else {
                     print("Cancelled")
                 }
@@ -138,87 +146,44 @@ class RegisterVC: UIViewController {
         })
     }
     func getUserProfile(token: AccessToken?, userId: String?) {
-        let graphRequest: GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields": "id, first_name, middle_name, last_name, name, picture, email"])
-        graphRequest.start { _, result, error in
-            if error == nil {
-                let data: [String: AnyObject] = result as! [String: AnyObject]
-                var email = ""
-                var firstname = ""
-                var lastname = ""
-                
-                if let facebookId = data["id"] as? String {
-                    print("Facebook Id: \(facebookId)")
+            let graphRequest: GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields": "id, first_name, middle_name, last_name, name, picture, email"])
+            graphRequest.start { _, result, error in
+                if error == nil {
+                    let data: [String: AnyObject] = result as! [String: AnyObject]
+                    var faceEmail = ""
+                    var faceFirstname = ""
+                    //var faceId = ""
+//                    if let facebookId = data["id"] as? String {
+//                       faceId = facebookId
+//                    } else {
+//                        print("Facebook Id: Not exists")
+//                    }
+                    if let facebookFirstName = data["first_name"] as? String {
+                        print("Facebook First Name: \(facebookFirstName)")
+                        faceFirstname = facebookFirstName
+                    } else {
+                        print("Facebook First Name: Not exists")
+                    }
+                    if let facebookEmail = data["email"] as? String {
+                        print("Facebook Email: \(facebookEmail)")
+                        faceEmail = facebookEmail
+                    } else {
+                        print("Facebook Email: Not exists")
+                    }
+                    
+                    self.customer.email = faceEmail
+                    self.customer.firstName = faceFirstname
+                    self.customer.tags = faceEmail
+                    
+                    self.registerViewModel.registerCustomer(customer: self.customer)
+              
                 } else {
-                    print("Facebook Id: Not exists")
+                    print("Error: Trying to get user's info")
                 }
-                
-                
-                if let facebookFirstName = data["first_name"] as? String {
-                    print("Facebook First Name: \(facebookFirstName)")
-                    firstname = facebookFirstName
-                } else {
-                    print("Facebook First Name: Not exists")
-                }
-                
-                if let facebookMiddleName = data["middle_name"] as? String {
-                    print("Facebook Middle Name: \(facebookMiddleName)")
-                } else {
-                    print("Facebook Middle Name: Not exists")
-                }
-                
-                
-                if let facebookLastName = data["last_name"] as? String {
-                    print("Facebook Last Name: \(facebookLastName)")
-                    lastname = facebookLastName
-                } else {
-                    print("Facebook Last Name: Not exists")
-                }
-                
-                
-                if let facebookName = data["name"] as? String {
-                    print("Facebook Name: \(facebookName)")
-                } else {
-                    print("Facebook Name: Not exists")
-                }
-                
-                
-                let facebookProfilePicURL = "https://graph.facebook.com/\(userId ?? "")/picture?type=large"
-                print("Facebook Profile Pic URL: \(facebookProfilePicURL)")
-                
-                
-                if let facebookEmail = data["email"] as? String {
-                    print("Facebook Email: \(facebookEmail)")
-                    email = facebookEmail
-                } else {
-                    print("Facebook Email: Not exists")
-                }
-                
-                
-                //                    let userdata = SocailLoginUserData(email:email, lastName:lastname, firstName:firstname, socialProfileId: userId,userType: "1",loginBy: "2")
-                //                    self.loginPresenter.doSocialRegister(userData: userdata)
-                
-                print("IDDDDDDDDD", userId)
-                print("Emaaaaaal",email)
-                print("Naaaame",firstname)
-                
-                print("Facebook Access Token: \(token?.tokenString ?? "")")
-            } else {
-                print("Error: Trying to get user's info")
             }
         }
-    }
     
-    func getFBLoggedInUserData()
-    {
-     
-        let graphRequest : GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields": "id, first_name, email"])
-        graphRequest.start(){
-            connection, result, error in
-            if let result = result, error == nil {
-                print("facebook fetched user: \(result)")
-            }
-        }
-    }
+
     
 }
 

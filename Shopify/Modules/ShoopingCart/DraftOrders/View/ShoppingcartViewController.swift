@@ -59,8 +59,8 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         cell.deleteitem = { [weak self] in
             guard let self = self else { return }
             
-            items.remove(at: indexPath.row)
-            myTable.reloadData()
+           //items.remove(at: indexPath.row)
+           // myTable.reloadData()
         }
         
         return cell

@@ -8,14 +8,14 @@
 import Foundation
 
 struct ProductResponse: Codable {
-    var products: [Product]?
+    var products: [MyProduct]?
 }
 
 struct ProductInfo: Codable {
-    let product: Product?
+    let product: MyProduct?
 }
 
-struct Product: Codable {
+struct MyProduct: Codable {
     var id: Int?
     var title: String?
     var description: String?

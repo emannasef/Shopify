@@ -15,7 +15,7 @@ class WelcomeVC: UIViewController {
     }
     
     @IBAction func guest(_ sender: Any) {
-        
+        UserDefaults.standard.set(true, forKey: "isLogin")
     }
     
     @IBAction func signUp(_ sender: Any) {

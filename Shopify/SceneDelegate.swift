@@ -39,7 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             print("LogedIn is In SeneDelegate", isLogined )
 
             if(isLogined) {
-                let storyBoard = UIStoryboard(name: "ProductInfo", bundle: nil)
+                let storyBoard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
                 let mainViewController = storyBoard.instantiateInitialViewController()
                 self.window?.rootViewController = mainViewController
             }
