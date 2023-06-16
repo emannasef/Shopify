@@ -36,13 +36,9 @@ class RegisterViewModel{
             UserDefaults.standard.set(cust?.customer.firstName, forKey: "customerName")
             UserDefaults.standard.set(cust?.customer.email, forKey: "customerEmail")
             UserDefaults.standard.set(true, forKey: "isLogin")
-            let userDefultId =  UserDefaults.standard.integer(forKey:"customerId")
-                                    print("Id is", userDefultId ?? 0)
+        
         }
         
-        
-        
-//        network.post(endPoint: .allCustomer, params: <#T##[String : Any]#>, completionHandeler: <#T##(((Decodable & Encodable)?), Error?) -> Void#>)
         
     }
     
