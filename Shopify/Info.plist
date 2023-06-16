@@ -2,6 +2,31 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.298925646310-ohlqbjm2depmm8oimgbpm7usvp83iios</string>
+				<string>fb110083452118713</string>
+			</array>
+		</dict>
+	</array>
+	<key>FacebookAppID</key>
+	<string>110083452118713</string>
+	<key>FacebookClientToken</key>
+	<string>f3fa7dfd062adcb8d4ac518972573cf8</string>
+	<key>FacebookDisplayName</key>
+	<string>Shopify</string>
+	<key>GIDClientID</key>
+	<string>298925646310-ohlqbjm2depmm8oimgbpm7usvp83iios.apps.googleusercontent.com</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -16,7 +41,7 @@
 					<key>UISceneDelegateClassName</key>
 					<string>$(PRODUCT_MODULE_NAME).SceneDelegate</string>
 					<key>UISceneStoryboardFile</key>
-					<string>Main</string>
+					<string>ShoppingCart</string>
 				</dict>
 			</array>
 		</dict>

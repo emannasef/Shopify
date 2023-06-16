@@ -6,18 +6,50 @@
 //
 
 import UIKit
+import FacebookCore
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else {
+            return
+        }
 
+        ApplicationDelegate.shared.application(
+            UIApplication.shared,
+            open: url,
+            sourceApplication: nil,
+            annotation: [UIApplication.OpenURLOptionsKey.annotation]
+        )
+    }
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
+       //checkIfLogin()
         guard let _ = (scene as? UIWindowScene) else { return }
     }
+    
+    func checkIfLogin() {
+            // rootnav
+        let isLogined =  UserDefaults.standard.bool(forKey: "isLogin")
+            print("LogedIn is In SeneDelegate", isLogined )
+
+            if(isLogined) {
+                let storyBoard = UIStoryboard(name: "ProductInfo", bundle: nil)
+                let mainViewController = storyBoard.instantiateInitialViewController()
+                self.window?.rootViewController = mainViewController
+            }
+            else{
+                let storyBoard = UIStoryboard(name: "Auth", bundle: nil)
+                let mainViewController = storyBoard.instantiateInitialViewController()
+                self.window?.rootViewController = mainViewController
+            }
+        }
+    
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
