@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Alamofire
 class ProductInfoViewModel{
     
     var bindingProductInfo:(()->()) = {}
@@ -31,5 +32,12 @@ class ProductInfoViewModel{
         
     }
     
+   /* func addToCart(customerId:Int){
+        
+        let params : Parameters = encodeToJson(objectClass: self.product) ?? [:]
+        network.post(endPoint: .createCustomerAdress(id: customerId), params: params) { (response:DraftOrderResponse?, error )in
+            <#code#>
+        }
+    }*/
     
 }

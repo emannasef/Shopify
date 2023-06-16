@@ -3,8 +3,8 @@ import Alamofire
 import Kingfisher
 
 class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
- 
-    @IBOutlet weak var myTable: UITableView!
+    
+    @IBOutlet weak var myTable:UITableView!
     @IBOutlet weak var totalAmount: UILabel!
     var items : [String]!
     var network : NetworkProtocol!
@@ -30,7 +30,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         viewModel.getDraftOrders(customerEmail:"emann@yahoo.com")
     }
-  
+    
     func filterDraftOrders(orders:[DraftOrders], customerEmail : String) -> DraftOrders{
         
         var result : DraftOrders?
@@ -47,7 +47,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
     }
-
+    
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = myTable.dequeueReusableCell(withIdentifier: "itemCell") as! orderdItemTableCell
@@ -71,7 +71,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         cell.itemsNum.text = String(item.quantity ?? 0)
         cell.itemPrice.text = item.price
         cell.itemTitle.text = item.vendor
-       // cell.itemsize = draftOrder.lineItems.
+        // cell.itemsize = draftOrder.lineItems.
         cell.itemColor.text = item.variantTitle
         print("color is \(item.vendor)")
         var imgUrl = URL(string: item.properties?[0].value ?? "")
@@ -79,7 +79,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     
-
+    
     func setBtnShadow(btn:UIButton){
         btn.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         btn.layer.shadowOffset = CGSize(width: 0.0, height: 1.0)
@@ -89,8 +89,8 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         btn.layer.cornerRadius = 18
     }
     
-   
-   
+    
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 114
     }
@@ -101,16 +101,16 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         guard let sheet = promoCodesSection?.sheetPresentationController else {
             return
         }
-      
+        
         sheet.detents = [.medium(),.large()]
         sheet.prefersGrabberVisible = true
         sheet.preferredCornerRadius = 34
         self.present(promoCodesSection!, animated: true)
         
     }
-    @IBAction func checkOutbtn(_ sender: Any) {
-    }
-  
     
     
+   /* @IBAction func checkOut(_ sender: Any) {
+    }*/
 }
+

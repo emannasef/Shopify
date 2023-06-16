@@ -39,7 +39,7 @@ struct DraftOrders: Codable {
   var lineItems         : [LineItems]?     = []
   var shippingAddress   : ShippingAddress? = ShippingAddress()
   var invoiceUrl        : String?          = nil
-  var appliedDiscount   : String?          = nil
+  var appliedDiscount   : AppliedDiscount?          = nil
   var orderId           : Int?             = nil
   var taxLines          : [TaxLines]?        = []
   var tags              : String?          = nil
@@ -72,6 +72,47 @@ struct DraftOrders: Codable {
     case customer          = "customer"
   
   }
+
+  init() {
+
+  }
+
+}
+
+struct AppliedDiscount: Codable {
+
+  var appliedDiscount : ApliedDiscountDetails?
+
+  enum CodingKeys: String, CodingKey {
+
+    case appliedDiscount = "applied_discount"
+  
+  }
+
+  init() {
+
+  }
+
+}
+
+struct ApliedDiscountDetails: Codable {
+
+  var description : String? = nil
+  var value       : String? = nil
+  var title       : String? = nil
+  var amount      : String? = nil
+  var valueType   : String? = nil
+
+  enum CodingKeys: String, CodingKey {
+
+    case description = "description"
+    case value       = "value"
+    case title       = "title"
+    case amount      = "amount"
+    case valueType   = "value_type"
+  
+  }
+
 
   init() {
 

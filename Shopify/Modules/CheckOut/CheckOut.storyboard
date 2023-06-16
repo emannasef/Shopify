@@ -13,7 +13,7 @@
         <!--Check out-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController storyboardIdentifier="CheckOutViewController" id="Y6W-OH-hqX" customClass="CheckOutViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CheckOutViewController" id="Y6W-OH-hqX" customClass="CheckOutViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -132,18 +132,12 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule"/>
-                                        <connections>
-                                            <action selector="payByApplePay:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="D15-Rw-osn"/>
-                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ypM-Vm-ioE">
                                         <rect key="frame" x="8" y="41" width="20" height="20"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="gray" cornerStyle="capsule"/>
-                                        <connections>
-                                            <action selector="paycash:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="jMw-oT-3wJ"/>
-                                        </connections>
                                     </button>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="applepay" translatesAutoresizingMaskIntoConstraints="NO" id="Vne-fo-DXs">
                                         <rect key="frame" x="44" y="3" width="41" height="30"/>
@@ -168,17 +162,10 @@
                         <color key="backgroundColor" name="screenBg"/>
                     </view>
                     <navigationItem key="navigationItem" title="Check out" id="hI1-zh-zvV"/>
-                    <connections>
-                        <outlet property="applePayBtn" destination="Pjz-dx-G9N" id="M7Z-nT-e3O"/>
-                        <outlet property="cashbtn" destination="ypM-Vm-ioE" id="L7b-X6-fIg"/>
-                        <outlet property="city" destination="h4v-ca-oc5" id="Ugv-k2-zpL"/>
-                        <outlet property="region" destination="WVC-S7-c4D" id="bbE-ct-phB"/>
-                        <outlet property="userName" destination="isd-f8-hpd" id="K1M-UJ-Ncc"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1331" y="-35"/>
+            <point key="canvasLocation" x="1330.534351145038" y="-35.211267605633807"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Peh-uw-dJp">
@@ -507,4 +494,3 @@
         </systemColor>
     </resources>
 </document>
-

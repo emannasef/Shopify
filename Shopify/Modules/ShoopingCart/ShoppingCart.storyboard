@@ -223,7 +223,6 @@
                                     <fontDescription key="titleFontDescription" name="KhmerSangamMN" family="Khmer Sangam MN" pointSize="18"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="checkOutbtn:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="jau-HJ-HLh"/>
                                     <segue destination="swZ-8X-Jae" kind="push" id="ike-bk-nYq"/>
                                 </connections>
                             </button>
@@ -531,4 +530,3 @@
         </systemColor>
     </resources>
 </document>
-
