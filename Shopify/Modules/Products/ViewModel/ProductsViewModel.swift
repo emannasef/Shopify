@@ -15,9 +15,15 @@ protocol ProductsViewModelType{
     func fetchProducts(tag:String,endPoint:BrandEndPoint)
     func getProductsCount() -> Int
     func getProductAtIndexPath(row:Int) -> Product
+    var result : [Product] { get set }
+    
 }
 
+
+
+
 class ProductsViewModel: ProductsViewModelType{
+    
     var bindProductsToViewController: (() -> ())?
     var result : [Product] = []
     let network:NetworkServicing
@@ -30,10 +36,10 @@ class ProductsViewModel: ProductsViewModelType{
         return ProductsViewModel(network: network)
     }
     
-    func fetchProducts(tag: String, endPoint: BrandEndPoint) {
+    func fetchProducts(tag: String, endPoint: BrandEndPoint){
         network.getDataOverNetwork(tag: tag, endPoint: endPoint
         ) {[weak self] (result: CollectionResponse?) in
-            print(result?.products?.count)
+           // print(result?.products?.count)
             self?.result = result?.products ?? []
             self?.bindProductsToViewController?()
         }
@@ -48,4 +54,8 @@ class ProductsViewModel: ProductsViewModelType{
     }
     
     
+    
 }
+
+
+

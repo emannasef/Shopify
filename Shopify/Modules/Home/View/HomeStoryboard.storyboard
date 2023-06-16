@@ -242,6 +242,7 @@
                     </view>
                     <connections>
                         <outlet property="productsCollection" destination="u4k-KW-UGJ" id="nAv-TR-dTW"/>
+                        <outlet property="searchBar" destination="drZ-NB-UXJ" id="m4g-11-PgP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="19F-iC-ITN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

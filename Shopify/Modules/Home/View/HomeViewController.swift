@@ -19,9 +19,11 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         homeCollection.dataSource = self
         homeCollection.delegate = self
         self.navigationController?.navigationItem.title  = "Home"
+     
         
         setLayout()
     }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         getData()

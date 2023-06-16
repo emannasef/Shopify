@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040525F72A39CBBE00326C60 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 040525F62A39CBBE00326C60 /* RxCocoa */; };
+		040525F92A39CBBE00326C60 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 040525F82A39CBBE00326C60 /* RxRelay */; };
+		040525FB2A39CBBE00326C60 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 040525FA2A39CBBE00326C60 /* RxSwift */; };
 		04256E732A375E9B0007C761 /* ProductsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04256E722A375E9B0007C761 /* ProductsViewController.swift */; };
 		0437712C2A371411006C2233 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437712B2A371411006C2233 /* AppDelegate.swift */; };
 		0437712E2A371411006C2233 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0437712D2A371411006C2233 /* SceneDelegate.swift */; };
@@ -98,10 +101,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				040525F92A39CBBE00326C60 /* RxRelay in Frameworks */,
 				04DE93582A371DC30084F21B /* Alamofire in Frameworks */,
 				04DE935B2A371EA40084F21B /* Reachability in Frameworks */,
+				040525F72A39CBBE00326C60 /* RxCocoa in Frameworks */,
 				04DE93552A371D150084F21B /* Cosmos in Frameworks */,
 				04DE934F2A371C5B0084F21B /* Kingfisher in Frameworks */,
+				040525FB2A39CBBE00326C60 /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -365,6 +371,9 @@
 				04DE93542A371D150084F21B /* Cosmos */,
 				04DE93572A371DC30084F21B /* Alamofire */,
 				04DE935A2A371EA40084F21B /* Reachability */,
+				040525F62A39CBBE00326C60 /* RxCocoa */,
+				040525F82A39CBBE00326C60 /* RxRelay */,
+				040525FA2A39CBBE00326C60 /* RxSwift */,
 			);
 			productName = Shopify;
 			productReference = 043771282A371411006C2233 /* Shopify.app */;
@@ -443,6 +452,7 @@
 				04DE93532A371D150084F21B /* XCRemoteSwiftPackageReference "Cosmos" */,
 				04DE93562A371DC30084F21B /* XCRemoteSwiftPackageReference "Alamofire" */,
 				04DE93592A371EA40084F21B /* XCRemoteSwiftPackageReference "Reachability.swift" */,
+				040525F52A39CBBE00326C60 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 043771292A371411006C2233 /* Products */;
 			projectDirPath = "";
@@ -846,6 +856,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		040525F52A39CBBE00326C60 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 		04DE934D2A371C5B0084F21B /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
@@ -881,6 +899,21 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		040525F62A39CBBE00326C60 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 040525F52A39CBBE00326C60 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		040525F82A39CBBE00326C60 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 040525F52A39CBBE00326C60 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		040525FA2A39CBBE00326C60 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 040525F52A39CBBE00326C60 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
 		04DE934E2A371C5B0084F21B /* Kingfisher */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 04DE934D2A371C5B0084F21B /* XCRemoteSwiftPackageReference "Kingfisher" */;

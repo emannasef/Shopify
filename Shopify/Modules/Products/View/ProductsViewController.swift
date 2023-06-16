@@ -6,12 +6,18 @@
 //
 
 import UIKit
+import RxCocoa
+import RxSwift
 
 class ProductsViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
+    @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var productsCollection: UICollectionView!
     var collectionId:Int!
     var viewModel = ProductsViewModel.getInstatnce(network: NetworkManager())
+    
+    var searchedArr:[Product] = []
+    var productsArr:[Product] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,34 +25,39 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         productsCollection.delegate = self
         productsCollection.dataSource = self
         
-        print("from products \(collectionId)")
+       // print("from products \(collectionId)")
+        
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         getData()
     }
-    
+   
     func getData(){
         self.viewModel.bindProductsToViewController = {[weak self] in
             DispatchQueue.main.async {
+                self?.productsArr = self?.viewModel.result ?? []
+                self?.searchedArr = self?.productsArr ?? []
                 self?.productsCollection.reloadData()
-               
+
             }
         }
-        viewModel.fetchProducts(tag:"" , endPoint: .products(tag: collectionId))
+      viewModel.fetchProducts(tag:"" , endPoint: .products(tag: collectionId))
+     
     }
     
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return viewModel.getProductsCount()
+        return searchedArr.count
+    // return  viewModel.getProductsCount()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let product = viewModel.getProductAtIndexPath(row: indexPath.row)
-        
+        let product = searchedArr[indexPath.row]
+       // let product = viewModel.getProductAtIndexPath(row: indexPath.row)
         let cell = productsCollection.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCell
         
         cell.productName.text = product.title
@@ -60,8 +71,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
              ])
         
         //cell.productPrice.text = product
-        
-        
+ 
         cell.layer.cornerRadius = 8
         cell.layer.shadowRadius = 4
         cell.layer.shadowColor = UIColor.black.cgColor
@@ -76,5 +86,31 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 165, height: 277)
     }
+    
+
 
 }
+
+
+extension ProductsViewController : UISearchBarDelegate{
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        searchedArr = []
+        
+        if searchText == "" {
+            searchedArr = productsArr
+        }
+
+        for product in productsArr {
+            print (searchText)
+            if product.title!.uppercased().contains(searchText.uppercased()){
+                print("MyProduct",product.title)
+                searchedArr.append(product)
+            }
+
+        }
+
+        productsCollection.reloadData()
+    }
+}
+
+
