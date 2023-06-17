@@ -38,6 +38,8 @@ class RegisterViewModel{
             UserDefaults.standard.set(true, forKey: "isLogin")
             let userDefultId =  UserDefaults.standard.integer(forKey:"customerId")
                                     print("Id is", userDefultId ?? 0)
+            
+            print("Name",UserDefaults.standard.string(forKey: "customerName"))
         }
         
         

@@ -50,15 +50,20 @@ class RegisterVC: UIViewController {
                     
                     if self?.registerViewModel.statusCode  == 201{
                         
-                        self?.showToast(message: "Account Created", seconds: 2.0)
+                        //self?.showToast(message: "Account Created", seconds: 2.0)
                         
-//                         let homeVC = self?.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                        
+                        print("Suceeeeeeeesssss")
+//                        let homeVC = UIStoryboard(name: "HomeStoryboard", bundle: nil).instantiateInitialViewController()
 //
-//                        self?.navigationController?.pushViewController(homeVC, animated: true)
-                        let storyBoard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
-                        let mainViewController = storyBoard.instantiateInitialViewController()
-                       
-                        self?.navigationController?.pushViewController(mainViewController!, animated: true)
+//                        self?.navigationController?.pushViewController(homeVC!, animated: true)
+                        
+                        let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+                        let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
+                        
+                        mainTabBarController.selectedIndex = 4
+                        
+                        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
                         
                     } else if self?.registerViewModel.statusCode == 422{
                         self?.showToast(message: "Already Exist", seconds: 2.0)
@@ -113,15 +118,12 @@ class RegisterVC: UIViewController {
                 self.customer.tags = user.profile?.email
                 
                 self.registerViewModel.registerCustomer(customer: self.customer)
-              
-                self.showToast(message: "Account Created Sucessfully", seconds: 2.0)
-                UserDefaults.standard.set(true, forKey: "isLogin")
-                let homeVC = self.storyboard?.instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
                 
-                let storyBoard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
-                let mainViewController = storyBoard.instantiateInitialViewController()
-               
-                self.navigationController?.pushViewController(mainViewController!, animated: true)
+                //  self.showToast(message: "Account Created Sucessfully", seconds: 2.0)
+                UserDefaults.standard.set(true, forKey: "isLogin")
+                
+                let homeVC = UIStoryboard(name: "HomeStoryboard", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+                self.navigationController?.pushViewController(homeVC, animated: true)
             }
         
     }
@@ -138,7 +140,7 @@ class RegisterVC: UIViewController {
                     print("Logged in")
                     print(result?.token)
                     self.getUserProfile(token: result?.token, userId: result?.token?.userID)
-                 
+                    
                 } else {
                     print("Cancelled")
                 }
@@ -146,44 +148,44 @@ class RegisterVC: UIViewController {
         })
     }
     func getUserProfile(token: AccessToken?, userId: String?) {
-            let graphRequest: GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields": "id, first_name, middle_name, last_name, name, picture, email"])
-            graphRequest.start { _, result, error in
-                if error == nil {
-                    let data: [String: AnyObject] = result as! [String: AnyObject]
-                    var faceEmail = ""
-                    var faceFirstname = ""
-                    //var faceId = ""
-//                    if let facebookId = data["id"] as? String {
-//                       faceId = facebookId
-//                    } else {
-//                        print("Facebook Id: Not exists")
-//                    }
-                    if let facebookFirstName = data["first_name"] as? String {
-                        print("Facebook First Name: \(facebookFirstName)")
-                        faceFirstname = facebookFirstName
-                    } else {
-                        print("Facebook First Name: Not exists")
-                    }
-                    if let facebookEmail = data["email"] as? String {
-                        print("Facebook Email: \(facebookEmail)")
-                        faceEmail = facebookEmail
-                    } else {
-                        print("Facebook Email: Not exists")
-                    }
-                    
-                    self.customer.email = faceEmail
-                    self.customer.firstName = faceFirstname
-                    self.customer.tags = faceEmail
-                    
-                    self.registerViewModel.registerCustomer(customer: self.customer)
-              
+        let graphRequest: GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields": "id, first_name, middle_name, last_name, name, picture, email"])
+        graphRequest.start { _, result, error in
+            if error == nil {
+                let data: [String: AnyObject] = result as! [String: AnyObject]
+                var faceEmail = ""
+                var faceFirstname = ""
+                //var faceId = ""
+                //                    if let facebookId = data["id"] as? String {
+                //                       faceId = facebookId
+                //                    } else {
+                //                        print("Facebook Id: Not exists")
+                //                    }
+                if let facebookFirstName = data["first_name"] as? String {
+                    print("Facebook First Name: \(facebookFirstName)")
+                    faceFirstname = facebookFirstName
                 } else {
-                    print("Error: Trying to get user's info")
+                    print("Facebook First Name: Not exists")
                 }
+                if let facebookEmail = data["email"] as? String {
+                    print("Facebook Email: \(facebookEmail)")
+                    faceEmail = facebookEmail
+                } else {
+                    print("Facebook Email: Not exists")
+                }
+                
+                self.customer.email = faceEmail
+                self.customer.firstName = faceFirstname
+                self.customer.tags = faceEmail
+                
+                self.registerViewModel.registerCustomer(customer: self.customer)
+                
+            } else {
+                print("Error: Trying to get user's info")
             }
         }
+    }
     
-
+    
     
 }
 

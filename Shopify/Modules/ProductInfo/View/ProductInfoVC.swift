@@ -21,15 +21,17 @@ class ProductInfoVC: UIViewController{
     @IBOutlet weak var imsgesCollectionView: UICollectionView!
     @IBOutlet weak var productName: UILabel!
     
-    var productId = 8360376402229
+    var productId = 0
     var viewModel:ProductInfoViewModel = ProductInfoViewModel(network: Network())
+    var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
+    var myProduct:MyProduct!
     var timer : Timer?
     var currentIndex = 0
     var proImages:[ProductImage] = []
     
     let revierImages = ["person1","person2","person3"]
-    
     let revierText = ["I Love This","Meduim quality Product","It's pretty much and I liked it"]
+    
     
     override func viewDidAppear(_ animated: Bool) {
         scrollview.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -38,9 +40,6 @@ class ProductInfoVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
 //        scrollview.contentSize = CGSize(width: 400, height: 2300)
-//        let userDefultId =  UserDefaults.standard.integer(forKey:"customerId")
-//        let userDefaultsName = UserDefaults.standard.string(forKey: "customerName")
-//        let isLogedIn = UserDefaults.standard.bool(forKey: "isLogin")
         
         imsgesCollectionView.dataSource = self
         imsgesCollectionView.delegate = self
@@ -50,17 +49,20 @@ class ProductInfoVC: UIViewController{
         reviewsTableView.dataSource = self
         registerTableCell(tableView: reviewsTableView)
         
+        let tab = UITapGestureRecognizer(target: self, action: #selector(addToFav(_:)))
+        favImg.addGestureRecognizer(tab)
+        
         viewModel.getProductDetails(productId: productId)
         
         viewModel.bindingProductInfo = { [weak self] in
             DispatchQueue.main.async {
-                let myProduct = self?.viewModel.product?.product
-                self?.productName.text = myProduct?.title
-                self?.price.text = myProduct?.variants?[0].price
-                self?.sizeLB.text = myProduct?.variants?[0].title
-                self?.descriptionLbl.text = myProduct?.description
-                self?.slider.numberOfPages = myProduct?.images?.count ?? 0
-                self?.proImages = myProduct?.images ?? []
+                self?.myProduct = self?.viewModel.product?.product
+                self?.productName.text = self?.myProduct?.title
+                self?.price.text = self?.myProduct?.variants?[0].price
+                self?.sizeLB.text = self?.myProduct?.variants?[0].title
+                self?.descriptionLbl.text = self?.myProduct?.description
+                self?.slider.numberOfPages = self?.myProduct?.images?.count ?? 0
+                self?.proImages = self?.myProduct?.images ?? []
                 self?.imsgesCollectionView.reloadData()
             }
             
@@ -76,9 +78,22 @@ class ProductInfoVC: UIViewController{
         let reviewsVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewsVC") as! ReviewsVC
         reviewsVC.modalPresentationStyle = .fullScreen
         self.present(reviewsVC, animated: true)
+    }
+    
+    @objc func addToFav(_ sender:UITapGestureRecognizer) {
         
+        print("Fav Image Clicked")
+       let pro = FavProduct(id: myProduct.id,title: myProduct.title,rate: 3.5, price: "500", image: myProduct.image?.src)
+   
+        if  wishListViewModel.isProductExist(product:pro) == false {
+            wishListViewModel.insertFavProduct(product: pro)
+            favImg.image = UIImage(named: "filled.png")
+        }else{
+            wishListViewModel.deleteFavProduct(product: pro)
+            favImg.image = UIImage(named: "outlined.png")
+        }
         
-        
+
     }
 }
 

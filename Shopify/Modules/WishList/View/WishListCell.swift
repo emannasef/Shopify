@@ -13,4 +13,12 @@ class WishListCell: UICollectionViewCell {
     @IBOutlet weak var wishListPrice: UILabel!
     @IBOutlet weak var wishListTitle: UILabel!
     
+    var delegate:ClickDelegate?
+    var cellIndex: IndexPath?
+    
+    @IBAction func deleteAction(_ sender: Any) {
+        delegate?.clicked(cellIndex!.row)
+    }
+    
+    
 }

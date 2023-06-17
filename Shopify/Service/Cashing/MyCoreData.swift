@@ -26,7 +26,7 @@ class MyCoreData:MyCorDataProtocol {
     
     func insertFavProduct(product: FavProduct) {
         let entity = NSEntityDescription.entity(forEntityName: "WishList", in: manager)
-        let myProduct = NSManagedObject(entity: entity!, insertInto: manager)
+        let myProduct = NSManagedObject(entity: entity ?? NSEntityDescription(), insertInto: manager)
         
         myProduct.setValue(product.id, forKey: "product_Id")
         myProduct.setValue(product.title, forKey: "product_title")
@@ -36,7 +36,8 @@ class MyCoreData:MyCorDataProtocol {
         
         do{
             try manager.save()
-            print("Product Saved!")
+           // print("Product Saved!")
+            print(myProduct)
         }catch let error{
             print(error.localizedDescription)
         }
@@ -93,19 +94,22 @@ class MyCoreData:MyCorDataProtocol {
         }
     }
     
+    
     func isProductExist(product: FavProduct) -> Bool {
         let fetch = NSFetchRequest<NSManagedObject>(entityName: "WishList")
-        let predicate = NSPredicate(format: "product_Id == %i", product.id ?? 0)
-
+       // let predicate = NSPredicate(format:  "product_Id == %i",product.id ?? 0)
+       let predicate = NSPredicate(format:"product_title == %@" ,product.title ?? "" )
+        print("My product",product.title)
+        print("prdecite",predicate)
         fetch.predicate = predicate
         
         do{
             productArr = try manager.fetch(fetch)
             if(productArr.count > 0){
-                print("Fav is exist")
+                print("wish Product is exist")
                 return true
             }else{
-                print("Fav is Not exist")
+                print("wish Product is Not exist")
                 return false
             }
 
