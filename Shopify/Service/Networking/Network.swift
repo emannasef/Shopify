@@ -58,7 +58,7 @@ class Network : NetworkProtocol{
         AF.request(request).responseJSON { response in
             
             do{
-                guard let jsonObject = try JSONSerialization.jsonObject(with: response.data!) as? [String: Any] else {
+                guard let jsonObject = try JSONSerialization.jsonObject(with: response.data ?? Data()) as? [String: Any] else {
                     print("Error: Cannot convert data to JSON object")
                     return
                 }
@@ -115,7 +115,7 @@ class Network : NetworkProtocol{
         AF.request(request).responseJSON { response in
             
             do{
-                guard let jsonObject = try JSONSerialization.jsonObject(with: response.data!) as? [String: Any] else {
+                guard let jsonObject = try JSONSerialization.jsonObject(with: response.data ?? Data()) as? [String: Any] else {
                     print("Error: Cannot convert data to JSON object")
                     return
                 }

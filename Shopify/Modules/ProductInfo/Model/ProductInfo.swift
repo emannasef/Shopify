@@ -124,4 +124,6 @@ struct ProductImage: Codable {
         case updatedAt = "updated_at"
         case adminGraphqlApiId = "admin_graphql_api_id"
     }
+    
+   
 }

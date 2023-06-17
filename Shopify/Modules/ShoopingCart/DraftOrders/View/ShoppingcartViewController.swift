@@ -14,8 +14,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         super.viewDidLoad()
         network = Network()
         viewModel = DraftOrderViewModel(network: network)
-        items = ["","",""]
-        
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,18 +27,9 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             
         }
-        viewModel.getDraftOrders(customerEmail:"emann@yahoo.com")
+        viewModel.getDraftOrders(draftOrderId:1117412819253)//getDraftOrdertId())
     }
     
-    func filterDraftOrders(orders:[DraftOrders], customerEmail : String) -> DraftOrders{
-        
-        var result : DraftOrders?
-        let i = 0
-        while orders[i].note == "cart" && orders[i].customer?.email == customerEmail{
-            result = orders[i]
-        }
-        return result ?? DraftOrders()
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return viewModel.getDrftOrdersCount()
@@ -60,7 +50,9 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             guard let self = self else { return }
             
             items.remove(at: indexPath.row)
+            viewModel.deleteItem(index: indexPath.row, draftOrderId: 1117412819253)//getDraftOrdertId())
             myTable.reloadData()
+            createToastMessage(message: "item deleted from your card", view: self.view)
         }
         
         return cell
@@ -73,9 +65,9 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         cell.itemTitle.text = item.vendor
         // cell.itemsize = draftOrder.lineItems.
         cell.itemColor.text = item.variantTitle
-        print("color is \(item.vendor)")
-        var imgUrl = URL(string: item.properties?[0].value ?? "")
-        cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
+        print("color is \(String(describing: item.vendor))")
+       // let imgUrl = URL(string: item.properties?[0].value ?? "")
+        //cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
         
     }
     

@@ -1,17 +1,11 @@
-//
-//  ProductInfoViewModel.swift
-//  ShopifyCustomer
-//
-//  Created by Mac on 11/06/2023.
-//
 
 import Foundation
 import Alamofire
 class ProductInfoViewModel{
     
     var bindingProductInfo:(()->()) = {}
-
-
+    var cartItems:[LineItems]? = MyCartItems.cartItemsCodableObject
+    
     var product : ProductInfo? {
         didSet {
             bindingProductInfo()
@@ -32,12 +26,51 @@ class ProductInfoViewModel{
         
     }
     
-   /* func addToCart(customerId:Int){
+    func addToCart(draftOrdrId:Int,product:Product){
         
-        let params : Parameters = encodeToJson(objectClass: self.product) ?? [:]
-        network.post(endPoint: .createCustomerAdress(id: customerId), params: params) { (response:DraftOrderResponse?, error )in
-            <#code#>
+        let params : Parameters = encodeToJson(objectClass: createADraftOrder(draftOrdrId: draftOrdrId, product: product)) ?? [:]
+        if MyCartItems.cartItemsCodableObject != nil ||  MyCartItems.cartItemsCodableObject?.count == 0{
+            network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrdrId), params: params) { (response:MyDraftOrder?, error )in
+                guard let result = response?.draft_order else{
+                    print(error ?? "there is an errror while adding a new item to your cart")
+                    return}
+                MyCartItems.cartItemsCodableObject = result.lineItems
+            }
         }
-    }*/
+        else {
+            network.post(endPoint: .createDraftOrder, params: params) { (response:MyDraftOrder?, error )in
+                guard let result = response?.draft_order else{
+                    print(error ?? "there is an errror while adding a new item to your cart")
+                    return}
+                MyCartItems.cartItemsCodableObject = result.lineItems
+                setDraftOrderId(draftOrderId: result.id!)
+            }
+            
+        }
+    }
     
+    func addItem(product:Product){
+        let proVarient = product.variants?[0]
+        let varientId = proVarient?.id
+        let title = product.title
+        let variTitle = proVarient?.title
+        let price = proVarient?.price
+        let properties = [Properties(name: "url_image", value: product.images?[0].src ?? "")]
+        let item = LineItems(/*varientId: varientId ?? 0,*/ title: title ?? "", varientTitle: variTitle ?? "", price: price ?? "", properties: properties)
+        
+        
+        cartItems?.append(item)
+        
+    }
+    
+    func createADraftOrder(draftOrdrId:Int,product:Product) -> MyDraftOrder{
+        addItem(product: product)
+        let item = LineItems( title: "oo" , varientTitle: "lll" , price: "99" , properties: [Properties()])
+        let customerId = 7046569754933//UserDefaults.standard.integer(forKey:"customerId")
+        // let customer = Customer(id: customerId)
+        let lineItems = cartItems
+        
+        return createDraftOrder(draftOrderId: draftOrdrId, lineItems: cartItems ?? [] )
+        
+    }
 }

@@ -19,7 +19,7 @@ class ProductInfoVC: UIViewController{
     @IBOutlet weak var slider: UIPageControl!
     @IBOutlet weak var imsgesCollectionView: UICollectionView!
     @IBOutlet weak var productName: UILabel!
-    var productId = 8326804767029
+    var productId = 8360376402229
     var viewModel:ProductInfoViewModel = ProductInfoViewModel(network: Network())
     var timer : Timer?
     var currentIndex = 0
@@ -56,6 +56,8 @@ class ProductInfoVC: UIViewController{
         
         viewModel.bindingProductInfo = { [weak self] in
             DispatchQueue.main.async {
+                
+            
                 let myProduct = self?.viewModel.product?.product
                 self?.productName.text = myProduct?.title
                 self?.price.text = myProduct?.variants?[0].price
@@ -71,12 +73,15 @@ class ProductInfoVC: UIViewController{
     }
     
     @IBAction func addToCart(_ sender: Any) {
+        
+        viewModel.addToCart(draftOrdrId:1117412819253/*getDraftOrdertId()*/, product: (viewModel.product?.product) ?? Product())
+        createToastMessage(message: "new iten added to your cart",view: self.view)
+        
     }
     
     @IBAction func moreBtn(_ sender: Any) {
         
         let reviewsVC = self.storyboard?.instantiateViewController(withIdentifier: "ReviewsVC") as! ReviewsVC
-        
         self.present(reviewsVC, animated: true)
         
     }
