@@ -129,6 +129,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
             let brand = viewmodel.getBrandAtIndexPath(row: indexPath.row)
             let productsScreen = storyboard?.instantiateViewController(withIdentifier: "collectionproducts") as! ProductsViewController
             productsScreen.collectionId = brand.id
+            productsScreen.collectionName = brand.rules[0].condition
             productsScreen.fromScreen = "Brand"
             print(String(brand.id))
             navigationController?.pushViewController(productsScreen, animated: true)

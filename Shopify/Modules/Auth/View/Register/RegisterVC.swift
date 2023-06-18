@@ -122,8 +122,16 @@ class RegisterVC: UIViewController {
                 //  self.showToast(message: "Account Created Sucessfully", seconds: 2.0)
                 UserDefaults.standard.set(true, forKey: "isLogin")
                 
-                let homeVC = UIStoryboard(name: "HomeStoryboard", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-                self.navigationController?.pushViewController(homeVC, animated: true)
+//                let homeVC = UIStoryboard(name: "HomeStoryboard", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
+//                self.navigationController?.pushViewController(homeVC, animated: true)
+//
+//
+                let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+                let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
+                
+            //    mainTabBarController.selectedIndex = 4
+                
+                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
             }
         
     }

@@ -50,6 +50,8 @@ enum BrandEndPoint{
   
     case  brands
     case products(tag:Int)
+    case productPrice(tag:Int)
+    case brandsProducts(tag:String)
     case allProducts
     
     var path:String{
@@ -59,7 +61,12 @@ enum BrandEndPoint{
             
         case .products(tag: var productId):
             return "collections/\(productId)/products.json"
-            //return "collections/448186581301/products.json"
+            
+        case .productPrice(tag: let tag):
+            return "products/\(tag).json"
+            
+        case .brandsProducts(tag: let tag):
+            return "products.json?vendor=\(tag)"
         case .allProducts:
             return "/products.json"
         }

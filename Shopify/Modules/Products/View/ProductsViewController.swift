@@ -13,6 +13,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var productsCollection: UICollectionView!
     var collectionId:Int!
+    var collectionName:String!
     var viewModel = ProductsViewModel.getInstatnce(network: NetworkManager())
     var allProductsViewModel = AllProducts(network: NetworkManager())
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
@@ -51,7 +52,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
 
             }
         }
-      viewModel.fetchProducts(tag:"" , endPoint: .products(tag: collectionId))
+        viewModel.fetchProducts(tag:"" , endPoint: .brandsProducts(tag: collectionName))
      
     }
     
@@ -89,7 +90,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
                  .cacheOriginalImage
              ])
         
-        //cell.productPrice.text = product
+        cell.productPrice.text = product.variants?[0].price
         cell.cellIndex = indexPath
         cell.delegate = self
 
