@@ -10,6 +10,7 @@ import Kingfisher
 
 class ProductInfoVC: UIViewController{
     
+    
     //    @IBOutlet weak var discriptionTxt: UITextView!
     @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet weak var descriptionLbl: UILabel!
@@ -51,6 +52,7 @@ class ProductInfoVC: UIViewController{
         
         let tab = UITapGestureRecognizer(target: self, action: #selector(addToFav(_:)))
         favImg.addGestureRecognizer(tab)
+        favImg.isUserInteractionEnabled = true
         
         viewModel.getProductDetails(productId: productId)
         
@@ -67,10 +69,22 @@ class ProductInfoVC: UIViewController{
             }
             
         }
+        
+//        let pro = FavProduct(id: myProduct.id,title: myProduct.title,rate: 3.5, price: "500", image: myProduct.image?.src)
+//
+//         if  wishListViewModel.isProductExist(product:pro) == false {
+//             wishListViewModel.insertFavProduct(product: pro)
+//             favImg.image = UIImage(named: "filled.png")
+//         }else{
+//             wishListViewModel.deleteFavProduct(product: pro)
+//             favImg.image = UIImage(named: "outlined.png")
+//         }
       
     }
     
     @IBAction func addToCart(_ sender: Any) {
+        
+        print("Add To Cart Clicked")
     }
     
     @IBAction func moreBtn(_ sender: Any) {

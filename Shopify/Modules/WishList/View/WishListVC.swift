@@ -38,7 +38,7 @@ class WishListVC: UIViewController {
     }
 
 }
-extension WishListVC : UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,ClickDelegate{
+extension WishListVC : UICollectionViewDelegate,UICollectionViewDataSource,ClickDelegate{
  
     
     
@@ -77,12 +77,11 @@ extension WishListVC : UICollectionViewDelegate,UICollectionViewDataSource,UICol
         return cell
     }
     
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-//
-//        return CGSize(width: UIScreen.main.bounds.size.width/2-20 , height:  collectionView.frame.height)
-//    }
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let productInfo = UIStoryboard(name: "ProductInfo", bundle: nil).instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+        productInfo.productId = wishListArr[indexPath.row].id ?? 8360376402229
+        self.navigationController?.pushViewController(productInfo, animated: true)
+    }
     
     func clicked(_ row: Int) {
         let pro = wishListArr[row]

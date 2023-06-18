@@ -61,7 +61,7 @@ class RegisterVC: UIViewController {
                         let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
                         let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
                         
-                        mainTabBarController.selectedIndex = 4
+                    //    mainTabBarController.selectedIndex = 4
                         
                         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
                         
