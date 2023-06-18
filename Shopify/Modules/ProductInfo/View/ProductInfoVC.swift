@@ -29,6 +29,7 @@ class ProductInfoVC: UIViewController{
     var timer : Timer?
     var currentIndex = 0
     var proImages:[ProductImage] = []
+    var favPro:FavProduct = FavProduct()
     
     let revierImages = ["person1","person2","person3"]
     let revierText = ["I Love This","Meduim quality Product","It's pretty much and I liked it"]
@@ -40,8 +41,7 @@ class ProductInfoVC: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        scrollview.contentSize = CGSize(width: 400, height: 2300)
-        
+        //        scrollview.contentSize = CGSize(width: 400, height: 2300)
         imsgesCollectionView.dataSource = self
         imsgesCollectionView.delegate = self
         startTimer()
@@ -54,7 +54,7 @@ class ProductInfoVC: UIViewController{
         favImg.addGestureRecognizer(tab)
         favImg.isUserInteractionEnabled = true
         
-        viewModel.getProductDetails(productId: productId)
+       
         
         viewModel.bindingProductInfo = { [weak self] in
             DispatchQueue.main.async {
@@ -66,21 +66,28 @@ class ProductInfoVC: UIViewController{
                 self?.slider.numberOfPages = self?.myProduct?.images?.count ?? 0
                 self?.proImages = self?.myProduct?.images ?? []
                 self?.imsgesCollectionView.reloadData()
+                self?.favPro = FavProduct(id: self?.myProduct.id,title: self?.myProduct.title,rate: 3.5, price: "500", image: self?.myProduct.image?.src)
+                self?.check()
+                
             }
-            
         }
+        viewModel.getProductDetails(productId: productId)
         
-//        let pro = FavProduct(id: myProduct.id,title: myProduct.title,rate: 3.5, price: "500", image: myProduct.image?.src)
-//
-//         if  wishListViewModel.isProductExist(product:pro) == false {
-//             wishListViewModel.insertFavProduct(product: pro)
-//             favImg.image = UIImage(named: "filled.png")
-//         }else{
-//             wishListViewModel.deleteFavProduct(product: pro)
-//             favImg.image = UIImage(named: "outlined.png")
-//         }
-      
+        
     }
+    
+    func check (){
+        if  wishListViewModel.isProductExist(product:favPro)  {
+            favImg.image = UIImage(named: "filled.png")
+            print("Will Appear",favPro)
+            
+        }else{
+            favImg.image = UIImage(named: "outlined.png")
+            print("Will Apear",favPro)
+
+        }
+    }
+    
     
     @IBAction func addToCart(_ sender: Any) {
         
@@ -96,18 +103,15 @@ class ProductInfoVC: UIViewController{
     
     @objc func addToFav(_ sender:UITapGestureRecognizer) {
         
-        print("Fav Image Clicked")
-       let pro = FavProduct(id: myProduct.id,title: myProduct.title,rate: 3.5, price: "500", image: myProduct.image?.src)
-   
-        if  wishListViewModel.isProductExist(product:pro) == false {
-            wishListViewModel.insertFavProduct(product: pro)
+        if  wishListViewModel.isProductExist(product:favPro) == false {
+            wishListViewModel.insertFavProduct(product: favPro)
             favImg.image = UIImage(named: "filled.png")
         }else{
-            wishListViewModel.deleteFavProduct(product: pro)
+            wishListViewModel.deleteFavProduct(product: favPro)
             favImg.image = UIImage(named: "outlined.png")
         }
         
-
+        
     }
 }
 
@@ -131,7 +135,7 @@ extension ProductInfoVC : UICollectionViewDelegate,UICollectionViewDataSource,UI
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
+        
         return CGSize(width: imsgesCollectionView.frame.width
                       , height:  imsgesCollectionView.frame.height)
     }
@@ -140,30 +144,30 @@ extension ProductInfoVC : UICollectionViewDelegate,UICollectionViewDataSource,UI
         return 0
     }
     
-        func startTimer(){
-            timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextItem), userInfo: nil, repeats: true)
-        }
+    func startTimer(){
+        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextItem), userInfo: nil, repeats: true)
+    }
     
     
-        @objc func moveToNextItem(){
-            
-            if currentIndex < proImages.count-1{
-                currentIndex += 1
-            }else{
-                currentIndex = 0
-            }
-            
-            imsgesCollectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredHorizontally, animated: true)
-            
-            slider.currentPage = currentIndex
-            
+    @objc func moveToNextItem(){
+        
+        if currentIndex < proImages.count-1{
+            currentIndex += 1
+        }else{
+            currentIndex = 0
         }
+        
+        imsgesCollectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredHorizontally, animated: true)
+        
+        slider.currentPage = currentIndex
+        
+    }
     
 }
 
 extension ProductInfoVC : UITableViewDelegate,UITableViewDataSource{
     
-  
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1

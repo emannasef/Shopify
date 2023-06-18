@@ -99,8 +99,8 @@ class MyCoreData:MyCorDataProtocol {
         let fetch = NSFetchRequest<NSManagedObject>(entityName: "WishList")
        // let predicate = NSPredicate(format:  "product_Id == %i",product.id ?? 0)
        let predicate = NSPredicate(format:"product_title == %@" ,product.title ?? "" )
-        print("My product",product.title)
-        print("prdecite",predicate)
+      //  print("My product",product.title)
+       // print("prdecite",predicate)
         fetch.predicate = predicate
         
         do{
