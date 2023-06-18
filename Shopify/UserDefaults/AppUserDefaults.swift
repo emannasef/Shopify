@@ -31,6 +31,28 @@ func setDraftOrderId(draftOrderId:Int){
 func getDraftOrdertId()-> Int{
     defaults.integer(forKey: "draftOrdertId")
 }
+
+func setScreenMode(mode:Int){
+    
+    defaults.setValue(mode, forKey: "mode")
+
+}
+
+func getScreenMode()-> Int{
+    defaults.integer(forKey: "mode")
+}
+
+func getCurrency() ->String{
+    return defaults.string(forKey: "currency") ?? "USD"
+}
+
+func setCurrency(currency:String){
+    
+    defaults.setValue(currency, forKey: "currency")
+
+}
+
+
 extension UserDefaults{
     func setCodableObject<T: Codable>(_ data: T?, forKey cartItems: String) {
         let encoded = try? JSONEncoder().encode(data)

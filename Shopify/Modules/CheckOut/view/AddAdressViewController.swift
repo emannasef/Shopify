@@ -1,7 +1,15 @@
+//
+//  ViewController.swift
+//  Shopify
+//
+//  Created by Mac on 18/06/2023.
+//
+
 import UIKit
 
 class AddAdressViewController: UIViewController {
 
+    
     @IBOutlet weak var nameView: UIView!
     @IBOutlet weak var adressView: UIView!
     @IBOutlet weak var cityView: UIView!
@@ -14,7 +22,6 @@ class AddAdressViewController: UIViewController {
     @IBOutlet weak var region: UITextField!
     @IBOutlet weak var zipCode: UITextField!
     @IBOutlet weak var country: UITextField!
-    
     @IBOutlet weak var addAdressBtn: UIButton!
     var adressToBeUpdated : PostedAdress?
     var staus : String!
@@ -90,3 +97,4 @@ class AddAdressViewController: UIViewController {
         
     }
 }
+

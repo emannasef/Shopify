@@ -51,7 +51,7 @@ class ProductInfoViewModel{
     
     func addItem(product:Product){
         let proVarient = product.variants?[0]
-        let varientId = proVarient?.id
+        _ = proVarient?.id
         let title = product.title
         let variTitle = proVarient?.title
         let price = proVarient?.price
@@ -65,10 +65,8 @@ class ProductInfoViewModel{
     
     func createADraftOrder(draftOrdrId:Int,product:Product) -> MyDraftOrder{
         addItem(product: product)
-        let item = LineItems( title: "oo" , varientTitle: "lll" , price: "99" , properties: [Properties()])
-        let customerId = 7046569754933//UserDefaults.standard.integer(forKey:"customerId")
-        // let customer = Customer(id: customerId)
-        let lineItems = cartItems
+        _ = LineItems( title: "oo" , varientTitle: "lll" , price: "99" , properties: [Properties()])
+        _ = cartItems
         
         return createDraftOrder(draftOrderId: draftOrdrId, lineItems: cartItems ?? [] )
         

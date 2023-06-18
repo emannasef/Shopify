@@ -88,7 +88,7 @@ struct DraftOrders: Codable {
         self.id = id
         self.lineItems = lineItems
         self.note = "cart"
-      
+        self.currency = getCurrency()
     }
     
   init() {

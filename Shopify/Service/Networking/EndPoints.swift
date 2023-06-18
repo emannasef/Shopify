@@ -21,6 +21,8 @@ enum EndPoints {
     case modifieDraftOrder(draftOrderId:Int)
     case deleteDraftOrder(draftOrderId:Int)
     case getDraftOrder
+    case convertCurrency(to:String,from:String,amount:Double)
+    case getCupons (priceRuleId:Int)
     
     
     var path:String{
@@ -44,11 +46,15 @@ enum EndPoints {
         case .updateAdress(customerId: let customerId, adressId: let adressId):
             return "customers/\(customerId)/addresses/\(adressId).json"
         case .createDraftOrder:
-           return "draft_orders/.json"
+           return "draft_orders.json"
         case .modifieDraftOrder(draftOrderId: let draftOrderId):
             return "draft_orders/\(draftOrderId).json"
         case .deleteDraftOrder(draftOrderId: let draftOrderId):
             return "draft_orders/\(draftOrderId).json"
+        case .convertCurrency(to: let to, from: let from ,amount: let amount):
+            return "convert?to=\(to)&from=\(from)&amount=\(amount)"
+        case .getCupons(priceRuleId: let priceRuleId):
+            return "price_rules/\(priceRuleId)/discount_codes.json"
         }
     }
     
