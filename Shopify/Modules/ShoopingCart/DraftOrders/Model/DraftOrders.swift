@@ -23,6 +23,18 @@ struct DraftOrderResponse: Codable {
 
 }
 
+struct MyDraftOrder : Codable{
+    
+    var draft_order : DraftOrders?
+    
+    init(myDraftOrder:DraftOrders){
+        self.draft_order = myDraftOrder
+        
+    }
+}
+
+
+
 struct DraftOrders: Codable {
 
   var id                : Int?             = nil
@@ -72,7 +84,13 @@ struct DraftOrders: Codable {
     case customer          = "customer"
   
   }
-
+    init(id:Int,lineItems:[LineItems]){
+        self.id = id
+        self.lineItems = lineItems
+        self.note = "cart"
+        self.currency = getCurrency()
+    }
+    
   init() {
 
   }

@@ -12,9 +12,9 @@ func createToastMessage(message:String , view:UIView){
     
     var style = ToastStyle()
     style.messageColor = UIColor.white
-    style.backgroundColor = UIColor(named: "AccentColor") ?? UIColor.blue
-    style.activitySize = CGSize(width: 200.0, height: 20.0)
-    view.makeToast(message, duration: 3.0, position: .center, style: style)
+        //style.backgroundColor = UIColor(named: "AccentColor") ?? UIColor.blue
+    style.activitySize = CGSize(width: 400.0, height: 20.0)
+    view.makeToast(message, duration: 3.0, position: .bottom, style: style)
 }
 
 /*extension UserDefaults{

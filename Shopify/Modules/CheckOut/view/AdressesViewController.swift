@@ -1,7 +1,13 @@
-import UIKit
-import Toast
+//
+//  AdrTableViewController.swift
+//  Shopify
+//
+//  Created by Mac on 18/06/2023.
+//
 
-class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
+import UIKit
+
+class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDataSource {
 
     @IBOutlet weak var adressTable: UITableView!
     @IBOutlet weak var addAdressBtn: UIButton!
@@ -31,7 +37,7 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
         return 1
         }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+   func numberOfSections(in tableView: UITableView) -> Int {
         
         return viewModel.getCountOfAdress() ?? 0
     }
@@ -50,7 +56,7 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
         }
         cell.setDefaultAction = {
             print("set default btn pressed .............")
-          //  self.viewModel.setAdressAsDefault(adress: adress,customerId:7037983686965 , adressId: adress.id ?? 0)
+           // self.viewModel.setAdressAsDefault(adress: adress,customerId:7037983686965 , adressId: adress.id ?? 0)
             self.setDefaultadress(adress: adress)
             self.viewModel.getCustomerAdresses(customerId:7046569754933)
             self.getAsDefault(adress: adress, cell: cell)
@@ -59,7 +65,7 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
         cell.checkAsDefaultBtn.layer.borderColor = UIColor.black.cgColor
         cell.checkAsDefaultBtn.layer.cornerRadius = 5
       
-        return cell 
+        return cell
     }
 
     func setEditBtnAction(adress:PostedAdress){
@@ -86,7 +92,7 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
   
     func getAsDefault(adress:PostedAdress,cell:ShoppingAdressTableViewCell){
         if adress.default == true{
-            cell.checkAsDefaultBtn.backgroundColor = UIColor.black
+           cell.checkAsDefaultBtn.backgroundColor = UIColor.black
             cell.checkAsDefaultBtn.tintColor = UIColor.white
             cell.checkAsDefaultBtn.setImage(UIImage(systemName: "checkmark"), for: .normal)
            
@@ -98,7 +104,7 @@ class ShoopingAdressesViewController: UIViewController,UITableViewDelegate,UITab
       
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
        
         let adressTobeDeleted = viewModel.getAdress(index: indexPath.section)
        if editingStyle == .delete {

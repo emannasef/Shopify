@@ -70,6 +70,9 @@ struct Customer: Codable {
   }
 
 
+    init(id:Int){
+        self.id = id
+    }
 
   init() {
 
