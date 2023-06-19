@@ -60,8 +60,7 @@ enum BrandEndPoint{
             return "smart_collections.json"
             
         case .products(tag: let productId):
-            return "collections/\(productId)/products.json"
-            //return "products.json?ids=\(productId)"
+            return "products.json?collection_id=\(productId)"
             
         case .productPrice(tag: let tag):
             return "products/\(tag).json"

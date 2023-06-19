@@ -24,7 +24,10 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         
         self.tabBarController?.navigationItem.leftBarButtonItem = searchBtn
         
-        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", image: UIImage(named: "outlined"), target: self, action: #selector(favScreen))
+        self.tabBarController?.navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action: #selector(favScreen)),
+            UIBarButtonItem(title: "", image: UIImage(systemName: "cart.fill"), target: self, action: #selector(cartScreen))
+        ]
     
         setLayout()
     }
@@ -186,6 +189,12 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
 
         let wishList = UIStoryboard(name: "WishList", bundle: nil).instantiateViewController(withIdentifier: "WishListVC") as! WishListVC
         self.navigationController?.pushViewController(wishList, animated: true)
+    }
+    
+    @objc func cartScreen(){
+
+        let cart = UIStoryboard(name: "ShoppingCart", bundle: nil).instantiateViewController(withIdentifier: "ShoppingCartViewController") as! ShoppingcartViewController
+        self.navigationController?.pushViewController(cart, animated: true)
     }
 
 }
