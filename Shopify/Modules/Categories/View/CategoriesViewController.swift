@@ -8,6 +8,7 @@
 import UIKit
 
 class CategoriesViewController: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+    @IBOutlet weak var subCategoriesBtn: UIButton!
     
     @IBOutlet weak var categoriesSegmentedControl: UISegmentedControl!
     var viewModel = CategoriesViewModel.getInstatnce(network: NetworkManager())
@@ -21,24 +22,51 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
         
         categoriesCollection.delegate = self
         categoriesCollection.dataSource = self
+        
+        let tapmeitems = UIMenu(title: "ProductsType", options: .displayInline, children: [
+            UIAction(title: "All", image: UIImage(named: "all"), handler: { _ in self.getData()}),
+        UIAction(title: "T-Shirts", image: UIImage(named: "tshirt"), handler:  { [unowned self] _ in
+            productType = "T-Shirts"
+            subCategoriesList = viewModel.getTShirts()
+            categoriesCollection.reloadData()
+            }),
+        UIAction(title: "FootWear", image: UIImage(named: "shoes"), handler: { [unowned self] _ in
+            productType = "FootWear"
+            subCategoriesList = viewModel.getFootWear()
+            categoriesCollection.reloadData()
+            }),
+        UIAction(title: "Accessories", image: UIImage(named: "sunglasses"), handler: { [unowned self] _ in
+            productType = "Accessories"
+            subCategoriesList = viewModel.getAccessories()
+            categoriesCollection.reloadData()
+        }),
+        ])
+        let menu = UIMenu(title: "", children: [tapmeitems])
+        
+        subCategoriesBtn.menu = menu
     }
     
     
     override func viewWillAppear(_ animated: Bool) {
         getData()
+        subCategoriesList = []
     }
     
     func getData(){
+        productType = ""
         self.viewModel.bindCategoryToViewController = {[weak self] in
             DispatchQueue.main.async {
                 self?.categoriesCollection.reloadData()
-               
+                
             }
         }
-        viewModel.fetchProducts(tag:"" , endPoint: .products(tag: getSelectedCategory()))
+        if(getSelectedCategory() == 0){
+            viewModel.fetchProducts(tag: "", endPoint: .allProducts)
+        }else{
+            viewModel.fetchProducts(tag:"" , endPoint: .products(tag: getSelectedCategory()))
+        }
+        
     }
-    
-    
     @IBAction func selectCategory(_ sender: Any) {
         productType = ""
         getData()
@@ -47,7 +75,7 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
     func getSelectedCategory()-> Int {
         switch(categoriesSegmentedControl.selectedSegmentIndex){
         case 0:
-            return CategoryType.allCategories.rawValue
+            return 0
         case 1:
             return CategoryType.men.rawValue
         case 2:
@@ -60,38 +88,6 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
     }
     
 
-    @IBAction func selectSubCategory(_ sender: Any) {
-        
-        subCategoriesList = []
-        
-        let message = NSLocalizedString("Products Type", comment: "Title for the action sheet asking for the type of ticket")
-            let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
-            
-            alert.addAction(UIAlertAction(title: "Accessories", style: .default) { [unowned self] _ in
-                productType = "Accessories"
-                subCategoriesList = viewModel.getAccessories()
-                categoriesCollection.reloadData()
-            })
-            
-            alert.addAction(UIAlertAction(title: "T-Shirts", style: .default) { [unowned self] _ in
-                productType = "T-Shirts"
-                subCategoriesList = viewModel.getTShirts()
-                categoriesCollection.reloadData()
-                })
-            
-            alert.addAction(UIAlertAction(title: "FootWear", style: .default) { [unowned self] _ in
-                productType = "FootWear"
-                subCategoriesList = viewModel.getFootWear()
-                categoriesCollection.reloadData()
-                })
-
-        alert.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
-            
-            present(alert, animated: true, completion: nil)
-        
-    }
-    
-    
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if(productType == ""){
@@ -112,22 +108,25 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
             cell.ProductName.text = product.title
             cell.productImg.kf.setImage(
                 with: URL(string: product.image?.src ?? ""),
-                placeholder: UIImage(named: "dress2"),
+                placeholder: UIImage(named: "brandplaceholder"),
                 options: [
                     .scaleFactor(UIScreen.main.scale),
                     .transition(.fade(1)),
                     .cacheOriginalImage
                 ])
+            cell.productPrice.text = product.variants?[0].price
         }else{
             cell.ProductName.text = subCategoriesList[indexPath.row].title
             cell.productImg.kf.setImage(
                 with: URL(string: subCategoriesList[indexPath.row].image?.src ?? ""),
-                placeholder: UIImage(named: "dress2"),
+                placeholder: UIImage(named: "brandplaceholder"),
                 options: [
                     .scaleFactor(UIScreen.main.scale),
                     .transition(.fade(1)),
                     .cacheOriginalImage
                 ])
+            
+            cell.productPrice.text = subCategoriesList[indexPath.row].variants?[0].price
         }
       
         cell.layer.cornerRadius = 8
@@ -140,7 +139,6 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
         return cell
     }
   
-
 }
 
 

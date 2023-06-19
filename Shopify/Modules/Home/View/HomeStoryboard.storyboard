@@ -244,6 +244,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="filterBtn" destination="Vbc-xE-4Zv" id="MVN-cj-d7z"/>
                         <outlet property="productsCollection" destination="u4k-KW-UGJ" id="nAv-TR-dTW"/>
                     </connections>
                 </viewController>
@@ -361,9 +362,6 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="filter"/>
-                                <connections>
-                                    <action selector="selectSubCategory:" destination="5Ln-cq-ved" eventType="touchUpInside" id="nKU-1U-Isg"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="EQa-wg-vQZ"/>
@@ -375,6 +373,7 @@
                     <connections>
                         <outlet property="categoriesCollection" destination="vOX-Hn-oFq" id="2oA-En-Z8Z"/>
                         <outlet property="categoriesSegmentedControl" destination="7uo-FG-cFa" id="tM6-Eh-3JM"/>
+                        <outlet property="subCategoriesBtn" destination="2cj-9s-dQ5" id="OcS-Ly-Ug4"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fIG-Gc-zhq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
