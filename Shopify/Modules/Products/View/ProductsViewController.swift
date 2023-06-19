@@ -18,6 +18,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     var allProductsViewModel = AllProducts(network: NetworkManager())
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
     
+    @IBOutlet weak var filterBtn: UIButton!
     var searchedArr:[Product] = []
     var productsArr:[Product] = []
     var fromScreen:String!
@@ -28,8 +29,18 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         productsCollection.delegate = self
         productsCollection.dataSource = self
         
-       // print("from products \(collectionId)")
-        
+        let tapmeitems = UIMenu(title: "Filter", options: .displayInline, children: [
+            UIAction(title: "A-Z Filter", image: UIImage(named: "atoz"), handler: { _ in
+            self.searchedArr.sorted { $0.title?.lowercased() ?? "" < $1.title?.lowercased() ?? "" }
+                self.productsCollection.reloadData()
+        }),
+            UIAction(title: "Z-A Filter", image: UIImage(named: "ztoa"), handler: { _ in  self.searchedArr.sorted { $0.title?.lowercased() ?? "" > $1.title?.lowercased() ?? "" }
+                self.productsCollection.reloadData()
+        }),
+        ])
+        let menu = UIMenu(title: "", children: [tapmeitems])
+    
+        filterBtn.menu = menu
     }
     
     
@@ -83,7 +94,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.productName.text = product.title
         cell.produtImg.kf.setImage(
             with: URL(string: product.image?.src ?? ""),
-             placeholder: UIImage(named: "dress"),
+             placeholder: UIImage(named: "brandplaceholder"),
              options: [
                  .scaleFactor(UIScreen.main.scale),
                  .transition(.fade(1)),
