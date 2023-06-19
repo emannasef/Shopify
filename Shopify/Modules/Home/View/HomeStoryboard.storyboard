@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="I0J-uV-rnQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="I0J-uV-rnQ">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -380,21 +381,15 @@
             </objects>
             <point key="canvasLocation" x="-121.37404580152672" y="-393.66197183098592"/>
         </scene>
-        <!--cart-->
-        <scene sceneID="GMo-pm-ikO">
+        <!--ShoppingCartViewController-->
+        <scene sceneID="i5q-YR-oEj">
             <objects>
-                <viewController id="EiJ-ak-PkP" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="KN3-oV-q8T">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="2Cu-we-Pmh"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <tabBarItem key="tabBarItem" title="cart" image="cart" catalog="system" selectedImage="cart.fill" id="7FF-wA-vM7"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="CgV-nY-aac" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <viewControllerPlaceholder storyboardName="ShoppingCart" referencedIdentifier="ShoppingCartViewController" id="9sl-wV-dmg" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="IX1-EH-VEQ"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PdK-Sj-6n9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-121" y="1112"/>
+            <point key="canvasLocation" x="-1999" y="484"/>
         </scene>
         <!--Me-->
         <scene sceneID="aLw-wL-gLo">
@@ -435,7 +430,14 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Shopify" id="9tZ-wv-DKN">
                         <barButtonItem key="leftBarButtonItem" image="magnifyingglass" catalog="system" id="KNY-q5-YtE"/>
-                        <barButtonItem key="rightBarButtonItem" image="heart.fill" catalog="system" id="PvM-6Y-3hd"/>
+                        <rightBarButtonItems>
+                            <barButtonItem image="heart.fill" catalog="system" id="PvM-6Y-3hd"/>
+                            <barButtonItem image="cart.fill" catalog="system" id="Gm0-fq-fDf">
+                                <connections>
+                                    <segue destination="9sl-wV-dmg" kind="push" id="glp-2M-G8o"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="e4W-tY-ao1">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -447,7 +449,6 @@
                     <connections>
                         <segue destination="Y6W-OH-hqX" kind="relationship" relationship="viewControllers" id="cHl-Kz-QrL"/>
                         <segue destination="5Ln-cq-ved" kind="relationship" relationship="viewControllers" id="ZHp-V9-yUx"/>
-                        <segue destination="EiJ-ak-PkP" kind="relationship" relationship="viewControllers" id="nsu-f9-vju"/>
                         <segue destination="f59-HF-lav" kind="relationship" relationship="viewControllers" id="A40-5v-aEO"/>
                     </connections>
                 </tabBarController>
@@ -462,7 +463,6 @@
         <image name="HomeIcon" width="30" height="26"/>
         <image name="ad1" width="240" height="140"/>
         <image name="adidasLogo" width="245" height="200"/>
-        <image name="cart" catalog="system" width="128" height="102"/>
         <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="dress" width="275" height="413"/>
         <image name="dress3" width="236" height="353"/>

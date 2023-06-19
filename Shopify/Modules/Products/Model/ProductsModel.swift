@@ -12,7 +12,7 @@ struct CollectionResponse: Codable {
 }
 
 // MARK: - Product
-struct Product: Codable {
+/*struct Product: Codable {
     let id: Int?
     let title, bodyHTML, vendor, productType: String?
     let createdAt: String?
@@ -40,7 +40,7 @@ struct Product: Codable {
         case options, images, image
         case variants
     }
-}
+}*/
 
 
 // MARK: - Option

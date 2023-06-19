@@ -2,6 +2,8 @@
 import Foundation
 
 var currencies = ["AED","AUD","CAD","CHF","CZK","DKK","EUR","GBP", "HKD","ILS","JPY","KRW","MYR","NZD","PLN","SEK","SGD","USD"]
+var countries = ["Egypt","Oman","Imrates","Saudi_Arabia","Kuwait","Seria","Lebanon"]
+
 
 struct CurrencyResponse: Codable {
 

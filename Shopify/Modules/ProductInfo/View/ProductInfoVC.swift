@@ -24,7 +24,7 @@ class ProductInfoVC: UIViewController{
     var productId = 8360376402229
     var viewModel:ProductInfoViewModel = ProductInfoViewModel(network: Network())
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
-    var myProduct:MyProduct!
+    var myProduct:Product!
     var timer : Timer?
     var currentIndex = 0
     var proImages:[ProductImage] = []

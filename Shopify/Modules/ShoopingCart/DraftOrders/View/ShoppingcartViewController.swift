@@ -10,6 +10,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     var viewModel : DraftOrderViewModel!
     var settingViewModel :SettingsViewModel!
     var totalPrice:Int = 0
+    var cell : orderdItemTableCell!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,12 +31,12 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             
         }
-        viewModel.getDraftOrders(draftOrderId:1117528654133)//getDraftOrdertId())
+        viewModel.getDraftOrders(draftOrderId:1117589176629)//getDraftOrdertId())
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return  viewModel.getDrftOrdersCount()
+        return MyCartItems.cartItemsCodableObject?.count ?? 0 //viewModel.lineItems?.count ?? 0
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
@@ -43,7 +44,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = myTable.dequeueReusableCell(withIdentifier: "itemCell") as! orderdItemTableCell
+        cell = myTable.dequeueReusableCell(withIdentifier: "itemCell") as? orderdItemTableCell
         self.setBtnShadow(btn: cell.decreaseBtn)
         self.setBtnShadow(btn: cell.increaseBtn)
         let item = viewModel.retriveAnOrder(index: indexPath.row)
@@ -51,24 +52,51 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         cell.layer.cornerRadius = 10.0
         cell.deleteitem = { [weak self] in
             guard let self = self else { return }
-            self.deleteItem(cell: cell, index: indexPath.row)
+            self.deleteItem(cell: cell, index: indexPath.row,indexPath: indexPath)
         }
         
         return cell
     }
     
-    func deleteItem(cell:orderdItemTableCell,index:Int){
-        viewModel.deleteItem(index: index, draftOrderId: 1117528916277)//getDraftOrdertId())
-        self.totalPrice -= Int(cell.itemPrice.text ?? "0") ?? 0
-        cell.itemPrice.text = String(self.totalPrice)
-       // self.myTable.deleteRows(at: [indexPath], with: .automatic)
-       // viewModel.draftOrders?.remove(at: index)
-        //myTable.reloadData()
-        viewModel.getDraftOrders(draftOrderId: 1117528916277)
+    func deleteItem(cell:orderdItemTableCell,index:Int,indexPath:IndexPath){
         
-        createToastMessage(message: "item deleted from your card", view: self.view)
+        let alert = UIAlertController(title: "Confirmation!", message: "Remove item..?", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
+            
+            self.present(alert, animated: true, completion: nil)
+            viewModel.deleteItem(index: index, draftOrderId: 1117589176629)//getDraftOrdertId())
+            self.totalPrice -= Int(cell.itemPrice.text ?? "0") ?? 0
+            cell.itemPrice.text = String(self.totalPrice)
+            createToastMessage(message: "item deleted from your card", view: self.view)
+
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler:{_ in
+            alert.dismiss(animated: true)
+        }))
+   
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+      
+        let itemTobeDeleted = MyCartItems.cartItemsCodableObject?[indexPath.row]//viewModel.draftOrders![indexPath.row]
+      if editingStyle == .delete {
+          
+          let alert = UIAlertController(title: "Confirmation!", message: "Remove item..?", preferredStyle: UIAlertController.Style.alert)
+          alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
+              self.viewModel.deleteItem(index: indexPath.row, draftOrderId: 1117589176629)
+              viewModel.lineItems?.remove(at: indexPath.row)
+              myTable.reloadData()
+           
+             
+          }))
+          alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler:{_ in
+              alert.dismiss(animated: true)
+          }))
+          
+          self.present(alert, animated: true, completion: nil)
+         
+      }
+  }
     
     func setCellData(cell:orderdItemTableCell, item:LineItems, index:Int){
         
@@ -77,8 +105,8 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         cell.itemTitle.text = item.vendor
         cell.itemColor.text = item.variantTitle
         print("color is \(String(describing: item.vendor))")
-        let imgUrl = URL(string: item.properties?[0].value ?? "")
-        cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
+//        let imgUrl = URL(string: item.properties?[0].value ?? "")
+  //      cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
         
     }
     
@@ -130,4 +158,5 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
    /* @IBAction func checkOut(_ sender: Any) {
     }*/
 }
+
 

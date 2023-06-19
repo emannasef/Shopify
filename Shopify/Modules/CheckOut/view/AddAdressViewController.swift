@@ -1,9 +1,3 @@
-//
-//  ViewController.swift
-//  Shopify
-//
-//  Created by Mac on 18/06/2023.
-//
 
 import UIKit
 
@@ -23,6 +17,8 @@ class AddAdressViewController: UIViewController {
     @IBOutlet weak var zipCode: UITextField!
     @IBOutlet weak var country: UITextField!
     @IBOutlet weak var addAdressBtn: UIButton!
+    @IBOutlet weak var countryMenu: UIButton!
+    @IBOutlet weak var phoneNumView: UIView!
     var adressToBeUpdated : PostedAdress?
     var staus : String!
     var choosedCountry : String!
@@ -36,11 +32,24 @@ class AddAdressViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        setViewsCorners()
         network = Network()
         viewModel = AdressViewModel(network: network)
         setFieldWithData()
-        
+       
     }
+    
+    func setViewsCorners(){
+        nameView.layer.cornerRadius = 20.0
+        adressView.layer.cornerRadius = 20.0
+        cityView.layer.cornerRadius = 20.0
+        regionView.layer.cornerRadius = 20.0
+        countryView.layer.cornerRadius = 20.0
+        zipCodeView.layer.cornerRadius = 20.0
+        phoneNumView.layer.cornerRadius = 20.0
+    }
+    
+    
     func setAdressObj() -> (UploadAdress,UpdatedAdressRequest){
         
         let customerName = customerName.text
@@ -55,9 +64,15 @@ class AddAdressViewController: UIViewController {
     }
 
     @IBAction func chooseCountryBtn(_ sender: Any) {
+
+            let menu = UIMenu(title: "Countries", options: .displayInline, children: setCountries())
+            
+            countryMenu.menu = menu
+            countryMenu.showsMenuAsPrimaryAction = true
+        }
         
         
-    }
+    
     func setFieldWithData(){
         
         if staus == "edit" {
@@ -73,6 +88,20 @@ class AddAdressViewController: UIViewController {
        
     }
     
+    
+    func setCountries() -> [UIAction]{
+         
+        var list : [UIAction]! = []
+        for con in countries{
+           
+            let country = UIAction(title: con) { (action) in
+                self.country.text = con
+              
+             }
+            list.append(country)
+        }
+        return list
+    }
 
     @IBAction func saveAdress(_ sender: Any) {
         
@@ -87,7 +116,7 @@ class AddAdressViewController: UIViewController {
            /* if adressToBeUpdated != setAdressObj().1.address{
                 viewModel.updateSdress(adress: setAdressObj().1,customerId: 7046569754933)
                 print("updated...........")
-            }
+            /Users/mac/Desktop/MergedShopify 3/Shopify/ToastMessage            }
             else {
                 createToastMessage(message: "There is no updates",view: self.view)
             }*/
@@ -97,4 +126,5 @@ class AddAdressViewController: UIViewController {
         
     }
 }
+
 
