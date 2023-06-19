@@ -53,7 +53,7 @@ enum BrandEndPoint{
     case productPrice(tag:Int)
     case brandsProducts(tag:String)
     case allProducts
-    case orders
+    case orders(tag:Int)
     
     var path:String{
         switch self {
@@ -70,8 +70,10 @@ enum BrandEndPoint{
             return "products.json?vendor=\(tag)"
         case .allProducts:
             return "/products.json"
-        case .orders:
-            <#code#>
+        case .orders(tag: let tag):
+            return "customers/\(tag)/orders.json"
+            
+            //6948853350692
         }
     }
 }

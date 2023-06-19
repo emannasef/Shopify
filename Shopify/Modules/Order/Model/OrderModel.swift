@@ -24,7 +24,7 @@ struct Order: Codable {
     let clientDetails: ClientDetails?
     let confirmed: Bool?
     let contactEmail: String?
-    let createdAt: Date?
+    let createdAt: String?
     let currency: String?
     let currentSubtotalPrice: String?
     let currentSubtotalPriceSet: OrderSet?
@@ -48,7 +48,7 @@ struct Order: Codable {
     let paymentGatewayNames: [String]?
     let phone: String?
     let presentmentCurrency: String?
-    let processedAt: Date?
+    let processedAt: String?
     let processingMethod, reference: String?
     let referringSite: String?
     let sourceIdentifier, sourceName: String?
@@ -69,7 +69,7 @@ struct Order: Codable {
     let totalTaxSet: OrderSet?
     let totalTipReceived: String?
     let totalWeight: Int?
-    let updatedAt: Date?
+    let updatedAt: String?
     let billingAddress: Address?
     let customer: OrderCustomer?
     let discountApplications: [DiscountApplication]?
@@ -413,7 +413,7 @@ struct PaymentDetails: Codable {
 struct Refund: Codable {
     let id: Int?
     let adminGraphqlAPIID: String?
-    let createdAt: Date?
+    let createdAt: String?
     let note: String?
     let orderID: Int?
     let processedAt: String?

@@ -69,6 +69,8 @@
 		047F471E2A3A1D0A0039C9BE /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 047F471D2A3A1D0A0039C9BE /* FacebookLogin */; };
 		047F47202A3A1D0A0039C9BE /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 047F471F2A3A1D0A0039C9BE /* FacebookShare */; };
 		04C228DC2A3B4F2300AC1F1B /* Toast in Frameworks */ = {isa = PBXBuildFile; productRef = 04C228DB2A3B4F2300AC1F1B /* Toast */; };
+		04D1EF362A40568600B3D7E9 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04D1EF342A40568600B3D7E9 /* OrderCell.swift */; };
+		04D1EF372A40568600B3D7E9 /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04D1EF352A40568600B3D7E9 /* OrderCell.xib */; };
 		04DE934F2A371C5B0084F21B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE934E2A371C5B0084F21B /* Kingfisher */; };
 		04DE93552A371D150084F21B /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE93542A371D150084F21B /* Cosmos */; };
 		04DE93582A371DC30084F21B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE93572A371DC30084F21B /* Alamofire */; };
@@ -179,6 +181,8 @@
 		047A9B7D2A3C8C8100AE1543 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		047F418C2A3CBA6B00185642 /* WishList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WishList.storyboard; sourceTree = "<group>"; };
 		047F47212A3A24BF0039C9BE /* Shopify.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Shopify.entitlements; sourceTree = "<group>"; };
+		04D1EF342A40568600B3D7E9 /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
+		04D1EF352A40568600B3D7E9 /* OrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderCell.xib; sourceTree = "<group>"; };
 		04DE935D2A37234A0084F21B /* AuthNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthNetwork.swift; sourceTree = "<group>"; };
 		04DE935E2A37234A0084F21B /* AuthNetworkProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthNetworkProtocol.swift; sourceTree = "<group>"; };
 		04DE93612A37234A0084F21B /* RegisterViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegisterViewModel.swift; sourceTree = "<group>"; };
@@ -344,6 +348,7 @@
 		0431CA2D2A40308E00CD1097 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				04D1EF332A40565200B3D7E9 /* Cells */,
 				0431CA332A40385600CD1097 /* OrderViewController.swift */,
 			);
 			path = View;
@@ -712,6 +717,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		04D1EF332A40565200B3D7E9 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				04D1EF342A40568600B3D7E9 /* OrderCell.swift */,
+				04D1EF352A40568600B3D7E9 /* OrderCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		04DE935C2A37234A0084F21B /* Networking */ = {
 			isa = PBXGroup;
 			children = (
@@ -955,6 +969,7 @@
 				043771332A371411006C2233 /* Main.storyboard in Resources */,
 				04DE93822A37260D0084F21B /* ReviewsCell.xib in Resources */,
 				047F418D2A3CBA6B00185642 /* WishList.storyboard in Resources */,
+				04D1EF372A40568600B3D7E9 /* OrderCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -983,6 +998,7 @@
 				0424EF282A3C4D4F00514892 /* TaxLines.swift in Sources */,
 				04DE93762A3725500084F21B /* ProductInfoViewModel.swift in Sources */,
 				046577402A3F4BA400669B3D /* CategoriesModel.swift in Sources */,
+				04D1EF362A40568600B3D7E9 /* OrderCell.swift in Sources */,
 				044259832A3CD05B00CD3811 /* WishListVC.swift in Sources */,
 				0424EF382A3C4E8900514892 /* DiscountResponse.swift in Sources */,
 				047A9B762A3C8B8300AE1543 /* HomeViewModel.swift in Sources */,
