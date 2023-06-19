@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="I0J-uV-rnQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="I0J-uV-rnQ">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -15,7 +14,7 @@
         <!--Home-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" customClass="HomeViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="HomeViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -115,6 +114,8 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="HomeIcon" selectedImage="HomeActivatedIcon" springLoaded="YES" id="y7W-Ng-RwJ"/>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="homeCollection" destination="egG-yA-2iJ" id="qVE-Je-ink"/>
                     </connections>
@@ -410,7 +411,7 @@
         <!--Navigation Controller-->
         <scene sceneID="CHt-6a-f7R">
             <objects>
-                <navigationController id="I0J-uV-rnQ" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="HomeStoryboardId" useStoryboardIdentifierAsRestorationIdentifier="YES" id="I0J-uV-rnQ" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="kHg-rT-miw">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -426,19 +427,9 @@
         <!--Shopify-->
         <scene sceneID="nak-rm-wtx">
             <objects>
-                <tabBarController storyboardIdentifier="mainVC" automaticallyAdjustsScrollViewInsets="NO" id="L2H-mB-Wvy" sceneMemberID="viewController">
+                <tabBarController automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="L2H-mB-Wvy" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Shopify" id="9tZ-wv-DKN">
-                        <barButtonItem key="leftBarButtonItem" image="magnifyingglass" catalog="system" id="KNY-q5-YtE"/>
-                        <rightBarButtonItems>
-                            <barButtonItem image="heart.fill" catalog="system" id="PvM-6Y-3hd"/>
-                            <barButtonItem image="cart.fill" catalog="system" id="Gm0-fq-fDf">
-                                <connections>
-                                    <segue destination="9sl-wV-dmg" kind="push" id="glp-2M-G8o"/>
-                                </connections>
-                            </barButtonItem>
-                        </rightBarButtonItems>
-                    </navigationItem>
+                    <navigationItem key="navigationItem" title="Shopify" id="9tZ-wv-DKN"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="e4W-tY-ao1">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -463,13 +454,10 @@
         <image name="HomeIcon" width="30" height="26"/>
         <image name="ad1" width="240" height="140"/>
         <image name="adidasLogo" width="245" height="200"/>
-        <image name="cart.fill" catalog="system" width="128" height="102"/>
         <image name="dress" width="275" height="413"/>
         <image name="dress3" width="236" height="353"/>
         <image name="filter" width="18" height="12"/>
         <image name="heart" catalog="system" width="128" height="107"/>
-        <image name="heart.fill" catalog="system" width="128" height="107"/>
-        <image name="magnifyingglass" catalog="system" width="128" height="117"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="square.grid.3x3" catalog="system" width="128" height="113"/>

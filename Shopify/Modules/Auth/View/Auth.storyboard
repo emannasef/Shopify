@@ -11,7 +11,7 @@
         <!--WelcomeVC-->
         <scene sceneID="dxu-ZK-dtA">
             <objects>
-                <viewController storyboardIdentifier="WelcomeVC" id="Df4-Kz-Zca" customClass="WelcomeVC" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WelcomeVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Df4-Kz-Zca" customClass="WelcomeVC" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VvB-Fh-mOl">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -45,7 +45,6 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="guest:" destination="Df4-Kz-Zca" eventType="touchUpInside" id="b2q-3a-AHN"/>
-                                    <segue destination="Vot-Ap-p9B" kind="presentation" modalPresentationStyle="fullScreen" id="eId-wK-WIN"/>
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BxN-JL-35e">
@@ -122,6 +121,16 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sfV-Uc-7dV" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="249.61832061068702" y="-2.1126760563380285"/>
+        </scene>
+        <!--HomeStoryboardId-->
+        <scene sceneID="YG2-lr-3zB">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="Auth" referencedIdentifier="HomeStoryboardId" id="zGu-qR-xlv" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="3c7-eh-vfy"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="VAN-TO-Wto" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1489" y="477"/>
         </scene>
         <!--RegisterVC-->
         <scene sceneID="s0d-6b-0kx">
@@ -291,7 +300,7 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
-                                                    <action selector="signUpBtn:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="UW2-xa-TQI"/>
+                                                    <segue destination="zGu-qR-xlv" kind="push" identifier="registerSegue" id="YN4-pp-TLt"/>
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iVE-Oe-CYr">
@@ -399,16 +408,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="965.64885496183206" y="-2.1126760563380285"/>
-        </scene>
-        <!--ProductInfo-->
-        <scene sceneID="w2C-UO-Mpu">
-            <objects>
-                <viewControllerPlaceholder storyboardName="ProductInfo" id="Vot-Ap-p9B" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="BQa-qJ-fod"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="BUh-zN-D89" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-281" y="485"/>
         </scene>
         <!--LoginVC-->
         <scene sceneID="JHd-YM-8Yh">
