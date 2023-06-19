@@ -14,5 +14,5 @@ struct FavProduct{
     var rate: Double?
     var price: String?
     var image: String?
-
+    var userId:String?
 }

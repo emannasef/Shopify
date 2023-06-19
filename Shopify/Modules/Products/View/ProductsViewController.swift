@@ -17,6 +17,8 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     var viewModel = ProductsViewModel.getInstatnce(network: NetworkManager())
     var allProductsViewModel = AllProducts(network: NetworkManager())
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
+    let userId  =  UserDefaults.standard.string(forKey: "customerId")
+
     
     @IBOutlet weak var filterBtn: UIButton!
     var searchedArr:[Product] = []
@@ -113,7 +115,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         cell.layer.borderWidth = 3
         cell.layer.borderColor =  UIColor.systemGray6.cgColor
 
-        let favPro = FavProduct(id: product.id,title: product.title,rate: 3.5, price: "500", image: product.image?.src)
+        let favPro = FavProduct(id: product.id,title: product.title,rate: 3.5, price: product.variants?[0].price, image: product.image?.src,userId: "\(String(describing: userId))")
 
        if wishListViewModel.isProductExist(product: favPro) == true{
            cell.isFavBtn.setImage(UIImage(named: "filled.png" ), for: .normal) }
@@ -163,21 +165,14 @@ extension ProductsViewController : ClickDelegate{
     
     func clicked(_ row: Int) {
         let pro = searchedArr[row]
-        let favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price: "500", image: pro.image?.src)
-  
+        let favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price:pro.variants?[0].price, image: pro.image?.src,userId: "\(String(describing: userId))" )
+        
         if  wishListViewModel.isProductExist(product: favPro) == false {
-            let alert = UIAlertController(title: "\(String(describing: pro.title))", message: "Do You want to add this in your Wishlist?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { [weak self] (action) in
-                self?.wishListViewModel.insertFavProduct(product: favPro)
-                print("Eman",self?.wishListViewModel.isProductExist(product: favPro))
-                self?.productsCollection.reloadData()
-
-            }))
-            alert.addAction(UIAlertAction(title: "cancel", style: .destructive, handler: nil))
-            self.present(alert, animated: true)
+            wishListViewModel.insertFavProduct(product: favPro)
+            productsCollection.reloadData()
             
         }else{
-            let alert = UIAlertController(title: "\(String(describing: pro.title))", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Delete", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { [weak self] (action) in
                 
                 self?.wishListViewModel.deleteFavProduct(product: favPro)
@@ -186,26 +181,6 @@ extension ProductsViewController : ClickDelegate{
             self.present(alert, animated: true)
         }
     }
-    
-//    func addToFav(index: Int){
-//       var pro = searchedArr[index]
-//        var favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price: "500", image: pro.image?.src)
-//
-//
-//        if  wishListViewModel.isProductExist(product: favPro) == false {
-//
-//            wishListViewModel.insertFavProduct(product: favPro)
-//          //  addToFavImg.image = UIImage(named: "filled.png")
-//
-//            print("inserted")
-//
-//        }else{
-//            wishListViewModel.deleteFavProduct(product: favPro)
-//           // addToFavImg.image = UIImage(named: "outlined.png")
-//            print("Nottttt")
-//        }
-//
-//    }
     
     
 }

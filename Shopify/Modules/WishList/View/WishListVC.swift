@@ -14,6 +14,7 @@ class WishListVC: UIViewController {
     
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
     var wishListArr:[FavProduct] = []
+    let userId  =  UserDefaults.standard.string(forKey: "customerId")
     
     
     override func viewDidLoad() {
@@ -85,9 +86,9 @@ extension WishListVC : UICollectionViewDelegate,UICollectionViewDataSource,Click
     
     func clicked(_ row: Int) {
         let pro = wishListArr[row]
-        let favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price: "500", image: pro.image)
+        let favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price: "500", image: pro.image,userId: "\(String(describing: userId))")
         
-        let alert = UIAlertController(title: "\(String(describing: pro.title))", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
             
             self.wishListViewModel.deleteFavProduct(product: favPro)

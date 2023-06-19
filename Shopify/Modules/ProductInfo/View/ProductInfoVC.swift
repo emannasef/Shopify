@@ -32,6 +32,8 @@ class ProductInfoVC: UIViewController{
     
     let revierImages = ["person1","person2","person3"]
     let revierText = ["I Love This","Meduim quality Product","It's pretty much and I liked it"]
+    let userId  =  UserDefaults.standard.string(forKey: "customerId")
+
     
     
     override func viewDidAppear(_ animated: Bool) {
@@ -65,7 +67,7 @@ class ProductInfoVC: UIViewController{
                 self?.slider.numberOfPages = self?.myProduct?.images?.count ?? 0
                 self?.proImages = self?.myProduct?.images ?? []
                 self?.imsgesCollectionView.reloadData()
-                self?.favPro = FavProduct(id: self?.myProduct.id,title: self?.myProduct.title,rate: 3.5, price: "500", image: self?.myProduct.image?.src)
+                self?.favPro = FavProduct(id: self?.myProduct.id,title: self?.myProduct.title,rate: 3.5, price: self?.myProduct.variants?[0].price, image: self?.myProduct.image?.src,userId: "\(String(describing: self?.userId))")
                 self?.check()
                 
             }

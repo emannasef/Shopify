@@ -39,7 +39,6 @@ class RegisterViewModel{
     }
     
     func setCustomerDefaults(customer:ResponseCustomer){
-        
         UserDefaults.standard.set(customer.customer.id, forKey: "customerId")
         UserDefaults.standard.set(customer.customer.firstName, forKey: "customerName")
         UserDefaults.standard.set(customer.customer.email, forKey: "customerEmail")
