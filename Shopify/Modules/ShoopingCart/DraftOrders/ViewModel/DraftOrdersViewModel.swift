@@ -1,4 +1,5 @@
 import Foundation
+import Alamofire
 
 class DraftOrderViewModel {
     
@@ -12,19 +13,20 @@ class DraftOrderViewModel {
         self.network = network
     }
     
-    func getDraftOrders(customerEmail : String){
+    func getDraftOrders(draftOrderId:Int){
         
         network.get(endPoint: .getDraftOrder, completionHandeler: { (response: DraftOrderResponse?, error) in
             guard response != nil else {
                 print ("No response")
                 return
             }
-            self.lineItems = self.filterDraftOrders(orders: response?.draftOrders ?? [], customerEmail:customerEmail)
-            print("email...\(String(describing: self.draftOrders?[0].lineItems?.count))")
+            self.lineItems = self.filterDraftOrders(orders: response?.draftOrders ?? [],draftOrderId: draftOrderId )
+            MyCartItems.cartItemsCodableObject = self.lineItems
             self.bindDraftOrdersToViewControllers!()
+            print("count...\(String(describing: self.draftOrders?[0].lineItems?.count))")
         })
-            
-        }
+        
+    }
     
     func retriveAnOrder(index:Int) -> LineItems{
         
@@ -36,20 +38,43 @@ class DraftOrderViewModel {
         return lineItems?.count ?? 0
     }
     
-    func filterDraftOrders(orders:[DraftOrders], customerEmail : String) -> [LineItems]{
+    func filterDraftOrders(orders:[DraftOrders], draftOrderId:Int) -> [LineItems]{
         
-        let result = orders.filter({$0.id == 1117412819253 && $0.note == "cart"
+        let result = orders.filter({$0.id == draftOrderId && $0.note == "cart"
         }).first?.lineItems ?? []
         
         return result
-      /*  var result : DraftOrders?
-        let i = 0
-        while orders[i].note == "cart" && orders[i].customer?.email == customerEmail{
-            result = orders[i]
+        
+    }
+    
+    func deleteItem(index:Int,draftOrderId:Int){
+        
+        var listOfCartItems = MyCartItems.cartItemsCodableObject
+        listOfCartItems?.remove(at: index)
+        let params:Parameters = encodeToJson(objectClass: createDraftOrder(draftOrderId: draftOrderId, lineItems: listOfCartItems!))!
+        
+        //if listOfCartItems?.count ?? 0 > 1{
+            network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrderId), params: params) {(response:MyDraftOrder?, error )in
+                guard let result = response?.draft_order else{
+                    print(error ?? "there is an errror while deleting an item from your cart")
+                    return}
+                MyCartItems.cartItemsCodableObject = result.lineItems
+                
+            }
+        /*}
+        else{
+            network.delete(endPoint: .deleteDraftOrder(draftOrderId: draftOrderId), params: params)
         }*/
-       // return result ?? DraftOrders()
-    }
+        
     }
     
+    func convertCurrency(){
+        
+    }
     
+}
+
+
+
+
 

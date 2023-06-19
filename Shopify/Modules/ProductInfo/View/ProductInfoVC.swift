@@ -21,8 +21,7 @@ class ProductInfoVC: UIViewController{
     @IBOutlet weak var slider: UIPageControl!
     @IBOutlet weak var imsgesCollectionView: UICollectionView!
     @IBOutlet weak var productName: UILabel!
-    
-    var productId = 0
+    var productId = 8360376402229
     var viewModel:ProductInfoViewModel = ProductInfoViewModel(network: Network())
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
     var myProduct:MyProduct!
@@ -91,7 +90,9 @@ class ProductInfoVC: UIViewController{
     
     @IBAction func addToCart(_ sender: Any) {
         
-        print("Add To Cart Clicked")
+        viewModel.addToCart(draftOrdrId:1117412819253/*getDraftOrdertId()*/, product: (viewModel.product?.product) ?? Product())
+        createToastMessage(message: "new iten added to your cart",view: self.view)
+        
     }
     
     @IBAction func moreBtn(_ sender: Any) {

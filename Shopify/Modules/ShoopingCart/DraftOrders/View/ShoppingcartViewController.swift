@@ -6,16 +6,18 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     
     @IBOutlet weak var myTable:UITableView!
     @IBOutlet weak var totalAmount: UILabel!
-    var items : [String]!
     var network : NetworkProtocol!
     var viewModel : DraftOrderViewModel!
+    var settingViewModel :SettingsViewModel!
+    var totalPrice:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+     
         network = Network()
         viewModel = DraftOrderViewModel(network: network)
-        items = ["","",""]
-        
+        settingViewModel = SettingsViewModel(network: network)
+       
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -28,21 +30,12 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             
         }
-        viewModel.getDraftOrders(customerEmail:"emann@yahoo.com")
+        viewModel.getDraftOrders(draftOrderId:1117528654133)//getDraftOrdertId())
     }
     
-    func filterDraftOrders(orders:[DraftOrders], customerEmail : String) -> DraftOrders{
-        
-        var result : DraftOrders?
-        let i = 0
-        while orders[i].note == "cart" && orders[i].customer?.email == customerEmail{
-            result = orders[i]
-        }
-        return result ?? DraftOrders()
-    }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return viewModel.getDrftOrdersCount()
+        return  viewModel.getDrftOrdersCount()
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
@@ -58,25 +51,49 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         cell.layer.cornerRadius = 10.0
         cell.deleteitem = { [weak self] in
             guard let self = self else { return }
-            
-           //items.remove(at: indexPath.row)
-           // myTable.reloadData()
+            self.deleteItem(cell: cell, index: indexPath.row)
         }
         
         return cell
     }
     
+    func deleteItem(cell:orderdItemTableCell,index:Int){
+        viewModel.deleteItem(index: index, draftOrderId: 1117528916277)//getDraftOrdertId())
+        self.totalPrice -= Int(cell.itemPrice.text ?? "0") ?? 0
+        cell.itemPrice.text = String(self.totalPrice)
+       // self.myTable.deleteRows(at: [indexPath], with: .automatic)
+       // viewModel.draftOrders?.remove(at: index)
+        //myTable.reloadData()
+        viewModel.getDraftOrders(draftOrderId: 1117528916277)
+        
+        createToastMessage(message: "item deleted from your card", view: self.view)
+    }
+    
+    
     func setCellData(cell:orderdItemTableCell, item:LineItems, index:Int){
         
         cell.itemsNum.text = String(item.quantity ?? 0)
-        cell.itemPrice.text = item.price
+        setPrice(cell: cell, price: item.price ?? "",quantity: item.quantity ?? 0)
         cell.itemTitle.text = item.vendor
-        // cell.itemsize = draftOrder.lineItems.
         cell.itemColor.text = item.variantTitle
-        print("color is \(item.vendor)")
-        var imgUrl = URL(string: item.properties?[0].value ?? "")
+        print("color is \(String(describing: item.vendor))")
+        let imgUrl = URL(string: item.properties?[0].value ?? "")
         cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
         
+    }
+    
+    func setPrice(cell:orderdItemTableCell,price:String,quantity:Int){
+        
+        settingViewModel.bindResultToviewController = { [weak self] in
+            DispatchQueue.main.async{
+                let price = self?.settingViewModel.result
+                let convertedPrice = quantity * Int(price ??  0)
+                self?.totalPrice += Int(convertedPrice)
+                cell.itemPrice.text = String(convertedPrice)
+                self?.totalAmount.text = String(self?.totalPrice ?? 0)
+            }
+        }
+        settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: price)
     }
     
     

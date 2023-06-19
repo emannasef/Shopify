@@ -1,16 +1,16 @@
+
+
 import UIKit
 import PassKit
 
 class CheckOutViewController: UIViewController {
-
     
-    //@IBOutlet weak var userName:UILabel!
-    
-   // @IBOutlet weak var applePayBtn: UIButton!
-  //  @IBOutlet weak var cashbtn: UIButton!
-  //  @IBOutlet weak var region: UILabel!
-    //@IBOutlet weak var city: UILabel!
- //  @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var userName: UILabel!
+    @IBOutlet weak var city: UILabel!
+    @IBOutlet weak var region: UILabel!
+    @IBOutlet weak var cashbtn: UIButton!
+    @IBOutlet weak var applePayBtn: UIButton!
+  
     var adressViewModel : AdressViewModel!
     var network : NetworkProtocol!
     
@@ -19,7 +19,7 @@ class CheckOutViewController: UIViewController {
         network = Network()
         adressViewModel = AdressViewModel(network: network)
        
-      //  self.applePayBtn.addTarget(self, action: #selector(tapForPay), for: .touchUpInside)
+        self.applePayBtn.addTarget(self, action: #selector(tapForPay), for: .touchUpInside)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -32,26 +32,27 @@ class CheckOutViewController: UIViewController {
             }
             
         }
-       // adressViewModel.getCustomerAdresses(customerId: 7046569754933)
+        adressViewModel.getCustomerAdresses(customerId: 7046569754933)
     }
     
     func setUserAddress(){
         
-        /*var defaultAddress = adressViewModel.getDefaultAdress()
+        var defaultAddress = adressViewModel.getDefaultAdress()
         userName.text = defaultAddress.name
         region.text = defaultAddress.address1
-        city.text = defaultAddress.city*/
+        city.text = defaultAddress.city
     }
     
-   /* @IBAction func payByApplePay(_ sender: Any) {
+    @IBAction func payByApplePay(_ sender: Any) {
         self.applePayBtn.addTarget(self, action: #selector(tapForPay), for: .touchUpOutside)
-    }*/
+    }
+ 
     
-   /* @IBAction func paycash(_ sender: Any) {
-    }*/
-    
+    @IBAction func paycash(_ sender: Any) {
+    }
   
-    /*   var paymentRequest : PKPaymentRequest = {
+  
+      var paymentRequest : PKPaymentRequest = {
             let request = PKPaymentRequest()
             request.merchantIdentifier = "merchant.mad43team2.com"
             request.supportedNetworks = [.idCredit,.visa]
@@ -61,10 +62,10 @@ class CheckOutViewController: UIViewController {
             request.currencyCode = "EGP"
             request.paymentSummaryItems = [PKPaymentSummaryItem(label: "Adidas shoes", amount: 2)]
             return request
-        }()*/
+        }()
     
    
- /*   @objc func tapForPay(){
+   @objc func tapForPay(){
         
         let controller = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
         if controller != nil {
@@ -74,7 +75,7 @@ class CheckOutViewController: UIViewController {
                 print("process is completed")
             }
         }
-    }*/
+    }
 }
 
 extension CheckOutViewController : PKPaymentAuthorizationViewControllerDelegate{

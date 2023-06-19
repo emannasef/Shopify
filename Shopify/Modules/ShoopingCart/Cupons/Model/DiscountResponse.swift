@@ -8,7 +8,7 @@
 import Foundation
 
 
-struct DiscountsResponse : Decodable{
+struct DiscountsResponse : Codable{
    
     var discount_codes : [Discount]!
   
@@ -16,7 +16,7 @@ struct DiscountsResponse : Decodable{
     
 }
 
-struct Discount : Decodable{
+struct Discount : Codable{
     
     var id : Int = 0
     var price_rule_id : Int = 0
@@ -29,3 +29,4 @@ struct Discount : Decodable{
         
     }
 }
+

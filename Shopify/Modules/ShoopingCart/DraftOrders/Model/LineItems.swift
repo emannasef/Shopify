@@ -53,12 +53,22 @@ struct LineItems: Codable {
   
   }
 
+    init(/*varientId:Int,*/title:String,varientTitle:String ,price:String,properties:[Properties]){
+       // self.variantId = varientId
+        self.title = title
+        self.variantTitle = varientTitle
+        self.price = price
+        self.properties = properties
+        self.quantity = 1
+    }
 
   init() {
 
   }
 
 }
+
+
 struct Properties: Codable {
 
   var name  : String? = nil
@@ -73,13 +83,11 @@ struct Properties: Codable {
   
   }
 
-  init(from decoder: Decoder) throws {
-    let values = try decoder.container(keyedBy: CodingKeys.self)
-
-    name  = try values.decodeIfPresent(String.self , forKey: .name  )
-    value = try values.decodeIfPresent(String.self , forKey: .value )
- 
-  }
+    init (name:String,value:String){
+        
+        self.name = name
+        self.value = value
+    }
 
   init() {
 
