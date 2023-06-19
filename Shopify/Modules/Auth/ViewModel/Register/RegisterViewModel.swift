@@ -11,6 +11,7 @@ import Foundation
 
 class RegisterViewModel{
     
+    
     var bindingSignUp:(()->())?
     
     var statusCode : Int? {
@@ -31,21 +32,18 @@ class RegisterViewModel{
     func registerCustomer(customer:Customer){
         network.customerRegister(customer: customer) { check, cust in
             self.statusCode = check
-            // print("######",cust)
-            UserDefaults.standard.set(cust?.customer.id, forKey: "customerId")
-            UserDefaults.standard.set(cust?.customer.firstName, forKey: "customerName")
-            UserDefaults.standard.set(cust?.customer.email, forKey: "customerEmail")
-            UserDefaults.standard.set(true, forKey: "isLogin")
-            let userDefultId =  UserDefaults.standard.integer(forKey:"customerId")
-                                    print("Id is", userDefultId ?? 0)
+            self.setCustomerDefaults(customer: cust!)
             
-            print("Name",UserDefaults.standard.string(forKey: "customerName"))
         }
         
+    }
+    
+    func setCustomerDefaults(customer:ResponseCustomer){
         
-        
-//        network.post(endPoint: .allCustomer, params: <#T##[String : Any]#>, completionHandeler: <#T##(((Decodable & Encodable)?), Error?) -> Void#>)
-        
+        UserDefaults.standard.set(customer.customer.id, forKey: "customerId")
+        UserDefaults.standard.set(customer.customer.firstName, forKey: "customerName")
+        UserDefaults.standard.set(customer.customer.email, forKey: "customerEmail")
+        UserDefaults.standard.set(true, forKey: "isLogin")
     }
     
   

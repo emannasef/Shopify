@@ -24,7 +24,7 @@ class RegisterVC: UIViewController {
         super.viewDidLoad()
     }
     
-   /* @IBAction func signUpBtn(_ sender: Any) {
+    @IBAction func signUpBtn(_ sender: Any) {
         
         customer.firstName = name.text
         customer.email = email.text
@@ -49,20 +49,9 @@ class RegisterVC: UIViewController {
                 DispatchQueue.main.async {
                     
                     if self?.registerViewModel.statusCode  == 201{
-                        
-                        //self?.showToast(message: "Account Created", seconds: 2.0)
-                        
-                        
                         print("Suceeeeeeeesssss")
-//                        let homeVC = UIStoryboard(name: "HomeStoryboard", bundle: nil).instantiateInitialViewController()
-//
-//                        self?.navigationController?.pushViewController(homeVC!, animated: true)
-                        
                         let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
                         let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
-                        
-                    //    mainTabBarController.selectedIndex = 4
-                        
                         (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
                         
                     } else if self?.registerViewModel.statusCode == 422{
@@ -76,54 +65,6 @@ class RegisterVC: UIViewController {
                 
             }
             
-        }
-        
-    }*/
-    
-    override func performSegue(withIdentifier identifier: String, sender: Any?) {
-        switch identifier{
-        case "registerSegue" :
-            customer.firstName = name.text
-            customer.email = email.text
-            customer.tags = password.text
-            confirmPasswordCheck = confirmPassword.text
-            
-            
-            if password.text!.isPasswordContainsLettersAndNumbers == false {
-                self.showToast(message: "Password must Minimum 8 characters at least 1 Alphabet and 1 Number", seconds: 2.0)
-            }else{
-                
-                if customer.tags == confirmPasswordCheck{
-                    
-                    registerViewModel.registerCustomer(customer: customer)
-                }
-                else{
-                    showToast(message: "not matches Password", seconds: 2.0)
-                }
-                
-                
-                registerViewModel.bindingSignUp = { [weak self] in
-                    DispatchQueue.main.async {
-                        
-                        if self?.registerViewModel.statusCode  == 201{
-                            
-                        } else if self?.registerViewModel.statusCode == 422{
-                            self?.showToast(message: "Already Exist", seconds: 2.0)
-                        }
-                        else{
-                            self?.showToast(message: "Check your Data", seconds: 2.0)
-                        }
-                        
-                    }
-                    
-                }
-                
-            }
-            
-        
-      
-        default:
-            return
         }
         
     }
@@ -167,18 +108,8 @@ class RegisterVC: UIViewController {
                 
                 self.registerViewModel.registerCustomer(customer: self.customer)
                 
-                //  self.showToast(message: "Account Created Sucessfully", seconds: 2.0)
-                UserDefaults.standard.set(true, forKey: "isLogin")
-                
-//                let homeVC = UIStoryboard(name: "HomeStoryboard", bundle: nil).instantiateViewController(withIdentifier: "HomeViewController") as! HomeViewController
-//                self.navigationController?.pushViewController(homeVC, animated: true)
-//
-//
                 let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
                 let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
-                
-            //    mainTabBarController.selectedIndex = 4
-                
                 (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
             }
         
@@ -194,7 +125,6 @@ class RegisterVC: UIViewController {
                 print("The token is \(result?.token?.tokenString ?? "")")
                 if result?.token?.tokenString != nil {
                     print("Logged in")
-                    print(result?.token)
                     self.getUserProfile(token: result?.token, userId: result?.token?.userID)
                     
                 } else {

@@ -34,7 +34,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func checkIfLogin() {
-            // rootnav
         let isLogined =  UserDefaults.standard.bool(forKey: "isLogin")
             print("LogedIn is In SeneDelegate", isLogined )
 

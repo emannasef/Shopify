@@ -26,13 +26,9 @@ class LoginVC: UIViewController {
             DispatchQueue.main.async {
                 
                 if self?.loginViewModel.vaildateCustomer(customerEmail: self?.emailTF.text ?? "", customerPasssword: self?.passwordTF.text ?? "") == 1 {
-                    
-//                    let hhVC = self?.storyboard?.instantiateViewController(withIdentifier: "Hh") as! Hh
-//
-//                    hhVC.modalPresentationStyle = .fullScreen
-//                    self?.present(hhVC , animated: true, completion: nil)
-                    self?.showToast(message: "NavigateToHome", seconds: 2.0)
-                    print("NavigateToHome")
+                    let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+                    let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
+                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
                     
                 }
                 if self?.loginViewModel.vaildateCustomer(customerEmail: self?.emailTF.text ?? "", customerPasssword: self?.passwordTF.text ?? "") == 2{
