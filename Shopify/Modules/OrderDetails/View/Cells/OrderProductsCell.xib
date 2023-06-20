@@ -5,6 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -17,6 +18,10 @@
                 <rect key="frame" x="0.0" y="0.0" width="167" height="232"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHX-wd-16d">
+                        <rect key="frame" x="0.0" y="0.0" width="167" height="232"/>
+                        <color key="backgroundColor" systemColor="systemGray6Color"/>
+                    </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dress3" translatesAutoresizingMaskIntoConstraints="NO" id="zTd-nA-a66">
                         <rect key="frame" x="0.0" y="0.0" width="167" height="162"/>
                         <constraints>
@@ -58,6 +63,7 @@
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="iHX-wd-16d" secondAttribute="trailing" id="47E-st-41a"/>
                 <constraint firstItem="9JD-4r-4Lb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="4MJ-aZ-gVH"/>
                 <constraint firstItem="DM3-SX-jdh" firstAttribute="top" secondItem="zTd-nA-a66" secondAttribute="bottom" constant="13" id="89W-OL-EYp"/>
                 <constraint firstAttribute="trailing" secondItem="zTd-nA-a66" secondAttribute="trailing" id="Cfv-uM-YWX"/>
@@ -65,8 +71,11 @@
                 <constraint firstItem="zTd-nA-a66" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Exx-DQ-Sey"/>
                 <constraint firstAttribute="trailing" secondItem="9JD-4r-4Lb" secondAttribute="trailing" constant="10" id="L2l-OM-5gf"/>
                 <constraint firstItem="rWP-p7-hxn" firstAttribute="leading" secondItem="DM3-SX-jdh" secondAttribute="leading" id="bKM-lT-5P6"/>
+                <constraint firstItem="iHX-wd-16d" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ikH-1z-n7x"/>
                 <constraint firstItem="zTd-nA-a66" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="nDH-Dw-nIs"/>
                 <constraint firstItem="DM3-SX-jdh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="oil-gk-S7j"/>
+                <constraint firstAttribute="bottom" secondItem="iHX-wd-16d" secondAttribute="bottom" id="u5w-cs-od1"/>
+                <constraint firstItem="iHX-wd-16d" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="uZv-t3-SQC"/>
                 <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="rWP-p7-hxn" secondAttribute="bottom" constant="4" id="xbP-sk-jpg"/>
             </constraints>
             <connections>
@@ -75,7 +84,7 @@
                 <outlet property="productName" destination="rWP-p7-hxn" id="Mww-LS-HXK"/>
                 <outlet property="productPrice" destination="DM3-SX-jdh" id="5Ge-Uv-Q0K"/>
             </connections>
-            <point key="canvasLocation" x="29" y="-11"/>
+            <point key="canvasLocation" x="28.244274809160306" y="-11.267605633802818"/>
         </collectionViewCell>
     </objects>
     <resources>
@@ -84,5 +93,8 @@
         <namedColor name="AccentColor 1">
             <color red="0.25099998712539673" green="0.075000002980232239" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>
