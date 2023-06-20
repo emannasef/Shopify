@@ -228,6 +228,25 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" image="filter" title=""/>
                             </button>
+                            <view contentMode="scaleToFill" id="2rx-n7-yTU">
+                                <rect key="frame" x="0.0" y="86" width="393" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="q0u-4o-LIT">
+                                        <rect key="frame" x="6" y="12" width="381" height="30"/>
+                                        <connections>
+                                            <action selector="SliderChanged:" destination="mZm-FU-iQQ" eventType="valueChanged" id="i80-UU-ea3"/>
+                                        </connections>
+                                    </slider>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray4Color"/>
+                                <constraints>
+                                    <constraint firstItem="q0u-4o-LIT" firstAttribute="top" secondItem="2rx-n7-yTU" secondAttribute="top" constant="12" id="6e3-Lz-zJO"/>
+                                    <constraint firstAttribute="bottom" secondItem="q0u-4o-LIT" secondAttribute="bottom" constant="13" id="7l8-z6-Tjk"/>
+                                    <constraint firstAttribute="trailing" secondItem="q0u-4o-LIT" secondAttribute="trailing" constant="8" id="XzW-zy-z5g"/>
+                                    <constraint firstItem="q0u-4o-LIT" firstAttribute="leading" secondItem="2rx-n7-yTU" secondAttribute="leading" constant="8" id="m88-ro-WQu"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pLL-Y7-qNM"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -247,6 +266,8 @@
                     </view>
                     <connections>
                         <outlet property="filterBtn" destination="Vbc-xE-4Zv" id="MVN-cj-d7z"/>
+                        <outlet property="filterView" destination="2rx-n7-yTU" id="MFA-PX-xE6"/>
+                        <outlet property="priceSlider" destination="q0u-4o-LIT" id="KNI-dw-xRI"/>
                         <outlet property="productsCollection" destination="u4k-KW-UGJ" id="nAv-TR-dTW"/>
                     </connections>
                 </viewController>
@@ -797,6 +818,9 @@
         </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemGray4Color">
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

@@ -12,6 +12,9 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var productsCollection: UICollectionView!
+    @IBOutlet weak var filterView: UIView!
+    @IBOutlet weak var priceSlider: UISlider!
+    
     var collectionId:Int!
     var collectionName:String!
     var viewModel = ProductsViewModel.getInstatnce(network: NetworkManager())
@@ -22,21 +25,29 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     var searchedArr:[Product] = []
     var productsArr:[Product] = []
     var fromScreen:String!
-    
+    var copyArr : [Product] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
         productsCollection.delegate = self
         productsCollection.dataSource = self
+        filterView.isHidden = true
+        priceSlider.value = 500
+        priceSlider.minimumValue = 0
+        priceSlider.maximumValue = 800
         
         let tapmeitems = UIMenu(title: "Filter", options: .displayInline, children: [
             UIAction(title: "A-Z Filter", image: UIImage(named: "atoz"), handler: { _ in
-            self.searchedArr.sorted { $0.title?.lowercased() ?? "" < $1.title?.lowercased() ?? "" }
+                self.searchedArr.sort { $0.title ?? "" > $1.title ?? "" }
                 self.productsCollection.reloadData()
         }),
-            UIAction(title: "Z-A Filter", image: UIImage(named: "ztoa"), handler: { _ in  self.searchedArr.sorted { $0.title?.lowercased() ?? "" > $1.title?.lowercased() ?? "" }
+            UIAction(title: "Z-A Filter", image: UIImage(named: "ztoa"), handler: { _ in  self.searchedArr.sort {$0.title ?? "" < $1.title ?? ""  }
                 self.productsCollection.reloadData()
         }),
+            UIAction(title: "Price Filter", image: UIImage(named: "price"), handler: { _ in
+                print("filter by price")
+                self.filterView.isHidden = false
+        })
         ])
         let menu = UIMenu(title: "", children: [tapmeitems])
     
@@ -54,11 +65,24 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         }
     }
    
+    @IBAction func SliderChanged(_ sender: Any) {
+       
+        print("copy array size \(copyArr.count)")
+        print(searchedArr.count)
+        searchedArr = copyArr.filter {
+            Float($0.variants?[0].price ?? "0")! < priceSlider.value }
+        productsCollection.reloadData()
+        print(priceSlider.value)
+        //filterView.isHidden = true
+    }
+    
+    
     func getData(){
         self.viewModel.bindProductsToViewController = {[weak self] in
             DispatchQueue.main.async {
                 self?.productsArr = self?.viewModel.result ?? []
                 self?.searchedArr = self?.productsArr ?? []
+                self?.copyArr = self?.productsArr ?? []
                 self?.productsCollection.reloadData()
 
             }
