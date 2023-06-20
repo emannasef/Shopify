@@ -30,33 +30,36 @@ class orderdItemTableCell: UITableViewCell {
     }
     
     @IBAction func increaseItemsBtn(_ sender: Any) {
+        
+        self.itemsCount += 1
+        self.itemsNum.text = String(self.itemsCount)
         let reachability = try! Reachability()
         if reachability.connection != .unavailable{
             let reachability = try! Reachability()
             if reachability.connection != .unavailable{
                 if (itemsCount > 1){
-                    self.itemsCount = (Int(self.itemsNum.text ?? "") ?? 0) - 1
-                    //  self.didQuantityDccreased()
+                    self.itemsCount += 1 //(Int(self.itemsNum.text ?? "") ?? 0) - 1
+                      self.didQuantityIncreased()
                 }
                 self.itemsNum.text = String(self.itemsCount)
             }
             else{
-                createToastMessage(message: "Connect to netwoork to update your cart", view: superview!.self)
+                createToastMessage(message: "Connect to network to update your cart", view: superview!.self)
             }
             
         }
         else{
-            createToastMessage(message: "Connect to netwoork to update your cart", view: superview!.self)
+            createToastMessage(message: "Connect to network to update your cart", view: superview!.self)
         }
     }
 
     @IBAction func decreaseItemBtn(_ sender: Any) {
-        
+      
         let reachability = try! Reachability()
         if reachability.connection != .unavailable{
             if (itemsCount > 1){
-                self.itemsCount = (Int(self.itemsNum.text ?? "") ?? 0) - 1
-                //  self.didQuantityDccreased()
+                  self.itemsCount -= 1 //(Int(self.itemsNum.text ?? "") ?? 0) - 1
+                  self.didQuantityDccreased()
             }
             self.itemsNum.text = String(self.itemsCount)
         }

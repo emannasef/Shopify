@@ -19,7 +19,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     
     @IBOutlet weak var loading: LottieAnimationView!
     
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         network = Network()
@@ -37,7 +37,10 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         playLottie()
         viewModel.bindDraftOrdersToViewControllers = { [weak self]   in
             DispatchQueue.main.async {
-               
+                self?.myTable.reloadData()
+                self?.myTable.isHidden = false
+                self?.loading.stop()
+                self?.loading.isHidden = true
                 print("draft order idddddd  \(getDraftOrdertId())")
                 print("items count\(self?.viewModel.lineItems?.count ?? 0)")
                 
@@ -45,9 +48,9 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             
         }
         let reachability = try! Reachability()
-                if reachability.connection != .unavailable{
-                    viewModel.getDraftOrders(draftOrderId:getDraftOrdertId())
-                }
+        if reachability.connection != .unavailable{
+            viewModel.getDraftOrders(draftOrderId:getDraftOrdertId())
+        }
         else{
             self.myTable.reloadData()
             self.myTable.isHidden = false
@@ -55,7 +58,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             self.loading.isHidden = true
             
         }
-       
+        
     }
     
     
@@ -93,18 +96,18 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         cell.decreaseQuantity = {[weak self] in
             guard let self = self else { return }
-            self.changePrice(cell: cell,  index:indexPath.section,item: item)
-            item.quantity = cell.itemsCount
+            item.quantity = Int(cell.itemsNum.text ?? "0")
             item.price = cell.itemPrice.text
-           // self.bacupItemsList[indexPath.section] = item
+            self.changePrice(cell: cell,  index:indexPath.section,item: item)
+            // self.bacupItemsList[indexPath.section] = item
             MyCartItems.cartItemsCodableObject![indexPath.section] = item
             
         }
-        cell.increaseQuantity = {[weak self] in
+       cell.increaseQuantity = {[weak self] in
             guard let self = self else { return }
-            self.changePrice(cell: cell,index:indexPath.section,item: item)
-            item.quantity = cell.itemsCount
+            item.quantity = Int(cell.itemsNum.text ?? "0")
             item.price = cell.itemPrice.text
+            self.changePrice(cell: cell,index:indexPath.section,item: item)
             MyCartItems.cartItemsCodableObject![indexPath.section] = item
         }
         return cell
@@ -113,19 +116,17 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     func deleteItem(cell:orderdItemTableCell,index:Int,indexPath:IndexPath){
         
         let reachability = try! Reachability()
-                if reachability.connection != .unavailable{
-                    setDeletealert(cell: cell, index: indexPath.section, indexPath: indexPath)
-                }
-                else{
-                    let alert : UIAlertController = UIAlertController(title: "ALERT!", message: "No Connection \n set connection to apply your changes", preferredStyle: .alert)
-                    
-                    alert.addAction(UIAlertAction(title: "OK", style: .cancel,handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
-        
-       
+        if reachability.connection != .unavailable{
+            setDeletealert(cell: cell, index: indexPath.section, indexPath: indexPath)
+        }
+        else{
+            let alert : UIAlertController = UIAlertController(title: "ALERT!", message: "No Connection \n set connection to apply your changes", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel,handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
-
+    
     func setDeletealert(cell:orderdItemTableCell,index:Int,indexPath:IndexPath){
         let alert = UIAlertController(title: "Confirmation!", message: "Remove item..?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
@@ -145,9 +146,8 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func setCellData(cell:orderdItemTableCell, item:LineItems, index:Int){
-        
         cell.itemsNum.text = String(item.quantity ?? 0)
-        setPrice(cell: cell, price: item.price ?? "",quantity: item.quantity ?? 0)
+       // setPrice(cell: cell, price: item.price ?? "",quantity: item.quantity ?? 0)
         cell.itemTitle.text = splitProductName(name:item.name ?? "").1
         cell.brand.text = splitProductName(name:item.name ?? "").0
         print("color is \(String(describing: item.vendor))")
@@ -156,7 +156,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         cell.itemImg.layer.borderWidth = 0.2
         cell.itemImg.layer.borderColor = UIColor(named: "screenbg")?.cgColor
         cell.itemImg.layer.cornerRadius = 10.0
-  
+        
     }
     
     func setPrice(cell:orderdItemTableCell,price:String,quantity:Int){
@@ -207,11 +207,10 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
 
-    
     @IBAction func applyChanges(_ sender: Any) {
         let alert = UIAlertController(title: "Confirmation!", message: "apply chnges..?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
-           // MyCartItems.cartItemsCodableObject = self.bacupItemsList
+             MyCartItems.cartItemsCodableObject = self.bacupItemsList
             self.viewModel.updateDraftOrder(draftOrderId: getDraftOrdertId(), customer: Customer(id:UserDefaults.standard.integer(forKey: "customerId")), listOfCartItems: MyCartItems.cartItemsCodableObject!)
             createToastMessage(message: "your cart updated succefully", view: self.view)
             self.applyChangesBtn.isHidden = true
@@ -223,22 +222,17 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         }))
         
         self.present(alert, animated: true, completion: nil)
-      
+        
     }
-
-    
     func changePrice(cell:orderdItemTableCell,index:Int,item:LineItems){
-        var totalPrice = (Int(totalAmount.text!) ?? 0 - Int(cell.itemPrice.text!)!)
-        cell.itemPrice.text = String(Int(item.price!) ?? 0 * cell.itemsCount)
-        totalPrice = totalPrice + Int(cell.itemPrice.text!)!
+       // var totalPrice = (Int(totalAmount.text!) ?? 0 - Int(cell.itemPrice.text!)!)
+        cell.itemPrice.text = String(Int(item.price!) ?? 0 *  (item.quantity ?? 0)/*cell.itemsCount*/)
+       // totalPrice = totalPrice + Int(cell.itemPrice.text!)!
         totalAmount.text = String(totalPrice)
         applyChangesBtn.isHidden = false
-       // bacupItemsList[index].quantity = cell.itemsCount
+         bacupItemsList[index].quantity = cell.itemsCount
         //bacupItemsList[index].price = totalAmount.text
-        
-      
     }
-
 }
 
 

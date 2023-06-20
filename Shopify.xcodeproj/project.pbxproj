@@ -331,8 +331,8 @@
 		0424EF222A3C4D3500514892 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				0424EF292A3C4D7D00514892 /* orderdItemTableCell.swift */,
 				0424EF2C2A3C4D8400514892 /* ShoppingcartViewController.swift */,
+				0424EF292A3C4D7D00514892 /* orderdItemTableCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
