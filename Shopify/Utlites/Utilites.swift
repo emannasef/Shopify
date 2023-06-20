@@ -23,3 +23,15 @@ func registerTableCell (tableView: UITableView){
     let nib = UINib(nibName: "ReviewsCell", bundle: nil)
     tableView.register(nib, forCellReuseIdentifier: "ReviewsCell")
 }
+
+func DateFormate(date:String) -> String{
+
+   // let string = "20:32 Wed, 30 Oct 2019"
+    let formatter4 = DateFormatter()
+    formatter4.dateFormat = "HH:mm E, d MMM y"
+    let dateString = formatter4.date(from: date)
+   // print(formatter4.date(from: date) ?? "Unknown date")
+    
+    return "\(dateString)"
+}
+

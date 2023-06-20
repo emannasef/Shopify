@@ -10,7 +10,7 @@ import Foundation
 protocol OrderViewModelType{
     var bindOrdersToViewController : (()->())? { get set }
     static func getInstatnce (network:NetworkServicing) -> OrderViewModelType
-    func fetchOrders(tag:String,endPoint:BrandEndPoint)
+    func fetchOrders(tag:String,endPoint:EndPoints)
     func getOrdersCount()->Int
     func getOrderAtIndexPath(row:Int) -> Order
 }
@@ -29,7 +29,7 @@ class OrderViewModel : OrderViewModelType{
         return OrderViewModel(network: network)
     }
     
-    func fetchOrders(tag: String, endPoint: BrandEndPoint) {
+    func fetchOrders(tag: String, endPoint: EndPoints) {
         network.getDataOverNetwork(tag: tag, endPoint: endPoint) {[weak self] (result:OrderResponse?) in
             self?.result = result?.orders ?? []
             self?.bindOrdersToViewController?()

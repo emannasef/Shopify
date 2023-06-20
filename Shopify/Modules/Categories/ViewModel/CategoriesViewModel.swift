@@ -13,7 +13,7 @@ protocol CategoriesViewModelType{
     var bindPriceToViewController : (()->())? { get set }
     
     static func getInstatnce (network:NetworkServicing) -> CategoriesViewModelType
-    func fetchProducts(tag:String,endPoint:BrandEndPoint)
+    func fetchProducts(tag:String,endPoint:EndPoints)
     func getProductsCount() -> Int
     func getProductAtIndexPath(row:Int) -> Product
     func getProductPrice() -> String
@@ -41,7 +41,7 @@ class CategoriesViewModel: CategoriesViewModelType{
         return CategoriesViewModel(network: network)
     }
     
-    func fetchProducts(tag: String, endPoint: BrandEndPoint) {
+    func fetchProducts(tag: String, endPoint: EndPoints) {
         network.getDataOverNetwork(tag: tag, endPoint: endPoint
         ) {[weak self] (result: CollectionResponse?) in
             print(result?.products?.count)

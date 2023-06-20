@@ -12,7 +12,7 @@ protocol HomeViewModelType{
     var bindBrandsToViewController : (()->())? { get set }
     
     static func getInstatnce (network:NetworkServicing) -> HomeViewModel
-    func fetchBrands(tag:String,endPoint:BrandEndPoint)
+    func fetchBrands(tag:String,endPoint:EndPoints)
     func getBrandsCount() -> Int
     func getBrandAtIndexPath(row:Int) -> SmartCollections
 }
@@ -32,7 +32,7 @@ class HomeViewModel :HomeViewModelType{
         return HomeViewModel(network: network)
     }
     
-    func fetchBrands(tag:String,endPoint:BrandEndPoint){
+    func fetchBrands(tag:String,endPoint:EndPoints){
         network.getDataOverNetwork(tag: tag, endPoint: .brands) {[weak self] (result: BrandsResponse?) in
             print(result?.smartCollections?.count)
             self?.result = result?.smartCollections ?? []

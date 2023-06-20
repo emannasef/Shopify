@@ -30,7 +30,7 @@ class OrderViewController: UIViewController , UITableViewDelegate, UITableViewDa
                 self?.ordersTable.reloadData()
             }
         }
-        viewModel?.fetchOrders(tag:"" , endPoint: .orders(tag: 7018538107189))
+        viewModel?.fetchOrders(tag:"" , endPoint: .orders(tag: 7056413851957))
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -63,4 +63,9 @@ class OrderViewController: UIViewController , UITableViewDelegate, UITableViewDa
     }
     
 
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let details = storyboard?.instantiateViewController(withIdentifier: "orderDetails") as! OrderDetailsViewController
+        details.order = viewModel?.getOrderAtIndexPath(row: indexPath.row)
+        navigationController?.pushViewController(details, animated: true)
+    }
 }

@@ -12,8 +12,6 @@ struct DiscountsResponse : Codable{
    
     var discount_codes : [Discount]!
   
-  
-    
 }
 
 struct Discount : Codable{

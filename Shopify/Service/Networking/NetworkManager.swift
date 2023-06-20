@@ -10,7 +10,7 @@ import Alamofire
 
 protocol NetworkServicing{
     
-    func getDataOverNetwork<T:Decodable>(tag :String,endPoint : BrandEndPoint, compilitionHandler: @escaping (T?) -> Void)
+    func getDataOverNetwork<T:Decodable>(tag :String,endPoint : EndPoints, compilitionHandler: @escaping (T?) -> Void)
     
 }
 
@@ -18,11 +18,8 @@ class NetworkManager : NetworkServicing{
     
     
     var baseUrl = "https://mad43-sv-ios2.myshopify.com/admin/api/2023-04/"
-
-    
-    func getDataOverNetwork<T:Decodable>(tag :String,endPoint : BrandEndPoint, compilitionHandler: @escaping (T?) -> Void)
+    func getDataOverNetwork<T:Decodable>(tag :String,endPoint : EndPoints, compilitionHandler: @escaping (T?) -> Void)
     {
-        
         let header: HTTPHeaders = [
             "X-Shopify-Access-Token": "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",
             "Content-Type": "application/json"
@@ -42,36 +39,5 @@ class NetworkManager : NetworkServicing{
         }
     }
     
-    
-    
 }
 
-enum BrandEndPoint{
-  
-    case  brands
-    case products(tag:Int)
-    case productPrice(tag:Int)
-    case brandsProducts(tag:String)
-    case allProducts
-    case orders(tag:Int)
-    
-    var path:String{
-        switch self {
-        case .brands:
-            return "smart_collections.json"
-            
-        case .products(tag: let productId):
-            return "products.json?collection_id=\(productId)"
-            
-        case .productPrice(tag: let tag):
-            return "products/\(tag).json"
-            
-        case .brandsProducts(tag: let tag):
-            return "products.json?vendor=\(tag)"
-        case .allProducts:
-            return "/products.json"
-        case .orders(tag: let tag):
-            return "customers/\(tag)/orders.json"
-        }
-    }
-}

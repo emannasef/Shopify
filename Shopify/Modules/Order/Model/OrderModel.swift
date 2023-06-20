@@ -12,6 +12,10 @@ struct OrderResponse: Codable {
     let orders: [Order]?
 }
 
+struct PostOrder : Codable{
+    let order: Order?
+}
+
 // MARK: - Order
 struct Order: Codable {
     let id: Int?
