@@ -159,6 +159,9 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         self.navigationController?.pushViewController(productInfo, animated: true)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        filterView.isHidden = true
+    }
 }
 
 
