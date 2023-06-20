@@ -7,8 +7,8 @@
 
 import Foundation
 
-func createDraftOrder (draftOrderId:Int,lineItems:[LineItems]) ->MyDraftOrder{
-    let draftOrder = DraftOrders(id: draftOrderId,lineItems: lineItems)
+func createDraftOrder (draftOrderId:Int,lineItems:[LineItems],customer:Customer) ->MyDraftOrder{
+    let draftOrder = DraftOrders(id: draftOrderId,lineItems: lineItems,customer: customer)
     let myDraftOrder = MyDraftOrder(myDraftOrder: draftOrder)
     return myDraftOrder
     

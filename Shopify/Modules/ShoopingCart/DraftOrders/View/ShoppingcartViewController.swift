@@ -1,42 +1,79 @@
 import UIKit
+import SwiftUI
 import Alamofire
 import Kingfisher
+import Reachability
+import Lottie
 
 class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
     
     @IBOutlet weak var myTable:UITableView!
     @IBOutlet weak var totalAmount: UILabel!
+    @IBOutlet weak var applyChangesBtn: UIButton!
     var network : NetworkProtocol!
     var viewModel : DraftOrderViewModel!
     var settingViewModel :SettingsViewModel!
     var totalPrice:Int = 0
     var cell : orderdItemTableCell!
+    var bacupItemsList : [LineItems]!
     
+    @IBOutlet weak var loading: LottieAnimationView!
+    
+  
     override func viewDidLoad() {
         super.viewDidLoad()
-     
         network = Network()
         viewModel = DraftOrderViewModel(network: network)
         settingViewModel = SettingsViewModel(network: network)
-       
+        bacupItemsList = MyCartItems.cartItemsCodableObject
+        print("\n  cart count \(String(describing: MyCartItems.cartItemsCodableObject?.count))")
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        myTable.backgroundColor = UIColor(named: "screenbg")
+        loading.layer.cornerRadius = 10.0
+        playLottie()
         viewModel.bindDraftOrdersToViewControllers = { [weak self]   in
-            
             DispatchQueue.main.async {
-                print("Data saved")
-                self?.myTable.reloadData()
+               
+                print("draft order idddddd  \(getDraftOrdertId())")
+                print("items count\(self?.viewModel.lineItems?.count ?? 0)")
+                
             }
             
         }
-        viewModel.getDraftOrders(draftOrderId:1117589176629)//getDraftOrdertId())
+        let reachability = try! Reachability()
+                if reachability.connection != .unavailable{
+                    viewModel.getDraftOrders(draftOrderId:getDraftOrdertId())
+                }
+        else{
+            self.myTable.reloadData()
+            self.myTable.isHidden = false
+            self.loading.stop()
+            self.loading.isHidden = true
+            
+        }
+       
     }
     
     
+    func playLottie(){
+        myTable.isHidden = true
+        self.loading.isHidden = false
+        self.loading.contentMode = .scaleAspectFit
+        self.loading.loopMode = .loop
+        self.loading.animationSpeed = 0.5
+        self.loading.play()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return  MyCartItems.cartItemsCodableObject?.count ?? 0
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return MyCartItems.cartItemsCodableObject?.count ?? 0 //viewModel.lineItems?.count ?? 0
+        return 1 //MyCartItems.cartItemsCodableObject?.count ?? 0
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
@@ -47,67 +84,79 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         cell = myTable.dequeueReusableCell(withIdentifier: "itemCell") as? orderdItemTableCell
         self.setBtnShadow(btn: cell.decreaseBtn)
         self.setBtnShadow(btn: cell.increaseBtn)
-        let item = viewModel.retriveAnOrder(index: indexPath.row)
+        var item = viewModel.retriveAnOrder(index: indexPath.section)
         self.setCellData(cell: cell, item: item,index: indexPath.row)
         cell.layer.cornerRadius = 10.0
         cell.deleteitem = { [weak self] in
             guard let self = self else { return }
             self.deleteItem(cell: cell, index: indexPath.row,indexPath: indexPath)
         }
-        
+        cell.decreaseQuantity = {[weak self] in
+            guard let self = self else { return }
+            self.changePrice(cell: cell,  index:indexPath.section,item: item)
+            item.quantity = cell.itemsCount
+            item.price = cell.itemPrice.text
+           // self.bacupItemsList[indexPath.section] = item
+            MyCartItems.cartItemsCodableObject![indexPath.section] = item
+            
+        }
+        cell.increaseQuantity = {[weak self] in
+            guard let self = self else { return }
+            self.changePrice(cell: cell,index:indexPath.section,item: item)
+            item.quantity = cell.itemsCount
+            item.price = cell.itemPrice.text
+            MyCartItems.cartItemsCodableObject![indexPath.section] = item
+        }
         return cell
     }
     
     func deleteItem(cell:orderdItemTableCell,index:Int,indexPath:IndexPath){
         
+        let reachability = try! Reachability()
+                if reachability.connection != .unavailable{
+                    setDeletealert(cell: cell, index: indexPath.section, indexPath: indexPath)
+                }
+                else{
+                    let alert : UIAlertController = UIAlertController(title: "ALERT!", message: "No Connection \n set connection to apply your changes", preferredStyle: .alert)
+                    
+                    alert.addAction(UIAlertAction(title: "OK", style: .cancel,handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                }
+        
+       
+    }
+
+    func setDeletealert(cell:orderdItemTableCell,index:Int,indexPath:IndexPath){
         let alert = UIAlertController(title: "Confirmation!", message: "Remove item..?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
-            
-            self.present(alert, animated: true, completion: nil)
-            viewModel.deleteItem(index: index, draftOrderId: 1117589176629)//getDraftOrdertId())
+            self.viewModel.deleteItem(index: index, draftOrderId:getDraftOrdertId(),customer: Customer(id: UserDefaults.standard.integer(forKey: "customerId")))
+            MyCartItems.cartItemsCodableObject?.remove(at: index)
+            myTable.reloadData()
             self.totalPrice -= Int(cell.itemPrice.text ?? "0") ?? 0
             cell.itemPrice.text = String(self.totalPrice)
             createToastMessage(message: "item deleted from your card", view: self.view)
-
+            
         }))
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler:{_ in
             alert.dismiss(animated: true)
         }))
-   
+        
+        self.present(alert, animated: true, completion: nil)
     }
-    
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-      
-        let itemTobeDeleted = MyCartItems.cartItemsCodableObject?[indexPath.row]//viewModel.draftOrders![indexPath.row]
-      if editingStyle == .delete {
-          
-          let alert = UIAlertController(title: "Confirmation!", message: "Remove item..?", preferredStyle: UIAlertController.Style.alert)
-          alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
-              self.viewModel.deleteItem(index: indexPath.row, draftOrderId: 1117589176629)
-              viewModel.lineItems?.remove(at: indexPath.row)
-              myTable.reloadData()
-           
-             
-          }))
-          alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler:{_ in
-              alert.dismiss(animated: true)
-          }))
-          
-          self.present(alert, animated: true, completion: nil)
-         
-      }
-  }
     
     func setCellData(cell:orderdItemTableCell, item:LineItems, index:Int){
         
         cell.itemsNum.text = String(item.quantity ?? 0)
         setPrice(cell: cell, price: item.price ?? "",quantity: item.quantity ?? 0)
-        cell.itemTitle.text = item.vendor
-        cell.itemColor.text = item.variantTitle
+        cell.itemTitle.text = splitProductName(name:item.name ?? "").1
+        cell.brand.text = splitProductName(name:item.name ?? "").0
         print("color is \(String(describing: item.vendor))")
-//        let imgUrl = URL(string: item.properties?[0].value ?? "")
-  //      cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
-        
+        let imgUrl = URL(string: item.properties?[0].value ?? "")
+        cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
+        cell.itemImg.layer.borderWidth = 0.2
+        cell.itemImg.layer.borderColor = UIColor(named: "screenbg")?.cgColor
+        cell.itemImg.layer.cornerRadius = 10.0
+  
     }
     
     func setPrice(cell:orderdItemTableCell,price:String,quantity:Int){
@@ -119,6 +168,10 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
                 self?.totalPrice += Int(convertedPrice)
                 cell.itemPrice.text = String(convertedPrice)
                 self?.totalAmount.text = String(self?.totalPrice ?? 0)
+                self?.myTable.reloadData()
+                self?.myTable.isHidden = false
+                self?.loading.stop()
+                self?.loading.isHidden = true
             }
         }
         settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: price)
@@ -153,10 +206,39 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         self.present(promoCodesSection!, animated: true)
         
     }
+
     
+    @IBAction func applyChanges(_ sender: Any) {
+        let alert = UIAlertController(title: "Confirmation!", message: "apply chnges..?", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
+           // MyCartItems.cartItemsCodableObject = self.bacupItemsList
+            self.viewModel.updateDraftOrder(draftOrderId: getDraftOrdertId(), customer: Customer(id:UserDefaults.standard.integer(forKey: "customerId")), listOfCartItems: MyCartItems.cartItemsCodableObject!)
+            createToastMessage(message: "your cart updated succefully", view: self.view)
+            self.applyChangesBtn.isHidden = true
+        }))
+        alert.addAction(UIAlertAction(title: "Discard", style: UIAlertAction.Style.cancel, handler:{_ in
+            MyCartItems.cartItemsCodableObject = self.bacupItemsList
+            self.applyChangesBtn.isHidden = true
+            alert.dismiss(animated: true)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+      
+    }
+
     
-   /* @IBAction func checkOut(_ sender: Any) {
-    }*/
+    func changePrice(cell:orderdItemTableCell,index:Int,item:LineItems){
+        var totalPrice = (Int(totalAmount.text!) ?? 0 - Int(cell.itemPrice.text!)!)
+        cell.itemPrice.text = String(Int(item.price!) ?? 0 * cell.itemsCount)
+        totalPrice = totalPrice + Int(cell.itemPrice.text!)!
+        totalAmount.text = String(totalPrice)
+        applyChangesBtn.isHidden = false
+       // bacupItemsList[index].quantity = cell.itemsCount
+        //bacupItemsList[index].price = totalAmount.text
+        
+      
+    }
+
 }
 
 

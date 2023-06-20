@@ -136,6 +136,24 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         }
     }
     
+   /* func startTimer(){
+        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextItem), userInfo: nil, repeats: true)
+    }
+    
+    
+    @objc func moveToNextItem(){
+        
+        if currentIndex < proImages.count-1{
+            currentIndex += 1
+        }else{
+            currentIndex = 0
+        }
+        
+        imsgesCollectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredHorizontally, animated: true)
+        
+        slider.currentPage = currentIndex
+        
+    }*/
     
     
     func AdsSection() -> NSCollectionLayoutSection{

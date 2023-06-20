@@ -30,30 +30,30 @@ class DraftOrderViewModel {
     
     func retriveAnOrder(index:Int) -> LineItems{
         
-        return self.lineItems?[index] ?? LineItems()
+        return (MyCartItems.cartItemsCodableObject?[index])!//?? LineItems()//self.lineItems?[index] ?? LineItems()
         
     }
     func getDrftOrdersCount()->Int{
         
-        return lineItems?.count ?? 0
+        return MyCartItems.cartItemsCodableObject?.count ?? 0 //lineItems?.count ?? 0
     }
     
     func filterDraftOrders(orders:[DraftOrders], draftOrderId:Int) -> [LineItems]{
         
-        let result = orders.filter({$0.id == draftOrderId && $0.note == "cart"
+        let result = orders.filter({$0.id == draftOrderId && $0.note == "cart" 
         }).first?.lineItems ?? []
         
         return result
         
     }
     
-    func deleteItem(index:Int,draftOrderId:Int){
+    func deleteItem(index:Int,draftOrderId:Int,customer:Customer){
         
         var listOfCartItems = MyCartItems.cartItemsCodableObject
         listOfCartItems?.remove(at: index)
-        let params:Parameters = encodeToJson(objectClass: createDraftOrder(draftOrderId: draftOrderId, lineItems: listOfCartItems!))!
+        let params:Parameters = encodeToJson(objectClass: createDraftOrder(draftOrderId: draftOrderId, lineItems: listOfCartItems!,customer: customer))!
         
-        //if listOfCartItems?.count ?? 0 > 1{
+        if listOfCartItems?.count ?? 0 > 1{
             network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrderId), params: params) {(response:MyDraftOrder?, error )in
                 guard let result = response?.draft_order else{
                     print(error ?? "there is an errror while deleting an item from your cart")
@@ -61,14 +61,27 @@ class DraftOrderViewModel {
                 MyCartItems.cartItemsCodableObject = result.lineItems
                 
             }
-        /*}
+        }
         else{
             network.delete(endPoint: .deleteDraftOrder(draftOrderId: draftOrderId), params: params)
-        }*/
+            setDraftOrderId(draftOrderId: 0)
+        }
         
     }
     
     func convertCurrency(){
+        
+    }
+    
+    func updateDraftOrder(draftOrderId:Int,customer:Customer,listOfCartItems:[LineItems]){
+        let params:Parameters = encodeToJson(objectClass: createDraftOrder(draftOrderId: draftOrderId, lineItems: listOfCartItems,customer: customer))!
+        network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrderId), params: params) {(response:MyDraftOrder?, error )in
+            guard let result = response?.draft_order else{
+                print(error ?? "there is an errror while updating  your cart")
+                return}
+            MyCartItems.cartItemsCodableObject = result.lineItems
+            
+        }
         
     }
     

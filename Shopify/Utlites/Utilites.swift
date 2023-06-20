@@ -1,10 +1,3 @@
-//
-//  Utilites.swift
-//  ShopifyCustomer
-//
-//  Created by Mac on 08/06/2023.
-//
-
 import Foundation
 import UIKit
 class Utilites{
@@ -22,4 +15,12 @@ var isPasswordContainsLettersAndNumbers: Bool {
 func registerTableCell (tableView: UITableView){
     let nib = UINib(nibName: "ReviewsCell", bundle: nil)
     tableView.register(nib, forCellReuseIdentifier: "ReviewsCell")
+}
+
+func splitProductName(name:String) -> (String?,String?){
+    var fullName = name
+    var fullNameArr =  fullName.components(separatedBy: "|")  //split(fullName) {$0 == "|"}
+    var brand: String = fullNameArr[0]
+    var title: String? = fullNameArr.count > 1 ? fullNameArr[1] : nil
+    return (brand,title)
 }

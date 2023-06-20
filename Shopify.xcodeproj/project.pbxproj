@@ -65,6 +65,9 @@
 		046577432A3F4BD400669B3D /* CategoriesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046577422A3F4BD400669B3D /* CategoriesCell.swift */; };
 		046577452A3F4C0500669B3D /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046577442A3F4C0500669B3D /* CategoriesViewController.swift */; };
 		046577472A3F4C5300669B3D /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046577462A3F4C5300669B3D /* CategoriesViewModel.swift */; };
+		0468BD4A2A40EB06005A363C /* gradloading.json in Resources */ = {isa = PBXBuildFile; fileRef = 0468BD492A40EB06005A363C /* gradloading.json */; };
+		0468D53B2A4138E000DF6AFF /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 0468D53A2A4138E000DF6AFF /* Reachability */; };
+		0468D5412A413B4000DF6AFF /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 0468D5402A413B4000DF6AFF /* Lottie */; };
 		0477AFD72A3D90860011DA4F /* ClickDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477AFD62A3D90860011DA4F /* ClickDelegate.swift */; };
 		047A9B722A3C8B8300AE1543 /* ProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A9B5E2A3C8B8300AE1543 /* ProductsViewModel.swift */; };
 		047A9B732A3C8B8300AE1543 /* ProductsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A9B602A3C8B8300AE1543 /* ProductsModel.swift */; };
@@ -87,7 +90,6 @@
 		04DE934F2A371C5B0084F21B /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE934E2A371C5B0084F21B /* Kingfisher */; };
 		04DE93552A371D150084F21B /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE93542A371D150084F21B /* Cosmos */; };
 		04DE93582A371DC30084F21B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE93572A371DC30084F21B /* Alamofire */; };
-		04DE935B2A371EA40084F21B /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 04DE935A2A371EA40084F21B /* Reachability */; };
 		04DE93642A37234B0084F21B /* AuthNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE935D2A37234A0084F21B /* AuthNetwork.swift */; };
 		04DE93652A37234B0084F21B /* AuthNetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE935E2A37234A0084F21B /* AuthNetworkProtocol.swift */; };
 		04DE93662A37234B0084F21B /* RegisterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04DE93612A37234A0084F21B /* RegisterViewModel.swift */; };
@@ -169,17 +171,17 @@
 		043771672A371641006C2233 /* DBManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManger.swift; sourceTree = "<group>"; };
 		043771712A371695006C2233 /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
 		043771742A3716CE006C2233 /* ProductInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfo.swift; sourceTree = "<group>"; };
-		044A8E732A3DD168002528D7 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
-		044A8E752A3DD8AF002528D7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		044A8E772A3DED3C002528D7 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
-		044A8E792A3E106B002528D7 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
-		044A8E7B2A3E10BD002528D7 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
 		044259782A3CC66F00CD3811 /* MyCoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoreDataProtocol.swift; sourceTree = "<group>"; };
 		0442597A2A3CC6F400CD3811 /* MyCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoreData.swift; sourceTree = "<group>"; };
 		0442597C2A3CC8F900CD3811 /* FavProduct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavProduct.swift; sourceTree = "<group>"; };
 		0442597E2A3CCF8400CD3811 /* WishListViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListViewModel.swift; sourceTree = "<group>"; };
 		044259822A3CD05B00CD3811 /* WishListVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListVC.swift; sourceTree = "<group>"; };
 		044259862A3CD1A800CD3811 /* WishListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WishListCell.swift; sourceTree = "<group>"; };
+		044A8E732A3DD168002528D7 /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
+		044A8E752A3DD8AF002528D7 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
+		044A8E772A3DED3C002528D7 /* SettingViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewModel.swift; sourceTree = "<group>"; };
+		044A8E792A3E106B002528D7 /* AboutVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutVC.swift; sourceTree = "<group>"; };
+		044A8E7B2A3E10BD002528D7 /* Test.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Test.storyboard; sourceTree = "<group>"; };
 		0453D3222A3B753F008A2345 /* DefaultAdress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultAdress.swift; sourceTree = "<group>"; };
 		0453D32A2A3B772B008A2345 /* AdressViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdressViewModel.swift; sourceTree = "<group>"; };
 		0453D32C2A3B772B008A2345 /* PostedAdress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostedAdress.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		046577422A3F4BD400669B3D /* CategoriesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCell.swift; sourceTree = "<group>"; };
 		046577442A3F4C0500669B3D /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		046577462A3F4C5300669B3D /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
+		0468BD492A40EB06005A363C /* gradloading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gradloading.json; sourceTree = "<group>"; };
 		0477AFD62A3D90860011DA4F /* ClickDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickDelegate.swift; sourceTree = "<group>"; };
 		047A9B5E2A3C8B8300AE1543 /* ProductsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
 		047A9B602A3C8B8300AE1543 /* ProductsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsModel.swift; sourceTree = "<group>"; };
@@ -227,16 +230,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				04C228DC2A3B4F2300AC1F1B /* Toast in Frameworks */,
+				0468D53B2A4138E000DF6AFF /* Reachability in Frameworks */,
 				047F471A2A3A1D0A0039C9BE /* FacebookBasics in Frameworks */,
 				04FAF0722A389C7600BBC042 /* GoogleSignIn in Frameworks */,
 				04DE93582A371DC30084F21B /* Alamofire in Frameworks */,
-				04DE935B2A371EA40084F21B /* Reachability in Frameworks */,
 				04FAF0742A389C7600BBC042 /* GoogleSignInSwift in Frameworks */,
 				047F471E2A3A1D0A0039C9BE /* FacebookLogin in Frameworks */,
 				04DE93552A371D150084F21B /* Cosmos in Frameworks */,
 				04DE934F2A371C5B0084F21B /* Kingfisher in Frameworks */,
 				047F47202A3A1D0A0039C9BE /* FacebookShare in Frameworks */,
 				047F471C2A3A1D0A0039C9BE /* FacebookCore in Frameworks */,
+				0468D5412A413B4000DF6AFF /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -374,6 +378,7 @@
 				043771442A371414006C2233 /* ShopifyTests */,
 				0437714E2A371414006C2233 /* ShopifyUITests */,
 				043771292A371411006C2233 /* Products */,
+				0468D5392A4138E000DF6AFF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -620,6 +625,13 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		0468D5392A4138E000DF6AFF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		047A9B5C2A3C8B8300AE1543 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -856,6 +868,7 @@
 			children = (
 				0477AFD62A3D90860011DA4F /* ClickDelegate.swift */,
 				04DE93862A3726F50084F21B /* Utilites.swift */,
+				0468BD492A40EB06005A363C /* gradloading.json */,
 			);
 			path = Utlites;
 			sourceTree = "<group>";
@@ -880,7 +893,6 @@
 				04DE934E2A371C5B0084F21B /* Kingfisher */,
 				04DE93542A371D150084F21B /* Cosmos */,
 				04DE93572A371DC30084F21B /* Alamofire */,
-				04DE935A2A371EA40084F21B /* Reachability */,
 				04FAF0712A389C7600BBC042 /* GoogleSignIn */,
 				04FAF0732A389C7600BBC042 /* GoogleSignInSwift */,
 				047F47192A3A1D0A0039C9BE /* FacebookBasics */,
@@ -888,6 +900,8 @@
 				047F471D2A3A1D0A0039C9BE /* FacebookLogin */,
 				047F471F2A3A1D0A0039C9BE /* FacebookShare */,
 				04C228DB2A3B4F2300AC1F1B /* Toast */,
+				0468D53A2A4138E000DF6AFF /* Reachability */,
+				0468D5402A413B4000DF6AFF /* Lottie */,
 			);
 			productName = Shopify;
 			productReference = 043771282A371411006C2233 /* Shopify.app */;
@@ -969,6 +983,7 @@
 				04FAF0702A389C7600BBC042 /* XCRemoteSwiftPackageReference "GoogleSignIn-iOS" */,
 				047F47182A3A1D0A0039C9BE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */,
 				04C228DA2A3B4F2300AC1F1B /* XCRemoteSwiftPackageReference "Toast-Swift" */,
+				0468D53F2A413B4000DF6AFF /* XCRemoteSwiftPackageReference "lottie-ios" */,
 			);
 			productRefGroup = 043771292A371411006C2233 /* Products */;
 			projectDirPath = "";
@@ -990,6 +1005,7 @@
 				0453D3342A3B789A008A2345 /* CheckOut.storyboard in Resources */,
 				047A9B7A2A3C8B8300AE1543 /* HomeStoryboard.storyboard in Resources */,
 				04DE93732A3724690084F21B /* Auth.storyboard in Resources */,
+				0468BD4A2A40EB06005A363C /* gradloading.json in Resources */,
 				0437713B2A371413006C2233 /* LaunchScreen.storyboard in Resources */,
 				044A8E7C2A3E10BD002528D7 /* Test.storyboard in Resources */,
 				04DE93792A3725890084F21B /* ProductInfo.storyboard in Resources */,
@@ -1436,6 +1452,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		0468D53F2A413B4000DF6AFF /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.0.0;
+			};
+		};
 		047F47182A3A1D0A0039C9BE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/facebook/facebook-ios-sdk";
@@ -1495,6 +1519,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		0468D53A2A4138E000DF6AFF /* Reachability */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 04DE93592A371EA40084F21B /* XCRemoteSwiftPackageReference "Reachability.swift" */;
+			productName = Reachability;
+		};
+		0468D5402A413B4000DF6AFF /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0468D53F2A413B4000DF6AFF /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
 		047F47192A3A1D0A0039C9BE /* FacebookBasics */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 047F47182A3A1D0A0039C9BE /* XCRemoteSwiftPackageReference "facebook-ios-sdk" */;
@@ -1534,11 +1568,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 04DE93562A371DC30084F21B /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
-		};
-		04DE935A2A371EA40084F21B /* Reachability */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 04DE93592A371EA40084F21B /* XCRemoteSwiftPackageReference "Reachability.swift" */;
-			productName = Reachability;
 		};
 		04FAF0712A389C7600BBC042 /* GoogleSignIn */ = {
 			isa = XCSwiftPackageProductDependency;

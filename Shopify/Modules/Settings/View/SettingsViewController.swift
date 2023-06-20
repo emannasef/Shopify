@@ -4,14 +4,26 @@ import UIKit
 class SettingsViewController: UIViewController {
     
     @IBOutlet weak var fullName: UITextField!
-    @IBOutlet weak var userPassword: UITextField!
+    @IBOutlet weak var city: UITextField!
     @IBOutlet weak var currency: UILabel!
     @IBOutlet weak var currencyMenu: UIButton!
+    @IBOutlet weak var region: UITextField!
+    var addressViewModel :AdressViewModel!
+    var network :NetworkProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        network = Network()
+        addressViewModel = AdressViewModel(network: network)
         self.currency.text = getCurrency()
      
+    }
+    
+    func setdressField(){
+        
+        var adress = addressViewModel.getDefaultAdress()
+        city.text = adress.city
+        region.text = adress.address1
     }
     
     func setCueencies() -> [UIAction]{
@@ -30,9 +42,12 @@ class SettingsViewController: UIViewController {
     }
     
 
-    @IBAction func changePassword(_ sender: Any) {
+    @IBAction func changeAdress(_ sender: Any) {
+        
+        let adressScreen = self.storyboard?.instantiateViewController(identifier: "adressScreen") as! AdressesViewController
+        
+        self.navigationController?.pushViewController(adressScreen, animated: true)
     }
-    
     
     @IBAction func chooseCurrency(_ sender: Any) {
     
@@ -42,21 +57,12 @@ class SettingsViewController: UIViewController {
         currencyMenu.showsMenuAsPrimaryAction = true
     }
     
-    @IBAction func enapleDarkMode(_ sender: Any) {
-        
-        let appDelegates = UIApplication.shared.windows.first
-        
-        if (sender as AnyObject).isOn{
-            
-            appDelegates?.overrideUserInterfaceStyle = .dark
-            return
-        }
-        
-        appDelegates?.overrideUserInterfaceStyle = .light
-        return
-    }
-    
+
     
     @IBAction func displayappInfo(_ sender: Any) {
     }
+    
+    @IBAction func logout(_ sender: Any) {
+    }
+    
 }

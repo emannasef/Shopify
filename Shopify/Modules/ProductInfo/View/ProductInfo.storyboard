@@ -156,7 +156,7 @@
                                                     <color key="baseBackgroundColor" red="0.25098039220000001" green="0.074509803920000006" blue="0.27058823529999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </buttonConfiguration>
                                                 <connections>
-                                                    <action selector="addToCart:" destination="VAB-Rn-j7Y" eventType="touchUpInside" id="LCG-XE-m1U"/>
+                                                    <action selector="addToCart:" destination="VAB-Rn-j7Y" eventType="touchUpInside" id="HqP-eu-rst"/>
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Discription" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghD-3X-fqn">

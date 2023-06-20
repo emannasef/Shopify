@@ -90,7 +90,7 @@ class ProductInfoVC: UIViewController{
     
     @IBAction func addToCart(_ sender: Any) {
         
-        viewModel.addToCart(draftOrdrId:1117412819253/*getDraftOrdertId()*/, product: (viewModel.product?.product) ?? Product())
+        viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
         createToastMessage(message: "new iten added to your cart",view: self.view)
         
     }
@@ -140,6 +140,9 @@ extension ProductInfoVC : UICollectionViewDelegate,UICollectionViewDataSource,UI
         return CGSize(width: imsgesCollectionView.frame.width
                       , height:  imsgesCollectionView.frame.height)
     }
+    
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0

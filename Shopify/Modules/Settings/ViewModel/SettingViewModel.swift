@@ -26,7 +26,7 @@ class SettingsViewModel : CurrencyViewModel{
                 return
             }
             self?.result = result.result
-            self!.bindResultToviewController!()
+            self?.bindResultToviewController!()
         })
         
         

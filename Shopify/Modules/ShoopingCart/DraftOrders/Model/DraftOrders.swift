@@ -84,7 +84,7 @@ struct DraftOrders: Codable {
     case customer          = "customer"
   
   }
-    init(id:Int,lineItems:[LineItems]){
+    init(id:Int,lineItems:[LineItems],customer:Customer){
         self.id = id
         self.lineItems = lineItems
         self.note = "cart"

@@ -29,7 +29,7 @@ class ProductInfoViewModel{
     func addToCart(draftOrdrId:Int,product:Product){
         
         let params : Parameters = encodeToJson(objectClass: createADraftOrder(draftOrdrId: draftOrdrId, product: product)) ?? [:]
-        if MyCartItems.cartItemsCodableObject != nil ||  MyCartItems.cartItemsCodableObject?.count == 0{
+        if draftOrdrId != 0 /*MyCartItems.cartItemsCodableObject != nil ||  MyCartItems.cartItemsCodableObject?.count == 0*/{
             network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrdrId), params: params) { (response:MyDraftOrder?, error )in
                 guard let result = response?.draft_order else{
                     print(error ?? "there is an errror while adding a new item to your cart")
@@ -37,10 +37,10 @@ class ProductInfoViewModel{
                 MyCartItems.cartItemsCodableObject = result.lineItems
             }
         }
-        else {
+        else  {
             network.post(endPoint: .createDraftOrder, params: params) { (response:MyDraftOrder?, error )in
                 guard let result = response?.draft_order else{
-                    print(error ?? "there is an errror while adding a new item to your cart")
+                    print(error ?? "there is an errror while posting a first item to your cart")
                     return}
                 MyCartItems.cartItemsCodableObject = result.lineItems
                 setDraftOrderId(draftOrderId: result.id!)
@@ -56,7 +56,7 @@ class ProductInfoViewModel{
         let variTitle = proVarient?.title
         let price = proVarient?.price
         let properties = [Properties(name: "url_image", value: product.images?[0].src ?? "")]
-        let item = LineItems(/*varientId: varientId ?? 0,*/ title: title ?? "", varientTitle: variTitle ?? "", price: price ?? "", properties: properties)
+        let item = LineItems( title: title ?? "", varientTitle: variTitle ?? "", price: price ?? "", properties: properties, quantity: 1)
         
         
         cartItems?.append(item)
@@ -65,10 +65,11 @@ class ProductInfoViewModel{
     
     func createADraftOrder(draftOrdrId:Int,product:Product) -> MyDraftOrder{
         addItem(product: product)
-        _ = LineItems( title: "oo" , varientTitle: "lll" , price: "99" , properties: [Properties()])
+        var items = LineItems( title: "oo" , varientTitle: "lll" , price: "99" , properties: [Properties()], quantity: 1)
         _ = cartItems
+        var customer = Customer(id:Int(UserDefaults.standard.integer(forKey: "customerId")))
         
-        return createDraftOrder(draftOrderId: draftOrdrId, lineItems: cartItems ?? [] )
+        return createDraftOrder(draftOrderId: draftOrdrId, lineItems: cartItems ?? [],customer: customer )
         
     }
 }
