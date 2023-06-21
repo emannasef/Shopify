@@ -28,7 +28,13 @@ class MeViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
     }
     
-
+    @IBAction func settingAction(_ sender: Any) {
+        
+        let setting = UIStoryboard(name: "Setting", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
+        self.navigationController?.pushViewController(setting, animated: true)
+        
+    }
+    
     @IBAction func showAllOrders(_ sender: UIButton) {
         let orders = storyboard?.instantiateViewController(withIdentifier: "allOrders") as! OrderViewController
         navigationController?.pushViewController(orders, animated: true)
@@ -36,6 +42,8 @@ class MeViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
     }
 
     @IBAction func showWishList(_ sender: UIButton) {
+        
+        
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

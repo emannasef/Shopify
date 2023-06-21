@@ -13,6 +13,8 @@ class ReviewsVC: UIViewController {
     
     let revierText = ["I Love This","Meduim quality Product","It's pretty much and I liked it","low quality I hate it","Nicen I think I'll buy it again"]
     
+    let reviewerRate = [2.5,3.0,4.0,4.5,3.5]
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         myReviewsTable.delegate = self
@@ -38,7 +40,7 @@ extension ReviewsVC : UITableViewDelegate,UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewsCell", for: indexPath) as! ReviewsCell
         cell.reviewerText.text = revierText[indexPath.row]
         cell.reviewerImg.image = UIImage(named: revierImages[indexPath.row])
-        
+        cell.reviewerRate.rating = reviewerRate[indexPath.row]
         return cell
     }
  

@@ -12,6 +12,7 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
     
     @IBOutlet weak var categoriesSegmentedControl: UISegmentedControl!
     var viewModel = CategoriesViewModel.getInstatnce(network: NetworkManager())
+    var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
     var productType = ""
     var subCategoriesList: [Product] = []
     
@@ -136,9 +137,70 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
         cell.layer.shadowOffset = CGSize(width: 0, height: 5)
         cell.layer.borderWidth = 3
         cell.layer.borderColor =  UIColor.systemGray6.cgColor
+        cell.cellIndex = indexPath
+        cell.delegate = self
+        
+        let favPro = FavProduct(id: product.id,title: product.title,rate: 3.5, price: "500", image: product.image?.src)
+
+       if wishListViewModel.isProductExist(product: favPro) == true{
+           cell.isFav.setImage(UIImage(systemName: "heart.fill" ), for: .normal)
+           
+       }
+        else{
+            cell.isFav.setImage(UIImage(systemName: "heart" ), for: .normal)
+           }
+        
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let productInfo = UIStoryboard(name: "ProductInfo", bundle: nil).instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+            
+            
+            if(productType == "")
+            {
+                productInfo.productId = viewModel.getProductAtIndexPath(row: indexPath.row).id ?? 8360376402229
+                
+            }else{
+                productInfo.productId  = subCategoriesList[indexPath.row].id ?? 8360376402229
+            }
+            self.navigationController?.pushViewController(productInfo, animated: true)
     }
   
 }
+
+extension CategoriesViewController : ClickDelegate {
+    func clicked(_ row: Int) {
+        let pro:Product!
+        if(productType == "")
+        {
+             pro = viewModel.getProductAtIndexPath(row: row)
+            
+        }else{
+             pro  = subCategoriesList[row]
+        }
+        
+        let favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price: pro.variants?[0].price, image: pro.image?.src)
+        
+        if  wishListViewModel.isProductExist(product: favPro) == false {
+            wishListViewModel.insertFavProduct(product: favPro)
+            categoriesCollection.reloadData()
+            
+        }else{
+            let alert = UIAlertController(title: "Delete", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { [weak self] (action) in
+                
+                self?.wishListViewModel.deleteFavProduct(product: favPro)
+                self?.categoriesCollection.reloadData()
+            }))
+            self.present(alert, animated: true)
+        }
+  
+    }
+    
+
+
+}
+
 
 

@@ -77,11 +77,12 @@ class ProductInfoVC: UIViewController{
     
     func check (){
         if  wishListViewModel.isProductExist(product:favPro)  {
-            favImg.image = UIImage(named: "filled.png")
+            favImg.image = UIImage(systemName: "heart.fill")
+        
             print("Will Appear",favPro)
             
         }else{
-            favImg.image = UIImage(named: "outlined.png")
+            favImg.image = UIImage(systemName: "heart")
             print("Will Apear",favPro)
 
         }
@@ -106,10 +107,10 @@ class ProductInfoVC: UIViewController{
         
         if  wishListViewModel.isProductExist(product:favPro) == false {
             wishListViewModel.insertFavProduct(product: favPro)
-            favImg.image = UIImage(named: "filled.png")
+            favImg.image = UIImage(systemName: "heart.fill")
         }else{
             wishListViewModel.deleteFavProduct(product: favPro)
-            favImg.image = UIImage(named: "outlined.png")
+            favImg.image = UIImage(systemName: "heart")
         }
         
         

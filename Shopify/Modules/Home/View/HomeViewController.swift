@@ -134,6 +134,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
             productsScreen.collectionId = brand.id
             productsScreen.collectionName = brand.rules[0].condition
             productsScreen.fromScreen = "Brand"
+            UserDefaults.standard.set(productsScreen.fromScreen, forKey: "Screen")
             print(String(brand.id))
             navigationController?.pushViewController(productsScreen, animated: true)
         }
@@ -182,6 +183,8 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     
     @objc func addTapped(){
         let productsScreen = storyboard?.instantiateViewController(withIdentifier: "collectionproducts") as! ProductsViewController
+        productsScreen.fromScreen = "Home"
+        UserDefaults.standard.set(productsScreen.fromScreen, forKey: "Screen")
         navigationController?.pushViewController(productsScreen, animated: true)
     }
     

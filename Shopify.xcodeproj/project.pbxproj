@@ -498,10 +498,10 @@
 				047F41882A3CBA2E00185642 /* WishList */,
 				047A9B652A3C8B8300AE1543 /* Home */,
 				047A9B5C2A3C8B8300AE1543 /* Products */,
+				0437716A2A371653006C2233 /* Auth */,
 				0424EF1D2A3C4CF600514892 /* ShoopingCart */,
 				0453D3282A3B772B008A2345 /* CheckOut */,
 				0437716B2A37165B006C2233 /* ProductInfo */,
-				0437716A2A371653006C2233 /* Auth */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -701,9 +701,9 @@
 		047A9B652A3C8B8300AE1543 /* Home */ = {
 			isa = PBXGroup;
 			children = (
+				047A9B6A2A3C8B8300AE1543 /* View */,
 				047A9B662A3C8B8300AE1543 /* ViewModel */,
 				047A9B682A3C8B8300AE1543 /* Model */,
-				047A9B6A2A3C8B8300AE1543 /* View */,
 			);
 			path = Home;
 			sourceTree = "<group>";
