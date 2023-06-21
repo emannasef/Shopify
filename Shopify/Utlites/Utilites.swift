@@ -24,3 +24,14 @@ func splitProductName(name:String) -> (String?,String?){
     var title: String? = fullNameArr.count > 1 ? fullNameArr[1] : nil
     return (brand,title)
 }
+func DateFormate(date:String) -> String{
+
+   // let string = "20:32 Wed, 30 Oct 2019"
+    let formatter4 = DateFormatter()
+    formatter4.dateFormat = "HH:mm E, d MMM y"
+    let dateString = formatter4.date(from: date)
+   // print(formatter4.date(from: date) ?? "Unknown date")
+    
+    return "\(dateString)"
+}
+

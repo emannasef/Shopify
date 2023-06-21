@@ -28,8 +28,11 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         
         self.tabBarController?.navigationItem.leftBarButtonItem = searchBtn
         
-        self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", image: UIImage(named: "outlined"), target: self, action: #selector(favScreen))
-        
+        self.tabBarController?.navigationItem.rightBarButtonItems = [
+            UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action: #selector(favScreen)),
+            UIBarButtonItem(title: "", image: UIImage(systemName: "cart.fill"), target: self, action: #selector(cartScreen))
+        ]
+    
         setLayout()
         startTimer()
     }
@@ -160,6 +163,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
             productsScreen.collectionId = brand.id
             productsScreen.collectionName = brand.rules[0].condition
             productsScreen.fromScreen = "Brand"
+            UserDefaults.standard.set(productsScreen.fromScreen, forKey: "Screen")
             print(String(brand.id))
             navigationController?.pushViewController(productsScreen, animated: true)
         }
@@ -226,6 +230,8 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     
     @objc func addTapped(){
         let productsScreen = storyboard?.instantiateViewController(withIdentifier: "collectionproducts") as! ProductsViewController
+        productsScreen.fromScreen = "Home"
+        UserDefaults.standard.set(productsScreen.fromScreen, forKey: "Screen")
         navigationController?.pushViewController(productsScreen, animated: true)
     }
     
@@ -235,4 +241,10 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         self.navigationController?.pushViewController(wishList, animated: true)
     }
     
+    @objc func cartScreen(){
+
+        let cart = UIStoryboard(name: "ShoppingCart", bundle: nil).instantiateViewController(withIdentifier: "ShoppingCartViewController") as! ShoppingcartViewController
+        self.navigationController?.pushViewController(cart, animated: true)
+    }
+
 }

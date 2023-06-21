@@ -6,12 +6,13 @@
 //
 
 import UIKit
-
+import Cosmos
 class ReviewsCell: UITableViewCell {
     @IBOutlet weak var reviewerImg: UIImageView!
     
     @IBOutlet weak var reviewerText: UILabel!
     
+    @IBOutlet weak var reviewerRate: CosmosView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

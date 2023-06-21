@@ -6,5 +6,6 @@
         <attribute name="product_price" optional="YES" attributeType="String"/>
         <attribute name="product_rate" optional="YES" attributeType="Double" defaultValueString="0.0" usesScalarValueType="YES"/>
         <attribute name="product_title" optional="YES" attributeType="String"/>
+        <attribute name="user_Id" optional="YES" attributeType="String"/>
     </entity>
 </model>

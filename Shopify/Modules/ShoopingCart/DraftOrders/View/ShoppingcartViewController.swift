@@ -92,7 +92,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         cell.layer.cornerRadius = 10.0
         cell.deleteitem = { [weak self] in
             guard let self = self else { return }
-            self.deleteItem(cell: cell, index: indexPath.row,indexPath: indexPath)
+            self.deleteItem(cell: self.cell, index: indexPath.row,indexPath: indexPath)
         }
         
         cell.itemsNum.text = String(item.quantity ?? 0)

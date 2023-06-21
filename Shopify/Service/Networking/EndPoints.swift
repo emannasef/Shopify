@@ -25,6 +25,13 @@ enum EndPoints {
     case getPriceRules
     case convertCurrency(to:String,from:String,amount:Double)
     case getCupons (priceRuleId:Int)
+    case  brands
+    case products(tag:Int)
+    case productPrice(tag:Int)
+    case brandsProducts(tag:String)
+    case allProducts
+    case orders(tag:Int)
+    case postOrder
     
     
     var path:String{
@@ -57,6 +64,24 @@ enum EndPoints {
             return "convert?to=\(to)&from=\(from)&amount=\(amount)"
         case .getCupons(priceRuleId: let priceRuleId):
             return "price_rules/\(priceRuleId)/discount_codes.json"
+            
+        case .brands:
+            return "smart_collections.json"
+            
+        case .products(tag: let productId):
+            return "products.json?collection_id=\(productId)"
+            
+        case .productPrice(tag: let tag):
+            return "products/\(tag).json"
+            
+        case .brandsProducts(tag: let tag):
+            return "products.json?vendor=\(tag)"
+        case .allProducts:
+            return "/products.json"
+        case .orders(tag: let tag):
+            return "customers/\(tag)/orders.json"
+        case .postOrder:
+            return "orders.json"
         case .getPriceRules:
             return "price_rules.json"
         case .getASingleDraftOrder(draftOrderId: let draftOrderId):

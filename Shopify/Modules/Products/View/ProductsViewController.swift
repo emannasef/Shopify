@@ -12,31 +12,43 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var productsCollection: UICollectionView!
+    @IBOutlet weak var filterView: UIView!
+    @IBOutlet weak var priceSlider: UISlider!
+    
     var collectionId:Int!
     var collectionName:String!
     var viewModel = ProductsViewModel.getInstatnce(network: NetworkManager())
     var allProductsViewModel = AllProducts(network: NetworkManager())
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
+
     
     @IBOutlet weak var filterBtn: UIButton!
     var searchedArr:[Product] = []
     var productsArr:[Product] = []
     var fromScreen:String!
-    
+    var copyArr : [Product] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
         productsCollection.delegate = self
         productsCollection.dataSource = self
+        filterView.isHidden = true
+        priceSlider.value = 500
+        priceSlider.minimumValue = 0
+        priceSlider.maximumValue = 800
         
         let tapmeitems = UIMenu(title: "Filter", options: .displayInline, children: [
             UIAction(title: "A-Z Filter", image: UIImage(named: "atoz"), handler: { _ in
-            self.searchedArr.sorted { $0.title?.lowercased() ?? "" < $1.title?.lowercased() ?? "" }
+                self.searchedArr.sort { $0.title ?? "" > $1.title ?? "" }
                 self.productsCollection.reloadData()
         }),
-            UIAction(title: "Z-A Filter", image: UIImage(named: "ztoa"), handler: { _ in  self.searchedArr.sorted { $0.title?.lowercased() ?? "" > $1.title?.lowercased() ?? "" }
+            UIAction(title: "Z-A Filter", image: UIImage(named: "ztoa"), handler: { _ in  self.searchedArr.sort {$0.title ?? "" < $1.title ?? ""  }
                 self.productsCollection.reloadData()
         }),
+            UIAction(title: "Price Filter", image: UIImage(named: "price"), handler: { _ in
+                print("filter by price")
+                self.filterView.isHidden = false
+        })
         ])
         let menu = UIMenu(title: "", children: [tapmeitems])
     
@@ -45,25 +57,65 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     
     override func viewWillAppear(_ animated: Bool) {
-        
-       // getData()
-        if fromScreen == "Brand" {
+    
+   //     print("My Screeeeeen",fromScreen)
+
+        switch(fromScreen){
+        case "Brand":
             getData()
-        }else {
+        case "Home" :
             getAllProducts()
+        case "men" :
+            getCategory(tag: CategoryType.men.rawValue)
+        case "women" :
+            getCategory(tag: CategoryType.women.rawValue)
+        case "kids" :
+            getCategory(tag: CategoryType.kids.rawValue)
+        case "sale" :
+            getCategory(tag: CategoryType.sale.rawValue)
+        default:
+          print(" there are no data")
         }
+    
     }
    
+    @IBAction func SliderChanged(_ sender: Any) {
+       
+        print("copy array size \(copyArr.count)")
+        print(searchedArr.count)
+        searchedArr = copyArr.filter {
+            Float($0.variants?[0].price ?? "0")! < priceSlider.value }
+        productsCollection.reloadData()
+        print(priceSlider.value)
+        //filterView.isHidden = true
+    }
+    
+    
     func getData(){
         self.viewModel.bindProductsToViewController = {[weak self] in
             DispatchQueue.main.async {
                 self?.productsArr = self?.viewModel.result ?? []
                 self?.searchedArr = self?.productsArr ?? []
+                self?.copyArr = self?.productsArr ?? []
                 self?.productsCollection.reloadData()
 
             }
         }
         viewModel.fetchProducts(tag:"" , endPoint: .brandsProducts(tag: collectionName))
+     
+    }
+    
+    func getCategory(tag: Int){
+        self.viewModel.bindProductsToViewController = {[weak self] in
+            DispatchQueue.main.async {
+                self?.productsArr = self?.viewModel.result ?? []
+                self?.searchedArr = self?.productsArr ?? []
+                self?.copyArr = self?.productsArr ?? []
+                self?.productsCollection.reloadData()
+
+            }
+        }
+        viewModel.fetchProducts(tag: "", endPoint: .products(tag:tag ))
      
     }
     
@@ -116,9 +168,12 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         let favPro = FavProduct(id: product.id,title: product.title,rate: 3.5, price: "500", image: product.image?.src)
 
        if wishListViewModel.isProductExist(product: favPro) == true{
-           cell.isFavBtn.setImage(UIImage(named: "filled.png" ), for: .normal) }
+           cell.isFavBtn.setImage(UIImage(systemName: "heart.fill" ), for: .normal)
+
+       }
         else{
-            cell.isFavBtn.setImage(UIImage(named: "outlined.png" ), for: .normal)
+            cell.isFavBtn.setImage(UIImage(systemName: "heart" ), for: .normal)
+
            }
         return cell
     }
@@ -135,6 +190,9 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         self.navigationController?.pushViewController(productInfo, animated: true)
     }
     
+    func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath) {
+        filterView.isHidden = true
+    }
 }
 
 
@@ -166,18 +224,11 @@ extension ProductsViewController : ClickDelegate{
         let favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price: "500", image: pro.image?.src)
   
         if  wishListViewModel.isProductExist(product: favPro) == false {
-            let alert = UIAlertController(title: "\(String(describing: pro.title))", message: "Do You want to add this in your Wishlist?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { [weak self] (action) in
-                self?.wishListViewModel.insertFavProduct(product: favPro)
-                print("Eman",self?.wishListViewModel.isProductExist(product: favPro))
-                self?.productsCollection.reloadData()
-
-            }))
-            alert.addAction(UIAlertAction(title: "cancel", style: .destructive, handler: nil))
-            self.present(alert, animated: true)
+            wishListViewModel.insertFavProduct(product: favPro)
+            productsCollection.reloadData()
             
         }else{
-            let alert = UIAlertController(title: "\(String(describing: pro.title))", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Delete", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { [weak self] (action) in
                 
                 self?.wishListViewModel.deleteFavProduct(product: favPro)
@@ -186,26 +237,8 @@ extension ProductsViewController : ClickDelegate{
             self.present(alert, animated: true)
         }
     }
-    
-//    func addToFav(index: Int){
-//       var pro = searchedArr[index]
-//        var favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price: "500", image: pro.image?.src)
-//
-//
-//        if  wishListViewModel.isProductExist(product: favPro) == false {
-//
-//            wishListViewModel.insertFavProduct(product: favPro)
-//          //  addToFavImg.image = UIImage(named: "filled.png")
-//
-//            print("inserted")
-//
-//        }else{
-//            wishListViewModel.deleteFavProduct(product: favPro)
-//           // addToFavImg.image = UIImage(named: "outlined.png")
-//            print("Nottttt")
-//        }
-//
-//    }
+    }
     
     
-}
+    
+

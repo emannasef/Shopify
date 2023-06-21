@@ -50,30 +50,5 @@ class AuthNetwork : AuthNetworkProtocol{
         }
     
     
-//    func allCustomers(complition: @escaping ((MyCustomer?), Error?) -> Void) {
-//
-//
-//        let url = "https://3c83d9abc134ed858ac39489d33e5378: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@mad43-sv-ios2.myshopify.com/admin/api/2023-04/customers.json"
-//
-//
-//        AF.request(url, method: .get, parameters: nil, encoding: URLEncoding.default, headers: nil).responseData { response in
-//            switch response.result{
-//                case .success(let data):
-//                  do{
-//                      let jsonData = try JSONDecoder().decode(MyCustomer.self, from: data)
-//                      complition(jsonData,nil)
-//                     // debugPrint(jsonData)
-//                 } catch {
-//                    print(error.localizedDescription)
-//                 }
-//               case .failure(let error):
-//                 print(error.localizedDescription)
-//                complition(nil,error)
-//               }
-//          }
-//
-//    }
-    
-    
     
 }
