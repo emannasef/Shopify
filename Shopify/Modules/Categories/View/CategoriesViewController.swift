@@ -45,6 +45,10 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
         let menu = UIMenu(title: "", children: [tapmeitems])
         
         subCategoriesBtn.menu = menu
+        
+        let searchBtn = UIBarButtonItem(title: "", image: UIImage(named: "baseline-search-24px"), target: self, action: #selector(addTapped))
+        self.tabBarController?.navigationItem.leftBarButtonItem = searchBtn
+
     }
     
     
@@ -165,6 +169,13 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
                 productInfo.productId  = subCategoriesList[indexPath.row].id ?? 8360376402229
             }
             self.navigationController?.pushViewController(productInfo, animated: true)
+    }
+    
+    @objc func addTapped(){
+        let productsScreen = storyboard?.instantiateViewController(withIdentifier: "collectionproducts") as! ProductsViewController
+        productsScreen.fromScreen = "Category"
+        UserDefaults.standard.set(productsScreen.fromScreen, forKey: "Screen")
+        navigationController?.pushViewController(productsScreen, animated: true)
     }
   
 }

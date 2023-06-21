@@ -58,6 +58,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     override func viewWillAppear(_ animated: Bool) {
         
        // getData()
+        print("My Screeeeeen",fromScreen)
         if fromScreen == "Brand" {
             getData()
         }else if fromScreen == "Home" {

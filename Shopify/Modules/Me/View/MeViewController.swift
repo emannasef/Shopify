@@ -32,6 +32,7 @@ class MeViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
         let setting = UIStoryboard(name: "Setting", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
         self.navigationController?.pushViewController(setting, animated: true)
+
         
     }
     
