@@ -29,14 +29,16 @@ class ProductInfoViewModel{
     func addToCart(draftOrdrId:Int,product:Product){
         
         let params : Parameters = encodeToJson(objectClass: createADraftOrder(draftOrdrId: draftOrdrId, product: product)) ?? [:]
-        if draftOrdrId != 0 /*MyCartItems.cartItemsCodableObject != nil ||  MyCartItems.cartItemsCodableObject?.count == 0*/{
+        if draftOrdrId != 0 || MyCartItems.cartItemsCodableObject?.count == 0 {//&& MyCartItems.cartItemsCodableObject != nil ||  MyCartItems.cartItemsCodableObject?.count == 0{
             network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrdrId), params: params) { (response:MyDraftOrder?, error )in
                 guard let result = response?.draft_order else{
                     print(error ?? "there is an errror while adding a new item to your cart")
                     return}
                 MyCartItems.cartItemsCodableObject = result.lineItems
+                setDraftOrderId(draftOrderId: result.id!)
             }
         }
+        
         else  {
             network.post(endPoint: .createDraftOrder, params: params) { (response:MyDraftOrder?, error )in
                 guard let result = response?.draft_order else{
@@ -59,7 +61,8 @@ class ProductInfoViewModel{
         let item = LineItems( title: title ?? "", varientTitle: variTitle ?? "", price: price ?? "", properties: properties, quantity: 1)
         
         
-        cartItems?.append(item)
+        MyCartItems.cartItemsCodableObject?.append(item)
+        print(MyCartItems.cartItemsCodableObject?.count ?? 0)
         
     }
     
@@ -69,7 +72,7 @@ class ProductInfoViewModel{
         _ = cartItems
         var customer = Customer(id:Int(UserDefaults.standard.integer(forKey: "customerId")))
         
-        return createDraftOrder(draftOrderId: draftOrdrId, lineItems: cartItems ?? [],customer: customer )
+        return createDraftOrder(draftOrderId: draftOrdrId, lineItems: MyCartItems.cartItemsCodableObject ?? [],customer: customer )
         
     }
 }

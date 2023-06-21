@@ -6,5 +6,6 @@ protocol NetworkProtocol{
     func update<T: Codable>(endPoint: EndPoints, params: [String: Any], completionHandeler: @escaping ((T?), Error?) -> Void)
     func post<T:Codable>(endPoint: EndPoints, params: [String : Any], completionHandeler: @escaping ((T?), Error?) -> Void)
     func convertCurrencyget <T:Codable>(endPoint: EndPoints, completionHandeler: @escaping ((T?), Error?) -> Void)
+    func getSingleDraftOrder<T:Codable>(endPoint: EndPoints, completionHandeler: @escaping ((T?), Error?) -> Void)
     func delete(endPoint: EndPoints,params: [String : Any])
 }

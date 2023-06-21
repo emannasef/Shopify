@@ -162,8 +162,8 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         cell.itemTitle.text = splitProductName(name:item.name ?? "").1
         cell.brand.text = splitProductName(name:item.name ?? "").0
         print("color is \(String(describing: item.vendor))")
-        let imgUrl = URL(string: item.properties?[0].value ?? "")
-        cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
+       //let imgUrl = URL(string: item.properties?[0].value ?? "")
+        //cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
         cell.itemImg.layer.borderWidth = 0.2
         cell.itemImg.layer.borderColor = UIColor(named: "screenbg")?.cgColor
         cell.itemImg.layer.cornerRadius = 10.0
@@ -230,6 +230,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             MyCartItems.cartItemsCodableObject = self.bacupItemsList
             self.applyChangesBtn.isHidden = true
             alert.dismiss(animated: true)
+            self.myTable.reloadData()
         }))
         
         self.present(alert, animated: true, completion: nil)

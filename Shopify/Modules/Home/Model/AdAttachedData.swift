@@ -1,7 +1,7 @@
 
 import Foundation
 
-struct AdsAttachedData{
+struct AdsAttachedData:Codable{
     
     var status :String?
     var discount :Discount?
@@ -12,5 +12,5 @@ struct AdsAttachedData{
         self.discount = discount
     }
     
-    
+   
 }

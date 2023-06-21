@@ -20,6 +20,7 @@ enum EndPoints {
     case createDraftOrder
     case modifieDraftOrder(draftOrderId:Int)
     case deleteDraftOrder(draftOrderId:Int)
+    case getASingleDraftOrder(draftOrderId:Int)
     case getDraftOrder
     case getPriceRules
     case convertCurrency(to:String,from:String,amount:Double)
@@ -58,6 +59,8 @@ enum EndPoints {
             return "price_rules/\(priceRuleId)/discount_codes.json"
         case .getPriceRules:
             return "price_rules.json"
+        case .getASingleDraftOrder(draftOrderId: let draftOrderId):
+            return "draft_orders/\(draftOrderId).json"
         }
     }
     
