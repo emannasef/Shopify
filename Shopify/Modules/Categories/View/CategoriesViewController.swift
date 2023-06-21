@@ -15,6 +15,7 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
     var productType = ""
     var subCategoriesList: [Product] = []
+    var fromCategory:String!
     
     @IBOutlet weak var categoriesCollection: UICollectionView!
     override func viewDidLoad() {
@@ -82,12 +83,16 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
         case 0:
             return 0
         case 1:
+            fromCategory = "men"
             return CategoryType.men.rawValue
         case 2:
+            fromCategory = "women"
             return CategoryType.women.rawValue
         case 3:
+            fromCategory = "kids"
             return CategoryType.kids.rawValue
         default:
+            fromCategory = "sale"
             return CategoryType.sale.rawValue
         }
     }
@@ -173,7 +178,7 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
     
     @objc func addTapped(){
         let productsScreen = storyboard?.instantiateViewController(withIdentifier: "collectionproducts") as! ProductsViewController
-        productsScreen.fromScreen = "Category"
+        productsScreen.fromScreen = fromCategory
         UserDefaults.standard.set(productsScreen.fromScreen, forKey: "Screen")
         navigationController?.pushViewController(productsScreen, animated: true)
     }

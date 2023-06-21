@@ -17,6 +17,7 @@ protocol ProductsViewModelType{
     func getProductAtIndexPath(row:Int) -> Product
     var result : [Product] { get set }
     
+    
 }
 
 
@@ -27,6 +28,11 @@ class ProductsViewModel: ProductsViewModelType{
     var bindProductsToViewController: (() -> ())?
     var result : [Product] = []
     let network:NetworkServicing
+//    var categoryList:[Product] = {
+//        didSet{
+//
+//        }
+//    }
     
     private init(network: NetworkServicing) {
         self.network = network
@@ -44,6 +50,9 @@ class ProductsViewModel: ProductsViewModelType{
             self?.bindProductsToViewController?()
         }
     }
+    
+    
+
     
     func getProductsCount() -> Int {
         return result.count

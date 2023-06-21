@@ -20,6 +20,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     var viewModel = ProductsViewModel.getInstatnce(network: NetworkManager())
     var allProductsViewModel = AllProducts(network: NetworkManager())
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
+
     
     @IBOutlet weak var filterBtn: UIButton!
     var searchedArr:[Product] = []
@@ -56,16 +57,26 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     
     
     override func viewWillAppear(_ animated: Bool) {
-        
-       // getData()
-        print("My Screeeeeen",fromScreen)
-        if fromScreen == "Brand" {
+    
+   //     print("My Screeeeeen",fromScreen)
+
+        switch(fromScreen){
+        case "Brand":
             getData()
-        }else if fromScreen == "Home" {
+        case "Home" :
             getAllProducts()
-        }else{
-            print("Hellllllo")
+        case "men" :
+            getCategory(tag: CategoryType.men.rawValue)
+        case "women" :
+            getCategory(tag: CategoryType.women.rawValue)
+        case "kids" :
+            getCategory(tag: CategoryType.kids.rawValue)
+        case "sale" :
+            getCategory(tag: CategoryType.sale.rawValue)
+        default:
+          print(" there are no data")
         }
+    
     }
    
     @IBAction func SliderChanged(_ sender: Any) {
@@ -91,6 +102,20 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
             }
         }
         viewModel.fetchProducts(tag:"" , endPoint: .brandsProducts(tag: collectionName))
+     
+    }
+    
+    func getCategory(tag: Int){
+        self.viewModel.bindProductsToViewController = {[weak self] in
+            DispatchQueue.main.async {
+                self?.productsArr = self?.viewModel.result ?? []
+                self?.searchedArr = self?.productsArr ?? []
+                self?.copyArr = self?.productsArr ?? []
+                self?.productsCollection.reloadData()
+
+            }
+        }
+        viewModel.fetchProducts(tag: "", endPoint: .products(tag:tag ))
      
     }
     
@@ -198,8 +223,6 @@ extension ProductsViewController : ClickDelegate{
         let pro = searchedArr[row]
         let favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price: "500", image: pro.image?.src)
   
-     
-    
         if  wishListViewModel.isProductExist(product: favPro) == false {
             wishListViewModel.insertFavProduct(product: favPro)
             productsCollection.reloadData()
