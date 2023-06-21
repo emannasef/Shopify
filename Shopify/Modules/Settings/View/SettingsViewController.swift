@@ -16,12 +16,15 @@ class SettingsViewController: UIViewController {
         network = Network()
         addressViewModel = AdressViewModel(network: network)
         self.currency.text = getCurrency()
-     
+        self.fullName.text = UserDefaults.standard.string(forKey: "customerName")
+        self.region.text = addressViewModel.getDefaultAdress().address1
+        self.city.text = addressViewModel.getDefaultAdress().city
+        
     }
     
     func setdressField(){
         
-        var adress = addressViewModel.getDefaultAdress()
+        let adress = addressViewModel.getDefaultAdress()
         city.text = adress.city
         region.text = adress.address1
     }
@@ -41,10 +44,10 @@ class SettingsViewController: UIViewController {
         return list
     }
     
-
     @IBAction func changeAdress(_ sender: Any) {
-        
-        let adressScreen = self.storyboard?.instantiateViewController(identifier: "adressScreen") as! AdressesViewController
+        let storyBoard : UIStoryboard = UIStoryboard(name: "CheckOut", bundle:nil) /// <- Different storyboard!
+
+        let adressScreen = storyBoard.instantiateViewController(identifier: "adressScreen") as! AdressesViewController
         
         self.navigationController?.pushViewController(adressScreen, animated: true)
     }
@@ -63,6 +66,9 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func logout(_ sender: Any) {
+        UserDefaults.standard.set(false, forKey: "isLogin")
+                let welcomeVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "WelcomeVC") as! WelcomeVC
+                self.navigationController?.pushViewController(welcomeVC , animated: true)
     }
     
 }

@@ -13,6 +13,7 @@ class CheckOutViewController: UIViewController {
   
     var adressViewModel : AdressViewModel!
     var network : NetworkProtocol!
+    var isapplyBtnappear : Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,10 +46,15 @@ class CheckOutViewController: UIViewController {
     
     @IBAction func payByApplePay(_ sender: Any) {
         self.applePayBtn.addTarget(self, action: #selector(tapForPay), for: .touchUpOutside)
+        self.applePayBtn.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+        self.cashbtn.setImage(UIImage(systemName: ""), for: .normal)
+        
     }
  
     
     @IBAction func paycash(_ sender: Any) {
+        self.cashbtn.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+        self.applePayBtn.setImage(UIImage(systemName: ""), for: .normal)
     }
   
   
@@ -88,5 +94,5 @@ extension CheckOutViewController : PKPaymentAuthorizationViewControllerDelegate{
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
     }
-    
+
 }

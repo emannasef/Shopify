@@ -11,6 +11,7 @@ class MeViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
     
     @IBOutlet weak var ordersTable: UITableView!
     @IBOutlet weak var wishListCollection: UICollectionView!
+    @IBOutlet weak var fullName: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -18,7 +19,7 @@ class MeViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
         ordersTable.dataSource = self
         wishListCollection.dataSource = self
         wishListCollection.delegate = self
-        
+        fullName.text = UserDefaults.standard.string( forKey: "customerName")
         let nib = UINib(nibName: "OrderCell", bundle: nil)
         ordersTable.register(nib, forCellReuseIdentifier: "orderCell")
         

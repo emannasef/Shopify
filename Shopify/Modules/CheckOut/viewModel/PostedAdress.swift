@@ -74,6 +74,7 @@ init(id:Int,name:String,city:String,region:String,countryName:String,phone:Strin
     self.countryName = countryName
     self.phone = phone
     self.city = city
+   // self.province = region
 }
 
     init(name:String,city:String,region:String){

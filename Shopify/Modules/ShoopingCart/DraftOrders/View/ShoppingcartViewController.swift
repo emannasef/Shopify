@@ -16,7 +16,8 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     var totalPrice:Int = 0
     var cell : orderdItemTableCell!
     var bacupItemsList : [LineItems]!
-    
+    var isApplyChangeBtn : Bool = false
+    @IBOutlet weak var applyChangeBtn: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
     
     
@@ -105,7 +106,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
                //Int(cell.itemsNum.text ?? "0")
             }
             //cell.itemsNum.text = String(item.quantity ?? 0)
-            item.price = cell.itemPrice.text
+            //item.price = cell.itemPrice.text
             self.changePrice(cell: cell,  index:indexPath.section,item: item)
             // self.bacupItemsList[indexPath.section] = item
             MyCartItems.cartItemsCodableObject![indexPath.section] = item
@@ -117,7 +118,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             item.quantity = (item.quantity ?? 0) + 1
             cell.itemsNum.text = String(item.quantity ?? 0)
            self.myTable.reloadData()//Int(cell.itemsNum.text ?? "0")
-            item.price = cell.itemPrice.text
+           // item.price = cell.itemPrice.text
             self.changePrice(cell: cell,index:indexPath.section,item: item)
             MyCartItems.cartItemsCodableObject![indexPath.section] = item
         }
@@ -158,11 +159,11 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func setCellData(cell:orderdItemTableCell, item:LineItems, index:Int){
         cell.itemsNum.text = String(item.quantity ?? 0)
-       // setPrice(cell: cell, price: item.price ?? "",quantity: item.quantity ?? 0)
+        setPrice(cell: cell, price: item.price ?? "",quantity: item.quantity ?? 0)
         cell.itemTitle.text = splitProductName(name:item.name ?? "").1
         cell.brand.text = splitProductName(name:item.name ?? "").0
         print("color is \(String(describing: item.vendor))")
-       //let imgUrl = URL(string: item.properties?[0].value ?? "")
+      // let imgUrl = URL(string: item.properties?[0].value ?? "")
         //cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
         cell.itemImg.layer.borderWidth = 0.2
         cell.itemImg.layer.borderColor = UIColor(named: "screenbg")?.cgColor
@@ -175,10 +176,11 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         settingViewModel.bindResultToviewController = { [weak self] in
             DispatchQueue.main.async{
                 let price = self?.settingViewModel.result
-                let convertedPrice = quantity * Int(price ??  0)
-                self?.totalPrice += Int(convertedPrice)
-                cell.itemPrice.text = String(convertedPrice)
-                self?.totalAmount.text = String(self?.totalPrice ?? 0)
+                let convertedPrice = Int(price ??  0) //let convertedPrice = quantity * Int(price ??  0)
+                //self?.totalPrice += Int(convertedPrice)
+               // cell.itemPrice.text = String(convertedPrice)
+               // self?.totalAmount.text = String(self?.totalPrice ?? 0)
+                
                 self?.myTable.reloadData()
                 self?.myTable.isHidden = false
                 self?.loading.stop()
@@ -225,10 +227,12 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             self.viewModel.updateDraftOrder(draftOrderId: getDraftOrdertId(), customer: Customer(id:UserDefaults.standard.integer(forKey: "customerId")), listOfCartItems: MyCartItems.cartItemsCodableObject!)
             createToastMessage(message: "your cart updated succefully", view: self.view)
             self.applyChangesBtn.isHidden = true
+            isApplyChangeBtn = false
         }))
         alert.addAction(UIAlertAction(title: "Discard", style: UIAlertAction.Style.cancel, handler:{_ in
             MyCartItems.cartItemsCodableObject = self.bacupItemsList
             self.applyChangesBtn.isHidden = true
+            self.isApplyChangeBtn = false
             alert.dismiss(animated: true)
             self.myTable.reloadData()
         }))
@@ -238,12 +242,36 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     func changePrice(cell:orderdItemTableCell,index:Int,item:LineItems){
        // var totalPrice = (Int(totalAmount.text!) ?? 0 - Int(cell.itemPrice.text!)!)
-        cell.itemPrice.text = String(Int(item.price!) ?? 0 *  (item.quantity ?? 0)/*cell.itemsCount*/)
+        //cell.itemPrice.text = String(Int(item.price!) ?? 0 *  (item.quantity ?? 0)/*cell.itemsCount*/)
        // totalPrice = totalPrice + Int(cell.itemPrice.text!)!
         totalAmount.text = String(totalPrice)
         applyChangesBtn.isHidden = false
+        isApplyChangeBtn = true
         bacupItemsList[index].quantity = item.quantity
         //bacupItemsList[index].price = totalAmount.text
+    }
+    
+    @IBAction func x(_ sender: Any) {
+        if isApplyChangeBtn == true {
+            let alert = UIAlertController(title: "Alert!", message: "apply your changes before check out", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil ))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else {
+            
+            let paymentScreen = self.storyboard?.instantiateViewController(identifier: "CheckOutViewController") as! CheckOutViewController
+            self.navigationController?.pushViewController(paymentScreen, animated: true)
+        }
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if isApplyChangeBtn == true {
+            let alert = UIAlertController(title: "Alert!", message: "your changes discarded", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil ))
+            self.present(alert, animated: true, completion: nil)
+        }
+        applyChangesBtn.isHidden = true
     }
 }
 

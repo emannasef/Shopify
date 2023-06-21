@@ -13,14 +13,15 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
     @IBOutlet weak var addAdressBtn: UIButton!
     var viewModel : AdressViewModel!
     var network : Network!
-
+    var id : Int?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        id  = Int(UserDefaults.standard.string(forKey: "customerId") ?? "") ?? 0
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        adressTable.reloadData()
         network = Network()
         viewModel = AdressViewModel(network: network)
         viewModel.bindAdressesToViewController = { [weak self] in
@@ -30,7 +31,9 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
             }
             
         }
+    
         viewModel.getCustomerAdresses(customerId: 7046569754933)
+        
        
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,7 +61,7 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
             print("set default btn pressed .............")
            // self.viewModel.setAdressAsDefault(adress: adress,customerId:7037983686965 , adressId: adress.id ?? 0)
             self.setDefaultadress(adress: adress)
-            self.viewModel.getCustomerAdresses(customerId:7046569754933)
+            self.viewModel.getCustomerAdresses(customerId: 7046569754933)
             self.getAsDefault(adress: adress, cell: cell)
         }
         cell.checkAsDefaultBtn.layer.borderWidth = 1
@@ -118,7 +121,7 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
                }
                else {
                    
-                   createToastMessage(message: "You can't delete your default message",view: self.view)
+                   createToastMessage(message: "You can't delete your default Address",view: self.view)
                    
                }
               
