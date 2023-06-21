@@ -9,13 +9,17 @@ import UIKit
 import Kingfisher
 
 class HomeViewController: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource {
-
+    
     @IBOutlet weak var homeCollection: UICollectionView!
     var viewmodel = HomeViewModel.getInstatnce(network: NetworkManager())
-   
+    var cuponsVieModel :CuponsViewModel!
+    var network : NetworkProtocol!
+    var currentIndex = 0
+    var timer : Timer?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        network = Network()
+        cuponsVieModel = CuponsViewModel(network: network)
         homeCollection.dataSource = self
         homeCollection.delegate = self
         self.navigationController?.navigationItem.title  = "Home"
@@ -25,19 +29,43 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         self.tabBarController?.navigationItem.leftBarButtonItem = searchBtn
         
         self.tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "", image: UIImage(named: "outlined"), target: self, action: #selector(favScreen))
-    
+        
         setLayout()
+        startTimer()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         getData()
+        cuponsVieModel.bindPricerulesToViewControllers = { [weak self] in
+            DispatchQueue.main.async {
+                var i = 0
+                print("IDES COUNT \(String(describing: self?.cuponsVieModel.priceRuleIdes?.count))")
+                    var id = self?.cuponsVieModel.priceRuleIdes?[i]
+                    self?.cuponsVieModel.getCupons(priceruleId:id ?? 0)
+                    
+            }
+        }
+        cuponsVieModel.bindToViewController = {  [weak self] in
+            DispatchQueue.main.async {
+                self?.setCuponsArr(totalCupons: self?.cuponsVieModel.totalCupons ?? [])
+            }
+        }
+        cuponsVieModel.getPriceRules()
     }
-
+    
+    func setCuponsArr (totalCupons:[Discount]){
+        for e in totalCupons {
+            let attachDiscount = AdsAttachedData (status: "unUsed", discount: e)
+            discountsArr?.append(attachDiscount)
+        }
+        
+    }
+    
     func getData(){
         self.viewmodel.bindBrandsToViewController = {[weak self] in
             DispatchQueue.main.async {
                 self?.homeCollection.reloadData()
-               
+                
             }
         }
         viewmodel.fetchBrands(tag: "", endPoint: .brands)
@@ -64,11 +92,11 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch(section){
         case 0:
-            return 10
+            return adsImageArray.count
         default:
             return viewmodel.getBrandsCount()
         }
-       
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -76,23 +104,24 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         switch(indexPath.section){
         case 0:
             let cell = homeCollection.dequeueReusableCell(withReuseIdentifier: "adCell", for: indexPath) as! AdsCell
+            cell.adImage.image = UIImage(named: adsImageArray[indexPath.row])
             return cell
             
         default:
             let brand = viewmodel.getBrandAtIndexPath(row: indexPath.row)
-                
+            
             let cell = homeCollection.dequeueReusableCell(withReuseIdentifier: "brandCell", for: indexPath) as! BrandCell
             cell.brandName.text = brand.title
-          
+            
             cell.brandImage.kf.setImage(
                 with: URL(string: brand.image.src ?? ""),
-                 placeholder: UIImage(named: "brandplaceholder"),
-                 options: [
-                     .scaleFactor(UIScreen.main.scale),
-                     .transition(.fade(1)),
-                     .cacheOriginalImage
-                 ])
-                
+                placeholder: UIImage(named: "brandplaceholder"),
+                options: [
+                    .scaleFactor(UIScreen.main.scale),
+                    .transition(.fade(1)),
+                    .cacheOriginalImage
+                ])
+            
             
             cell.layer.borderColor = UIColor.black.cgColor
             cell.layer.borderWidth = 1
@@ -101,21 +130,21 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         }
     }
     
-     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        
         print("kind is \(kind)")
         let  sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HomeHeader", for: indexPath) as! HeaderReusableView
-            print("from section header")
+        print("from section header")
         if kind == UICollectionView.elementKindSectionHeader {
+            
+            switch(indexPath.section){
+            case 0:
+                break
+            default:
+                sectionHeader.titleLabel.text = "Brands"
                 
-                switch(indexPath.section){
-                case 0:
-                    break
-                default:
-                    sectionHeader.titleLabel.text = "Brands"
-                    
-                }
             }
+        }
         return sectionHeader
     }
     
@@ -136,44 +165,44 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         }
     }
     
-   /* func startTimer(){
+    func startTimer(){
         timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextItem), userInfo: nil, repeats: true)
     }
     
     
     @objc func moveToNextItem(){
         
-        if currentIndex < proImages.count-1{
+        if currentIndex < adsImageArray.count-1{
             currentIndex += 1
         }else{
             currentIndex = 0
         }
         
-        imsgesCollectionView.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredHorizontally, animated: true)
+        homeCollection.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredHorizontally, animated: true)
         
-        slider.currentPage = currentIndex
         
-    }*/
+        
+    }
     
     
     func AdsSection() -> NSCollectionLayoutSection{
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            let groupSize = NSCollectionLayoutSize(widthDimension:        .fractionalWidth(1), heightDimension: .absolute(220))
-            let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-            let section = NSCollectionLayoutSection(group: group)
-            section.orthogonalScrollingBehavior = .continuous
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        let groupSize = NSCollectionLayoutSize(widthDimension:        .fractionalWidth(1), heightDimension: .absolute(220))
+        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+        let section = NSCollectionLayoutSection(group: group)
+        section.orthogonalScrollingBehavior = .continuous
         
         section.visibleItemsInvalidationHandler = { (items, offset, environment) in
-             items.forEach { item in
-             let distanceFromCenter = abs((item.frame.midX - offset.x) - environment.container.contentSize.width / 2.0)
-             let minScale: CGFloat = 0.8
-             let maxScale: CGFloat = 1.0
-             let scale = max(maxScale - (distanceFromCenter / environment.container.contentSize.width), minScale)
-             item.transform = CGAffineTransform(scaleX: scale, y: scale)
-             }
+            items.forEach { item in
+                let distanceFromCenter = abs((item.frame.midX - offset.x) - environment.container.contentSize.width / 2.0)
+                let minScale: CGFloat = 0.8
+                let maxScale: CGFloat = 1.0
+                let scale = max(maxScale - (distanceFromCenter / environment.container.contentSize.width), minScale)
+                item.transform = CGAffineTransform(scaleX: scale, y: scale)
+            }
         }
-            
+        
         return section
     }
     
@@ -181,19 +210,19 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     func BrandsSection()->NSCollectionLayoutSection {
         
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(0.5),heightDimension: .fractionalHeight(1))
-            let item = NSCollectionLayoutItem(layoutSize: itemSize)
-            item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
-
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 5, leading: 5, bottom: 5, trailing: 5)
+        
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0),heightDimension: .absolute(180))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,subitems: [item])
-
+        
         let section = NSCollectionLayoutSection(group: group)
         let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(50))
         let headerSupplementary = NSCollectionLayoutBoundarySupplementaryItem(layoutSize: headerSize, elementKind: UICollectionView.elementKindSectionHeader, alignment: .top)
         section.boundarySupplementaryItems = [headerSupplementary]
-
-            return section
-        }
+        
+        return section
+    }
     
     @objc func addTapped(){
         let productsScreen = storyboard?.instantiateViewController(withIdentifier: "collectionproducts") as! ProductsViewController
@@ -201,9 +230,9 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     }
     
     @objc func favScreen(){
-
+        
         let wishList = UIStoryboard(name: "WishList", bundle: nil).instantiateViewController(withIdentifier: "WishListVC") as! WishListVC
         self.navigationController?.pushViewController(wishList, animated: true)
     }
-
+    
 }

@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		041B4AD52A3CF788006C468D /* CreateDraftOrder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041B4AD42A3CF788006C468D /* CreateDraftOrder.swift */; };
+		041C06E12A425CA300403852 /* PrerequisiteToEntitlementQuantityRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C06E02A425CA300403852 /* PrerequisiteToEntitlementQuantityRatio.swift */; };
+		041C06E32A425CAA00403852 /* PrerequisiteToEntitlementPurchase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C06E22A425CA900403852 /* PrerequisiteToEntitlementPurchase.swift */; };
+		041C06E52A425CAF00403852 /* PriceRulesresponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C06E42A425CAE00403852 /* PriceRulesresponse.swift */; };
+		041C06E72A425CB400403852 /* PriceRules.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C06E62A425CB300403852 /* PriceRules.swift */; };
+		041C06E92A4264E300403852 /* AdAttachedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041C06E82A4264E300403852 /* AdAttachedData.swift */; };
 		042067F42A3C84E4004F74C2 /* AppUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042067F32A3C84E4004F74C2 /* AppUserDefaults.swift */; };
 		042067F62A3C8F57004F74C2 /* MyCartItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 042067F52A3C8F57004F74C2 /* MyCartItems.swift */; };
 		0422EDBE2A3E573100C8444D /* CuponsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0422EDBD2A3E573100C8444D /* CuponsViewModel.swift */; };
@@ -129,6 +134,11 @@
 
 /* Begin PBXFileReference section */
 		041B4AD42A3CF788006C468D /* CreateDraftOrder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateDraftOrder.swift; sourceTree = "<group>"; };
+		041C06E02A425CA300403852 /* PrerequisiteToEntitlementQuantityRatio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrerequisiteToEntitlementQuantityRatio.swift; sourceTree = "<group>"; };
+		041C06E22A425CA900403852 /* PrerequisiteToEntitlementPurchase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrerequisiteToEntitlementPurchase.swift; sourceTree = "<group>"; };
+		041C06E42A425CAE00403852 /* PriceRulesresponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceRulesresponse.swift; sourceTree = "<group>"; };
+		041C06E62A425CB300403852 /* PriceRules.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PriceRules.swift; sourceTree = "<group>"; };
+		041C06E82A4264E300403852 /* AdAttachedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AdAttachedData.swift; sourceTree = "<group>"; };
 		042067F32A3C84E4004F74C2 /* AppUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppUserDefaults.swift; sourceTree = "<group>"; };
 		042067F52A3C8F57004F74C2 /* MyCartItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCartItems.swift; sourceTree = "<group>"; };
 		0422EDBD2A3E573100C8444D /* CuponsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CuponsViewModel.swift; sourceTree = "<group>"; };
@@ -341,6 +351,10 @@
 			isa = PBXGroup;
 			children = (
 				0424EF372A3C4E8900514892 /* DiscountResponse.swift */,
+				041C06E62A425CB300403852 /* PriceRules.swift */,
+				041C06E42A425CAE00403852 /* PriceRulesresponse.swift */,
+				041C06E02A425CA300403852 /* PrerequisiteToEntitlementQuantityRatio.swift */,
+				041C06E22A425CA900403852 /* PrerequisiteToEntitlementPurchase.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -697,6 +711,7 @@
 			isa = PBXGroup;
 			children = (
 				047A9B692A3C8B8300AE1543 /* HomeModels.swift */,
+				041C06E82A4264E300403852 /* AdAttachedData.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1043,6 +1058,7 @@
 				0424EF282A3C4D4F00514892 /* TaxLines.swift in Sources */,
 				044A8E7A2A3E106B002528D7 /* AboutVC.swift in Sources */,
 				04DE93762A3725500084F21B /* ProductInfoViewModel.swift in Sources */,
+				041C06E72A425CB400403852 /* PriceRules.swift in Sources */,
 				046577402A3F4BA400669B3D /* CategoriesModel.swift in Sources */,
 				044259832A3CD05B00CD3811 /* WishListVC.swift in Sources */,
 				0424EF382A3C4E8900514892 /* DiscountResponse.swift in Sources */,
@@ -1055,8 +1071,10 @@
 				047A9B7B2A3C8B8300AE1543 /* HomeViewController.swift in Sources */,
 				0477AFD72A3D90860011DA4F /* ClickDelegate.swift in Sources */,
 				043771302A371411006C2233 /* ViewController.swift in Sources */,
+				041C06E92A4264E300403852 /* AdAttachedData.swift in Sources */,
 				043771682A371641006C2233 /* DBManger.swift in Sources */,
 				0424EF242A3C4D4800514892 /* DraftOrders.swift in Sources */,
+				041C06E12A425CA300403852 /* PrerequisiteToEntitlementQuantityRatio.swift in Sources */,
 				047A9B732A3C8B8300AE1543 /* ProductsModel.swift in Sources */,
 				0437712C2A371411006C2233 /* AppDelegate.swift in Sources */,
 				043771752A3716CE006C2233 /* ProductInfo.swift in Sources */,
@@ -1083,6 +1101,7 @@
 				043771652A371626006C2233 /* NetworkProtocol.swift in Sources */,
 				044A8E762A3DD8AF002528D7 /* SettingsViewController.swift in Sources */,
 				043771362A371411006C2233 /* Shopify.xcdatamodeld in Sources */,
+				041C06E32A425CAA00403852 /* PrerequisiteToEntitlementPurchase.swift in Sources */,
 				0422FFF12A3DB06D00F3A0AE /* Query.swift in Sources */,
 				042440DB2A3EFC5300840E59 /* AdressesViewController.swift in Sources */,
 				04DE93872A3726F50084F21B /* Utilites.swift in Sources */,
@@ -1099,6 +1118,7 @@
 				04DE93652A37234B0084F21B /* AuthNetworkProtocol.swift in Sources */,
 				041B4AD52A3CF788006C468D /* CreateDraftOrder.swift in Sources */,
 				0424EF342A3C4E7B00514892 /* PromoCodesViewController.swift in Sources */,
+				041C06E52A425CAF00403852 /* PriceRulesresponse.swift in Sources */,
 				0437712E2A371411006C2233 /* SceneDelegate.swift in Sources */,
 				0422FFEF2A3DB06800F3A0AE /* Info.swift in Sources */,
 				0453D3232A3B753F008A2345 /* DefaultAdress.swift in Sources */,

@@ -94,18 +94,29 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             guard let self = self else { return }
             self.deleteItem(cell: cell, index: indexPath.row,indexPath: indexPath)
         }
+        
+        cell.itemsNum.text = String(item.quantity ?? 0)
         cell.decreaseQuantity = {[weak self] in
             guard let self = self else { return }
-            item.quantity = Int(cell.itemsNum.text ?? "0")
+            if item.quantity! > 1{
+                item.quantity = (item.quantity ?? 0) - 1
+                cell.itemsNum.text = String(item.quantity ?? 0)
+                self.myTable.reloadData()
+               //Int(cell.itemsNum.text ?? "0")
+            }
+            //cell.itemsNum.text = String(item.quantity ?? 0)
             item.price = cell.itemPrice.text
             self.changePrice(cell: cell,  index:indexPath.section,item: item)
             // self.bacupItemsList[indexPath.section] = item
             MyCartItems.cartItemsCodableObject![indexPath.section] = item
             
         }
+        
        cell.increaseQuantity = {[weak self] in
             guard let self = self else { return }
-            item.quantity = Int(cell.itemsNum.text ?? "0")
+            item.quantity = (item.quantity ?? 0) + 1
+            cell.itemsNum.text = String(item.quantity ?? 0)
+           self.myTable.reloadData()//Int(cell.itemsNum.text ?? "0")
             item.price = cell.itemPrice.text
             self.changePrice(cell: cell,index:indexPath.section,item: item)
             MyCartItems.cartItemsCodableObject![indexPath.section] = item
@@ -230,7 +241,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
        // totalPrice = totalPrice + Int(cell.itemPrice.text!)!
         totalAmount.text = String(totalPrice)
         applyChangesBtn.isHidden = false
-         bacupItemsList[index].quantity = cell.itemsCount
+        bacupItemsList[index].quantity = item.quantity
         //bacupItemsList[index].price = totalAmount.text
     }
 }
