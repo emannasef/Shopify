@@ -325,7 +325,6 @@
 		0424EF1E2A3C4D0B00514892 /* Cupons */ = {
 			isa = PBXGroup;
 			children = (
-				0424EF322A3C4E6400514892 /* View */,
 				0424EF312A3C4E4400514892 /* ViewModel */,
 				0424EF302A3C4E3C00514892 /* Model */,
 			);
@@ -336,6 +335,7 @@
 			isa = PBXGroup;
 			children = (
 				0424EF222A3C4D3500514892 /* View */,
+				0424EF322A3C4E6400514892 /* View */,
 				0424EF212A3C4D2A00514892 /* ViewModel */,
 				0424EF202A3C4D2400514892 /* Model */,
 			);
@@ -395,7 +395,8 @@
 				0424EF352A3C4E7F00514892 /* promocodeTableViewCell.swift */,
 				0424EF332A3C4E7B00514892 /* PromoCodesViewController.swift */,
 			);
-			path = View;
+			name = View;
+			path = Model/View;
 			sourceTree = "<group>";
 		};
 		0424EF392A3C4EEC00514892 /* ToastMessage */ = {

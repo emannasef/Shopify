@@ -59,7 +59,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     func setCuponsArr (totalCupons:[Discount]){
         for e in totalCupons {
             let attachDiscount = AdsAttachedData (status: "unUsed", discount: e)
-            discountsArr?.append(attachDiscount)
+            MyDiscountArray.discountArrayCodableObject.append(attachDiscount)
         }
         
     }
@@ -156,6 +156,15 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         switch(indexPath.section){
         case 0:
+            if MyDiscountArray.discountArrayCodableObject[indexPath.row].status == "unUsed"{
+            MyDiscountArray.discountArrayCodableObject[indexPath.row].status = "used"
+        }
+        else{
+            let alert : UIAlertController = UIAlertController(title: "ALERT!", message: "Cupon alreadt taken", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel,handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
             break
         default:
             let brand = viewmodel.getBrandAtIndexPath(row: indexPath.row)
