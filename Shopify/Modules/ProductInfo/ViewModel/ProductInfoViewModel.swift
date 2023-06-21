@@ -59,8 +59,11 @@ class ProductInfoViewModel{
         let price = proVarient?.price
         let properties = [Properties(name: "url_image", value: product.images?[0].src ?? "")]
         let item = LineItems( title: title ?? "", varientTitle: variTitle ?? "", price: price ?? "", properties: properties, quantity: 1)
+        
+        
         MyCartItems.cartItemsCodableObject?.append(item)
-
+        print(MyCartItems.cartItemsCodableObject?.count ?? 0)
+        
     }
     
     func createADraftOrder(draftOrdrId:Int,product:Product) -> MyDraftOrder{
