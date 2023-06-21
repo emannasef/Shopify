@@ -230,6 +230,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             MyCartItems.cartItemsCodableObject = self.bacupItemsList
             self.applyChangesBtn.isHidden = true
             alert.dismiss(animated: true)
+            self.myTable.reloadData()
         }))
         
         self.present(alert, animated: true, completion: nil)

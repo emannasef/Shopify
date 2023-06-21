@@ -34,6 +34,31 @@ class Network : NetworkProtocol{
         
     }
     
+    func getSingleDraftOrder<T:Codable>(endPoint: EndPoints, completionHandeler: @escaping ((T?), Error?) -> Void){
+        
+        let path = "\(BASE_URL)\(endPoint.path)"
+        
+        AF.request(path, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers).responseData { response in
+            switch response.result{
+            case .success(let data):
+                do{
+                    let jsonData = try JSONDecoder().decode(T.self, from: data)
+                    completionHandeler (jsonData,nil)
+                    print("success while decoding............")
+                    debugPrint(jsonData)
+                } catch {
+                    //print(error.localizedDescription)
+                    print(String(describing: error))
+                    print("error while decoding............")
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                print("failuer while decoding............")
+                completionHandeler(nil,error)
+            }
+        }
+        
+    }
     
     func post<T:Codable>(endPoint: EndPoints, params: [String : Any], completionHandeler: @escaping ((T?), Error?) -> Void) where T : Decodable, T : Encodable {
         

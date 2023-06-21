@@ -15,12 +15,12 @@ class DraftOrderViewModel {
     
     func getDraftOrders(draftOrderId:Int){
         
-        network.get(endPoint: .getDraftOrder, completionHandeler: { (response: DraftOrderResponse?, error) in
+        network.get(endPoint: .getASingleDraftOrder(draftOrderId: draftOrderId), completionHandeler: { (response: MyDraftOrder?, error) in
             guard response != nil else {
                 print ("No response")
                 return
             }
-            self.lineItems = self.filterDraftOrders(orders: response?.draftOrders ?? [],draftOrderId: draftOrderId )
+            self.lineItems = self.filterASingleDraftOrders(orders: response!, draftOrderId: draftOrderId) //self.filterDraftOrders(orders: response?.draftOrders ?? [],draftOrderId: draftOrderId )
             MyCartItems.cartItemsCodableObject = self.lineItems
             self.bindDraftOrdersToViewControllers!()
             print("count...\(String(describing: self.draftOrders?[0].lineItems?.count))")
@@ -40,8 +40,16 @@ class DraftOrderViewModel {
     
     func filterDraftOrders(orders:[DraftOrders], draftOrderId:Int) -> [LineItems]{
         
-        let result = orders.filter({$0.id == draftOrderId && $0.note == "cart" 
+        let result = orders.filter({$0.id == draftOrderId && $0.note == "cart"
         }).first?.lineItems ?? []
+        
+        return result
+        
+    }
+    func filterASingleDraftOrders(orders:MyDraftOrder, draftOrderId:Int) -> [LineItems]{
+        
+        let result = orders.draft_order?.lineItems?.filter({$0.title !=  "Dress"
+        }) ?? []
         
         return result
         

@@ -91,7 +91,7 @@ class ProductInfoVC: UIViewController{
     @IBAction func addToCart(_ sender: Any) {
         
         viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
-        createToastMessage(message: "new iten added to your cart",view: self.view)
+        createToastMessage(message: "new item added to your cart",view: self.view)
         
     }
     

@@ -29,14 +29,16 @@ class ProductInfoViewModel{
     func addToCart(draftOrdrId:Int,product:Product){
         
         let params : Parameters = encodeToJson(objectClass: createADraftOrder(draftOrdrId: draftOrdrId, product: product)) ?? [:]
-        if draftOrdrId != 0 /*MyCartItems.cartItemsCodableObject != nil ||  MyCartItems.cartItemsCodableObject?.count == 0*/{
+        if draftOrdrId != 0 || MyCartItems.cartItemsCodableObject?.count == 0 {//&& MyCartItems.cartItemsCodableObject != nil ||  MyCartItems.cartItemsCodableObject?.count == 0{
             network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrdrId), params: params) { (response:MyDraftOrder?, error )in
                 guard let result = response?.draft_order else{
                     print(error ?? "there is an errror while adding a new item to your cart")
                     return}
                 MyCartItems.cartItemsCodableObject = result.lineItems
+                setDraftOrderId(draftOrderId: result.id!)
             }
         }
+        
         else  {
             network.post(endPoint: .createDraftOrder, params: params) { (response:MyDraftOrder?, error )in
                 guard let result = response?.draft_order else{
@@ -57,19 +59,20 @@ class ProductInfoViewModel{
         let price = proVarient?.price
         let properties = [Properties(name: "url_image", value: product.images?[0].src ?? "")]
         let item = LineItems( title: title ?? "", varientTitle: variTitle ?? "", price: price ?? "", properties: properties, quantity: 1)
-        
-        
-        cartItems?.append(item)
-        
+        MyCartItems.cartItemsCodableObject?.append(item)
+
     }
     
     func createADraftOrder(draftOrdrId:Int,product:Product) -> MyDraftOrder{
-        addItem(product: product)
-        var items = LineItems( title: "oo" , varientTitle: "lll" , price: "99" , properties: [Properties()], quantity: 1)
-        _ = cartItems
-        var customer = Customer(id:Int(UserDefaults.standard.integer(forKey: "customerId")))
         
-        return createDraftOrder(draftOrderId: draftOrdrId, lineItems: cartItems ?? [],customer: customer )
+        var items = LineItems( title: "Dress" , varientTitle: "lll" , price: "99" , properties: [Properties()], quantity: 1)
+        MyCartItems.cartItemsCodableObject?.append(items)
+        let customer = Customer(id:Int(UserDefaults.standard.integer(forKey: "customerId")))
+        if MyCartItems.cartItemsCodableObject?.count == 0{
+            MyCartItems.cartItemsCodableObject = [items]
+        }
+        addItem(product: product)
+        return createDraftOrder(draftOrderId: draftOrdrId, lineItems: MyCartItems.cartItemsCodableObject ?? [],customer: customer )
         
     }
 }

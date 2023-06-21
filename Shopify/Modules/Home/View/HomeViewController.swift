@@ -38,9 +38,9 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         getData()
         cuponsVieModel.bindPricerulesToViewControllers = { [weak self] in
             DispatchQueue.main.async {
-                var i = 0
+                let i = 0
                 print("IDES COUNT \(String(describing: self?.cuponsVieModel.priceRuleIdes?.count))")
-                    var id = self?.cuponsVieModel.priceRuleIdes?[i]
+                    let id = self?.cuponsVieModel.priceRuleIdes?[i]
                     self?.cuponsVieModel.getCupons(priceruleId:id ?? 0)
                     
             }
