@@ -12,7 +12,7 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
     
     @IBOutlet weak var categoriesSegmentedControl: UISegmentedControl!
     var viewModel = CategoriesViewModel.getInstatnce(network: NetworkManager())
-    var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
+    var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance,network: Network())
     var productType = ""
     var subCategoriesList: [Product] = []
     var fromCategory:String!

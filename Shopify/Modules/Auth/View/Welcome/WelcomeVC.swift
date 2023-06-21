@@ -16,6 +16,9 @@ class WelcomeVC: UIViewController {
     
     @IBAction func guest(_ sender: Any) {
         UserDefaults.standard.set(true, forKey: "isLogin")
+        let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
+        let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
+        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
     }
     
     @IBAction func signUp(_ sender: Any) {

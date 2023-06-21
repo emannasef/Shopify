@@ -19,7 +19,9 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     var collectionName:String!
     var viewModel = ProductsViewModel.getInstatnce(network: NetworkManager())
     var allProductsViewModel = AllProducts(network: NetworkManager())
-    var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
+    var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance,network: Network())
+    
+    let draftyID = UserDefaults.standard.string(forKey: "UserWishListID")
 
     
     @IBOutlet weak var filterBtn: UIButton!
@@ -169,7 +171,6 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
 
        if wishListViewModel.isProductExist(product: favPro) == true{
            cell.isFavBtn.setImage(UIImage(systemName: "heart.fill" ), for: .normal)
-
        }
         else{
             cell.isFavBtn.setImage(UIImage(systemName: "heart" ), for: .normal)
@@ -222,9 +223,11 @@ extension ProductsViewController : ClickDelegate{
     func clicked(_ row: Int) {
         let pro = searchedArr[row]
         let favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price: "500", image: pro.image?.src)
-  
+     
+        print("Drafty",draftyID)
         if  wishListViewModel.isProductExist(product: favPro) == false {
             wishListViewModel.insertFavProduct(product: favPro)
+            wishListViewModel.insertLineItem(draftOrdrId: draftyID!, product: pro)
             productsCollection.reloadData()
             
         }else{
