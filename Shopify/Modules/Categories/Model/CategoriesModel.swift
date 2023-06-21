@@ -9,9 +9,9 @@ import Foundation
 
 enum CategoryType : Int {
     case allCategories = 448185696565
-    case men = 448186843445
-    case women = 448186876213
-    case kids = 448186908981
-    case sale = 448186941749
+    case men = 450297987381
+    case women = 450298020149
+    case kids = 450298052917
+    case sale = 450298085685
     
 }
