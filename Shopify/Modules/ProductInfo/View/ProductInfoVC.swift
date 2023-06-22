@@ -32,7 +32,9 @@ class ProductInfoVC: UIViewController{
     
     let revierImages = ["person1","person2","person3"]
     let revierText = ["I Love This","Meduim quality Product","It's pretty much and I liked it"]
-    
+    let userId  =  UserDefaults.standard.string(forKey: "customerId")
+    let userType =  UserDefaults.standard.string(forKey: "UserType")
+
     
     override func viewDidAppear(_ animated: Bool) {
         scrollview.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -65,8 +67,8 @@ class ProductInfoVC: UIViewController{
                 self?.slider.numberOfPages = self?.myProduct?.images?.count ?? 0
                 self?.proImages = self?.myProduct?.images ?? []
                 self?.imsgesCollectionView.reloadData()
-                self?.favPro = FavProduct(id: self?.myProduct.id,title: self?.myProduct.title,rate: 3.5, price: "500", image: self?.myProduct.image?.src)
-                self?.check()
+                self?.favPro = FavProduct(id: self?.myProduct.id,title: self?.myProduct.title,rate: 3.5, price: self?.myProduct.variants?[0].price, image: self?.myProduct.image?.src,userId: "\(String(describing: self?.userId))")
+                                self?.check()
                 
             }
         }
@@ -90,10 +92,12 @@ class ProductInfoVC: UIViewController{
     
     
     @IBAction func addToCart(_ sender: Any) {
-        
-        viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
-        createToastMessage(message: "new item added to your cart",view: self.view)
-        
+        if userType == "guest" {
+            showLoginAlert(viewController: self)
+        }else{
+            viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
+            createToastMessage(message: "new item added to your cart",view: self.view)
+        }
     }
     
     @IBAction func moreBtn(_ sender: Any) {
@@ -105,14 +109,26 @@ class ProductInfoVC: UIViewController{
     
     @objc func addToFav(_ sender:UITapGestureRecognizer) {
         
-        if  wishListViewModel.isProductExist(product:favPro) == false {
-            wishListViewModel.insertFavProduct(product: favPro)
-            favImg.image = UIImage(systemName: "heart.fill")
-        }else{
-            wishListViewModel.deleteFavProduct(product: favPro)
-            favImg.image = UIImage(systemName: "heart")
-        }
         
+        if userType == "guest" {
+            showLoginAlert(viewController: self)
+        }else{
+            
+            if  wishListViewModel.isProductExist(product:favPro) == false {
+                wishListViewModel.insertFavProduct(product: favPro)
+                favImg.image = UIImage(systemName: "heart.fill")
+            }else{
+                // wishListViewModel.deleteFavProduct(product: favPro)
+                // favImg.image = UIImage(systemName: "heart")
+                let alert = UIAlertController(title: "Delete", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                    self.wishListViewModel.deleteFavProduct(product: self.favPro)
+                    self.favImg.image = UIImage(systemName: "heart")
+                }))
+                self.present(alert, animated: true)
+                
+            }
+        }
         
     }
 }
@@ -171,9 +187,7 @@ extension ProductInfoVC : UICollectionViewDelegate,UICollectionViewDataSource,UI
 }
 
 extension ProductInfoVC : UITableViewDelegate,UITableViewDataSource{
-    
-    
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

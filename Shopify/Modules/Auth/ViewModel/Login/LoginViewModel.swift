@@ -33,7 +33,11 @@ class LoginViewModel{
                 if customerEmail == myCustomerLogin.customers[i].email && customerPasssword == myCustomerLogin.customers[i].tags{
                     UserDefaults.standard.set(myCustomerLogin.customers[i].id, forKey: "customerId")
                     UserDefaults.standard.set(myCustomerLogin.customers[i].firstName, forKey: "customerName")
+                    UserDefaults.standard.set(myCustomerLogin.customers[i].email, forKey: "customerEmail")
+
                     UserDefaults.standard.set(true, forKey: "isLogin")
+                    UserDefaults.standard.set("user", forKey: "UserType")
+
                     isVailed = 1
                     return isVailed
                 }

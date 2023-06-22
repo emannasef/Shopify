@@ -21,7 +21,8 @@ class WishListViewModel {
     }
     
     func getSoredFavs() -> [FavProduct]{
-       return myCoreData.getStoredProducts()
+        let userId  =  UserDefaults.standard.string(forKey: "customerId")
+       return myCoreData.getStoredProducts(userId: "\(String(describing: userId))")
     }
     
 

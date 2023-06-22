@@ -107,7 +107,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             }
             //cell.itemsNum.text = String(item.quantity ?? 0)
             //item.price = cell.itemPrice.text
-            self.changePrice(cell: cell,  index:indexPath.section,item: item)
+            self.changePrice(cell: self.cell,  index:indexPath.section,item: item)
             // self.bacupItemsList[indexPath.section] = item
             MyCartItems.cartItemsCodableObject![indexPath.section] = item
             
@@ -119,7 +119,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
            self.cell.itemsNum.text = String(item.quantity ?? 0)
            self.myTable.reloadData()//Int(cell.itemsNum.text ?? "0")
            // item.price = cell.itemPrice.text
-            self.changePrice(cell: cell,index:indexPath.section,item: item)
+           self.changePrice(cell: self.cell,index:indexPath.section,item: item)
             MyCartItems.cartItemsCodableObject![indexPath.section] = item
         }
         return cell

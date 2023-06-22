@@ -33,6 +33,7 @@ class MyCoreData:MyCorDataProtocol {
         myProduct.setValue(product.image, forKey: "product_Img")
         myProduct.setValue(product.price, forKey: "product_price")
         myProduct.setValue(product.rate, forKey: "product_rate")
+        myProduct.setValue(product.userId, forKey: "user_Id")
         
         do{
             try manager.save()
@@ -43,10 +44,10 @@ class MyCoreData:MyCorDataProtocol {
         }
     }
     
-    func getStoredProducts() -> [FavProduct] {
+    func getStoredProducts(userId : String) -> [FavProduct] {
         var products = [FavProduct]()
         let fetch = NSFetchRequest<NSManagedObject>(entityName:  "WishList")
-
+        fetch.predicate =  NSPredicate(format:"user_Id == %@", userId)
         do{
             productArr = try manager.fetch(fetch)
             if(productArr.count > 0){
@@ -73,7 +74,7 @@ class MyCoreData:MyCorDataProtocol {
     
     func deleteFavProduct(product: FavProduct) {
         for i in productArr{
-            if ((i.value(forKey: "product_title") as! String) == product.title){
+            if ((i.value(forKey: "product_title") as! String) == product.title && (i.value(forKey: "user_Id") as! String) == product.userId){
 
                productToBeDeleted = i
             }
@@ -98,7 +99,7 @@ class MyCoreData:MyCorDataProtocol {
     func isProductExist(product: FavProduct) -> Bool {
         let fetch = NSFetchRequest<NSManagedObject>(entityName: "WishList")
        // let predicate = NSPredicate(format:  "product_Id == %i",product.id ?? 0)
-       let predicate = NSPredicate(format:"product_title == %@" ,product.title ?? "" )
+        let predicate = NSPredicate(format:"product_title == %@ and user_Id == %@" ,product.title ?? "",product.userId ?? "" )
       //  print("My product",product.title)
        // print("prdecite",predicate)
         fetch.predicate = predicate

@@ -22,10 +22,10 @@ class LoginVC: UIViewController {
     @IBAction func googleLogin(_ sender: Any) {
         GIDSignIn.sharedInstance.signIn(
             withPresenting: self) { signInResult, error in
-//                guard let result = signInResult else {
-//                    // Inspect error
-//                    return
-//                }
+                //                guard let result = signInResult else {
+                //                    // Inspect error
+                //                    return
+                //                }
                 //If sign in succeeded, display the app's main content View.
                 //let user = result.user
                 // self.customer.email = user.profile?.email

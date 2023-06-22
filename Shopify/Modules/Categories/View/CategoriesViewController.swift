@@ -17,6 +17,10 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
     var subCategoriesList: [Product] = []
     var fromCategory:String!
     
+    let userType =  UserDefaults.standard.string(forKey: "UserType")
+    let userId  =  UserDefaults.standard.string(forKey: "customerId")
+
+    
     @IBOutlet weak var categoriesCollection: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,8 +51,7 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
         
         subCategoriesBtn.menu = menu
         
-        let searchBtn = UIBarButtonItem(title: "", image: UIImage(named: "baseline-search-24px"), target: self, action: #selector(addTapped))
-        self.tabBarController?.navigationItem.leftBarButtonItem = searchBtn
+        self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", image: UIImage(named: "baseline-search-24px"), target: self, action: #selector(searchScreen))
 
     }
     
@@ -149,7 +152,7 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
         cell.cellIndex = indexPath
         cell.delegate = self
         
-        let favPro = FavProduct(id: product.id,title: product.title,rate: 3.5, price: "500", image: product.image?.src)
+        let favPro = FavProduct(id: product.id,title: product.title,rate: 3.5, price:product.variants?[0].price, image: product.image?.src,userId: "\(String(describing: userId))" )
 
        if wishListViewModel.isProductExist(product: favPro) == true{
            cell.isFav.setImage(UIImage(systemName: "heart.fill" ), for: .normal)
@@ -176,7 +179,7 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
             self.navigationController?.pushViewController(productInfo, animated: true)
     }
     
-    @objc func addTapped(){
+    @objc func searchScreen(){
         let productsScreen = storyboard?.instantiateViewController(withIdentifier: "collectionproducts") as! ProductsViewController
         productsScreen.fromScreen = fromCategory
         UserDefaults.standard.set(productsScreen.fromScreen, forKey: "Screen")
@@ -196,22 +199,25 @@ extension CategoriesViewController : ClickDelegate {
              pro  = subCategoriesList[row]
         }
         
-        let favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price: pro.variants?[0].price, image: pro.image?.src)
-        
-        if  wishListViewModel.isProductExist(product: favPro) == false {
-            wishListViewModel.insertFavProduct(product: favPro)
-            categoriesCollection.reloadData()
-            
+        let favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price:pro.variants?[0].price, image: pro.image?.src,userId: "\(String(describing: userId))" )
+
+        if userType == "guest" {
+            showLoginAlert(viewController: self)
         }else{
-            let alert = UIAlertController(title: "Delete", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { [weak self] (action) in
+            if  wishListViewModel.isProductExist(product: favPro) == false {
+                wishListViewModel.insertFavProduct(product: favPro)
+                categoriesCollection.reloadData()
                 
-                self?.wishListViewModel.deleteFavProduct(product: favPro)
-                self?.categoriesCollection.reloadData()
-            }))
-            self.present(alert, animated: true)
+            }else{
+                let alert = UIAlertController(title: "Delete", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { [weak self] (action) in
+                    
+                    self?.wishListViewModel.deleteFavProduct(product: favPro)
+                    self?.categoriesCollection.reloadData()
+                }))
+                self.present(alert, animated: true)
+            }
         }
-  
     }
     
 

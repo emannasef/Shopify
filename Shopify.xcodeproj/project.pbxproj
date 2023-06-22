@@ -52,7 +52,6 @@
 		043771612A37160C006C2233 /* EndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771602A37160C006C2233 /* EndPoints.swift */; };
 		043771632A371619006C2233 /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771622A371619006C2233 /* Network.swift */; };
 		043771652A371626006C2233 /* NetworkProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771642A371626006C2233 /* NetworkProtocol.swift */; };
-		043771682A371641006C2233 /* DBManger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771672A371641006C2233 /* DBManger.swift */; };
 		043771722A371695006C2233 /* CustomerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771712A371695006C2233 /* CustomerModel.swift */; };
 		043771752A3716CE006C2233 /* ProductInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 043771742A3716CE006C2233 /* ProductInfo.swift */; };
 		044259792A3CC66F00CD3811 /* MyCoreDataProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044259782A3CC66F00CD3811 /* MyCoreDataProtocol.swift */; };
@@ -191,7 +190,6 @@
 		043771602A37160C006C2233 /* EndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoints.swift; sourceTree = "<group>"; };
 		043771622A371619006C2233 /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		043771642A371626006C2233 /* NetworkProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkProtocol.swift; sourceTree = "<group>"; };
-		043771672A371641006C2233 /* DBManger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBManger.swift; sourceTree = "<group>"; };
 		043771712A371695006C2233 /* CustomerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomerModel.swift; sourceTree = "<group>"; };
 		043771742A3716CE006C2233 /* ProductInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductInfo.swift; sourceTree = "<group>"; };
 		044259782A3CC66F00CD3811 /* MyCoreDataProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCoreDataProtocol.swift; sourceTree = "<group>"; };
@@ -500,7 +498,6 @@
 		043771662A37162C006C2233 /* Cashing */ = {
 			isa = PBXGroup;
 			children = (
-				043771672A371641006C2233 /* DBManger.swift */,
 				044259782A3CC66F00CD3811 /* MyCoreDataProtocol.swift */,
 				0442597A2A3CC6F400CD3811 /* MyCoreData.swift */,
 			);
@@ -1197,7 +1194,6 @@
 				0477AFD72A3D90860011DA4F /* ClickDelegate.swift in Sources */,
 				043771302A371411006C2233 /* ViewController.swift in Sources */,
 				041C06E92A4264E300403852 /* AdAttachedData.swift in Sources */,
-				043771682A371641006C2233 /* DBManger.swift in Sources */,
 				0424EF242A3C4D4800514892 /* DraftOrders.swift in Sources */,
 				041C06E12A425CA300403852 /* PrerequisiteToEntitlementQuantityRatio.swift in Sources */,
 				047A9B732A3C8B8300AE1543 /* ProductsModel.swift in Sources */,
