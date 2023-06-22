@@ -335,7 +335,6 @@
 			isa = PBXGroup;
 			children = (
 				0424EF222A3C4D3500514892 /* View */,
-				0424EF322A3C4E6400514892 /* View */,
 				0424EF212A3C4D2A00514892 /* ViewModel */,
 				0424EF202A3C4D2400514892 /* Model */,
 			);
@@ -364,6 +363,8 @@
 			isa = PBXGroup;
 			children = (
 				0424EF2C2A3C4D8400514892 /* ShoppingcartViewController.swift */,
+				0424EF352A3C4E7F00514892 /* promocodeTableViewCell.swift */,
+				0424EF332A3C4E7B00514892 /* PromoCodesViewController.swift */,
 				0424EF292A3C4D7D00514892 /* orderdItemTableCell.swift */,
 			);
 			path = View;
@@ -387,16 +388,6 @@
 				0422EDBD2A3E573100C8444D /* CuponsViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		0424EF322A3C4E6400514892 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				0424EF352A3C4E7F00514892 /* promocodeTableViewCell.swift */,
-				0424EF332A3C4E7B00514892 /* PromoCodesViewController.swift */,
-			);
-			name = View;
-			path = Model/View;
 			sourceTree = "<group>";
 		};
 		0424EF392A3C4EEC00514892 /* ToastMessage */ = {

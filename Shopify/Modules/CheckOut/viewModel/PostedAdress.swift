@@ -77,11 +77,14 @@ init(id:Int,name:String,city:String,region:String,countryName:String,phone:Strin
    // self.province = region
 }
 
-    init(name:String,city:String,region:String){
+    init(firstName:String,lastName:String,city:String,region:String,country:String,zip:String){
      
       self.city = city
       self.address1 = region
-      self.name = name
+      self.firstName = firstName
+      self.lastName = lastName
+      self.country = country
+        self.zip = zip
   }
 
     init() {

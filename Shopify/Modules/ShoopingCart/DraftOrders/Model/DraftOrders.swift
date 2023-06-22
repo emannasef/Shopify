@@ -49,7 +49,7 @@ struct DraftOrders: Codable {
   var taxExempt         : Bool?            = nil
   var completedAt       : String?          = nil
   var lineItems         : [LineItems]?     = []
-  var shippingAddress   : ShippingAddress? = ShippingAddress()
+  var shippingAddress   : PostedAdress?    = PostedAdress()
   var invoiceUrl        : String?          = nil
   var appliedDiscount   : AppliedDiscount?          = nil
   var orderId           : Int?             = nil

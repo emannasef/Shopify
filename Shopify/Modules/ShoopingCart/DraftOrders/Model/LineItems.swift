@@ -53,15 +53,24 @@ struct LineItems: Codable {
   
   }
 
+    init(variantId:Int,title:String,varientTitle:String ,price:String,properties:[Properties],quantity:Int){
+        self.title = title
+        self.variantTitle = varientTitle
+        self.price = price
+        self.properties = properties
+        self.quantity = quantity
+        self.variantId = variantId
+      
+    }
     init(title:String,varientTitle:String ,price:String,properties:[Properties],quantity:Int){
         self.title = title
         self.variantTitle = varientTitle
         self.price = price
         self.properties = properties
         self.quantity = quantity
+     
       
     }
-
   init() {
 
   }

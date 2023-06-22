@@ -53,12 +53,12 @@ class ProductInfoViewModel{
     
     func addItem(product:Product){
         let proVarient = product.variants?[0]
-        _ = proVarient?.id
+        let variantId = proVarient?.id ?? 0
         let title = product.title
         let variTitle = proVarient?.title
         let price = proVarient?.price
         let properties = [Properties(name: "url_image", value: product.images?[0].src ?? "")]
-        let item = LineItems( title: title ?? "", varientTitle: variTitle ?? "", price: price ?? "", properties: properties, quantity: 1)
+        let item = LineItems(title: title ?? "", varientTitle: variTitle ?? "", price: price ?? "", properties: properties, quantity: 1)
         
         
         MyCartItems.cartItemsCodableObject?.append(item)
@@ -68,8 +68,8 @@ class ProductInfoViewModel{
     
     func createADraftOrder(draftOrdrId:Int,product:Product) -> MyDraftOrder{
         
-        var items = LineItems( title: "Dress" , varientTitle: "lll" , price: "99" , properties: [Properties()], quantity: 1)
-        MyCartItems.cartItemsCodableObject?.append(items)
+        let items = LineItems(title: "Dress" , varientTitle: "lll" , price: "99" , properties: [Properties(name: "img_url", value:"https://cdn.shopify.com/s/files/1/0767/9013/7124/products/8072c8b5718306d4be25aac21836ce16.jpg?v=1685539054")], quantity: 1)
+       // MyCartItems.cartItemsCodableObject?.append(items)
         let customer = Customer(id:Int(UserDefaults.standard.integer(forKey: "customerId")))
         if MyCartItems.cartItemsCodableObject?.count == 0{
             MyCartItems.cartItemsCodableObject = [items]

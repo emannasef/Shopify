@@ -159,12 +159,12 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func setCellData(cell:orderdItemTableCell, item:LineItems, index:Int){
         cell.itemsNum.text = String(item.quantity ?? 0)
-        setPrice(cell: cell, price: item.price ?? "",quantity: item.quantity ?? 0)
+       // setPrice(cell: cell, price: item.price ?? "",quantity: item.quantity ?? 0)
         cell.itemTitle.text = splitProductName(name:item.name ?? "").1
         cell.brand.text = splitProductName(name:item.name ?? "").0
         print("color is \(String(describing: item.vendor))")
-      // let imgUrl = URL(string: item.properties?[0].value ?? "")
-        //cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
+       let imgUrl = URL(string: item.properties?[0].value ?? "")
+        cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
         cell.itemImg.layer.borderWidth = 0.2
         cell.itemImg.layer.borderColor = UIColor(named: "screenbg")?.cgColor
         cell.itemImg.layer.cornerRadius = 10.0
@@ -175,8 +175,8 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         
         settingViewModel.bindResultToviewController = { [weak self] in
             DispatchQueue.main.async{
-                let price = self?.settingViewModel.result
-                let convertedPrice = Int(price ??  0) //let convertedPrice = quantity * Int(price ??  0)
+              //  let price = self?.settingViewModel.result
+                //let convertedPrice = Int(price ??  0) //let convertedPrice = quantity * Int(price ??  0)
                 //self?.totalPrice += Int(convertedPrice)
                // cell.itemPrice.text = String(convertedPrice)
                // self?.totalAmount.text = String(self?.totalPrice ?? 0)
@@ -230,11 +230,13 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             isApplyChangeBtn = false
         }))
         alert.addAction(UIAlertAction(title: "Discard", style: UIAlertAction.Style.cancel, handler:{_ in
-            MyCartItems.cartItemsCodableObject = self.bacupItemsList
+           // MyCartItems.cartItemsCodableObject = self.bacupItemsList
             self.applyChangesBtn.isHidden = true
             self.isApplyChangeBtn = false
             alert.dismiss(animated: true)
-            self.myTable.reloadData()
+            self.viewModel.getDraftOrders(draftOrderId: getDraftOrdertId())
+            
+         
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -251,7 +253,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         //bacupItemsList[index].price = totalAmount.text
     }
     
-    @IBAction func x(_ sender: Any) {
+    @IBAction func checkOut(_ sender: Any) {
         if isApplyChangeBtn == true {
             let alert = UIAlertController(title: "Alert!", message: "apply your changes before check out", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil ))

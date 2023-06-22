@@ -51,14 +51,18 @@ class AddAdressViewController: UIViewController {
     
     
     func setAdressObj() -> (UploadAdress,UpdatedAdressRequest){
-        
-        let customerName = customerName.text
+     
+        let customerName = splitFullName(name: customerName.text ?? "")
+        let firstname = customerName.0
+        let lastName =  customerName.1
+        let fullName = "\(String(describing: firstname)) \(String(describing: lastName))"
         let city = city.text
         let region = region.text
-        var adress = PostedAdress(name: customerName ?? "", city: city ?? "", region: region ?? "")
+        let country = country.text
+        var adress = PostedAdress(firstName: firstname ?? "", lastName: lastName ?? "", city: city ?? "", region: region ?? "",country: country ?? "",zip: zipCode.text ?? "")
         adress.default = false
         let uploadAdress = UploadAdress(address: adress)
-        let updatedAdress = PostedAdress(id: adressToBeUpdated?.id ?? 0, name: customerName ?? "", city: city ?? "", region: region ?? "", countryName: country.text ?? "Not found", phone: phoneNum.text ?? "", zip: zipCode.text ?? "")
+        let updatedAdress = PostedAdress(id: adressToBeUpdated?.id ?? 0, name: fullName , city: city ?? "", region: region ?? "", countryName: country ?? "Not found", phone: phoneNum.text ?? "", zip: zipCode.text ?? "")
         let updatedAdressReq = UpdatedAdressRequest(address: updatedAdress)
         return (uploadAdress,updatedAdressReq)
     }
@@ -103,13 +107,14 @@ class AddAdressViewController: UIViewController {
 
     @IBAction func saveAdress(_ sender: Any) {
         
+        let customerId  = Int(UserDefaults.standard.string(forKey: "customerId")!)
         if staus == "add"{
-            viewModel .addAdress(adress: setAdressObj().0,customerId: 7046569754933)
+            viewModel .addAdress(adress: setAdressObj().0,customerId: customerId ?? 0 )
             print("added............")
         }
         else {
             
-            viewModel.updateSdress(adress: setAdressObj().1,customerId: 7046569754933)
+            viewModel.updateSdress(adress: setAdressObj().1,customerId: customerId ?? 0)
             print("updated...........")
            /* if adressToBeUpdated != setAdressObj().1.address{
                 viewModel.updateSdress(adress: setAdressObj().1,customerId: 7046569754933)

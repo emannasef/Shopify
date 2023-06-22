@@ -3,7 +3,7 @@ import Alamofire
 
 class AdressViewModel {
     
-    var adresses : [PostedAdress]?
+    var adresses : [PostedAdress]? = []
     var addedAdress : PostedAdress!
     var bindAdressesToViewController : (() -> ())?
     var network : NetworkProtocol!
@@ -39,13 +39,13 @@ class AdressViewModel {
     
     func getCountOfAdress() -> Int?{
         
-        return adresses?.count ?? 0
+        return adresses?.count ?? 1
     }
     
     func addAdress(adress : UploadAdress, customerId:Int){
         
         print("add adress......")
-        let params : Parameters = self.encodeToJson(objectClass: adress) ?? [:]
+        let params : Parameters = encodeToJson(objectClass: adress) ?? [:]
           network.post(endPoint: .createCustomerAdress(id: customerId), params: params){ [weak self] (postAdress:AdressResponse?, error) in
          
          guard let result = postAdress?.customer_address else{
@@ -62,31 +62,17 @@ class AdressViewModel {
     
     func getDefaultAdress() -> PostedAdress{
         
-        var addresses = adresses?.filter({ $0.default == true })
+        let addresses = adresses?.filter({ $0.default == true })
         
-        return addresses?[0] ?? PostedAdress()
-    }
-    
-    func encodeToJson<T: Codable>(objectClass: T) -> [String: Any]?{
-        do{
-            let jsonData = try JSONEncoder().encode(objectClass)
-            let json = String(data: jsonData, encoding: String.Encoding.utf8)!
-            return jsonToDictionary(from: json)
-        }catch let error{
-            print(error.localizedDescription)
-            return nil
+        if adresses?.count ?? 0 > 0{
+            return addresses?[0] ?? PostedAdress()
         }
+        return  PostedAdress()
     }
-    
-    func jsonToDictionary(from text: String) -> [String: Any]? {
-        guard let data = text.data(using: .utf8) else { return nil }
-        let anyResult = try? JSONSerialization.jsonObject(with: data, options: [])
-        return anyResult as? [String : Any]
-    }
-    
+ 
     func getAdress(index :Int) -> PostedAdress{
         
-        return (adresses?[index])!
+        return (adresses?[index])! 
         
     }
     func updateSdress(adress : UpdatedAdressRequest ,customerId:Int){

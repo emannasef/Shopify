@@ -77,12 +77,12 @@ class WishListViewModel {
     
     func addItem(product:Product){
         let proVarient = product.variants?[0]
-        _ = proVarient?.id
+        let variantId = proVarient?.id
         let title = product.title
         let variTitle = proVarient?.title
         let price = proVarient?.price
         let properties = [Properties(name: "url_image", value: product.images?[0].src ?? "")]
-        let item = LineItems(/*varientId: varientId ?? 0,*/ title: title ?? "", varientTitle: variTitle ?? "", price: price ?? "", properties: properties, quantity: 1)
+        let item = LineItems(variantId: variantId ?? 0, title: title ?? "", varientTitle: variTitle ?? "", price: price ?? "", properties: properties, quantity: 1)
         
         lineItemsArr.append(item)
         

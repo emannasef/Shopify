@@ -21,7 +21,7 @@ class DraftOrderViewModel {
                 return
             }
             self.lineItems = self.filterASingleDraftOrders(orders: response!, draftOrderId: draftOrderId) //self.filterDraftOrders(orders: response?.draftOrders ?? [],draftOrderId: draftOrderId )
-            MyCartItems.cartItemsCodableObject = self.lineItems
+            MyCartItems.cartItemsCodableObject = self.filterASingleDraftOrders(orders: response!, draftOrderId: draftOrderId)//self.lineItems
             self.bindDraftOrdersToViewControllers!()
             print("count...\(String(describing: self.draftOrders?[0].lineItems?.count))")
         })
@@ -61,7 +61,7 @@ class DraftOrderViewModel {
         listOfCartItems?.remove(at: index)
         let params:Parameters = encodeToJson(objectClass: createDraftOrder(draftOrderId: draftOrderId, lineItems: listOfCartItems!,customer: customer))!
         
-        if listOfCartItems?.count ?? 0 > 1{
+        if listOfCartItems?.count ?? 0 > 0 /*1*/{
             network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrderId), params: params) {(response:MyDraftOrder?, error )in
                 guard let result = response?.draft_order else{
                     print(error ?? "there is an errror while deleting an item from your cart")

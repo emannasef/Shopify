@@ -18,11 +18,19 @@ func registerTableCell (tableView: UITableView){
 }
 
 func splitProductName(name:String) -> (String?,String?){
-    var fullName = name
-    var fullNameArr =  fullName.components(separatedBy: "|")  //split(fullName) {$0 == "|"}
-    var brand: String = fullNameArr[0]
-    var title: String? = fullNameArr.count > 1 ? fullNameArr[1] : nil
+    let fullName = name
+    let fullNameArr =  fullName.components(separatedBy: "|")  //split(fullName) {$0 == "|"}
+    let brand: String = fullNameArr[0]
+    let title: String? = fullNameArr.count > 1 ? fullNameArr[1] : nil
     return (brand,title)
+}
+
+func splitFullName(name:String) -> (String?,String?){
+    let fullName = name
+    let fullNameArr =  fullName.components(separatedBy: " ")  //split(fullName) {$0 == "|"}
+    let firstName: String = fullNameArr[0]
+    let lastName: String? = fullNameArr.count > 1 ? fullNameArr[1] : nil
+    return (firstName,lastName)
 }
 func DateFormate(date:String) -> String{
 
@@ -32,6 +40,6 @@ func DateFormate(date:String) -> String{
     let dateString = formatter4.date(from: date)
    // print(formatter4.date(from: date) ?? "Unknown date")
     
-    return "\(dateString)"
+    return "\(String(describing: dateString) )"
 }
 

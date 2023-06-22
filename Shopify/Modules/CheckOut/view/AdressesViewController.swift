@@ -31,8 +31,8 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
             }
             
         }
-    
-        viewModel.getCustomerAdresses(customerId: 7046569754933)
+        
+        viewModel.getCustomerAdresses(customerId: Int(UserDefaults.standard.string(forKey: "customerId")!) ?? 0)
         
        
     }
@@ -42,15 +42,19 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
    func numberOfSections(in tableView: UITableView) -> Int {
         
-        return viewModel.getCountOfAdress() ?? 0
+       
+       return viewModel.getCountOfAdress() ?? 0
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = adressTable.dequeueReusableCell(withIdentifier: "adressCell") as! ShoppingAdressTableViewCell
-        var adress = self.viewModel.getAdress(index: indexPath.section)
-        getAsDefault(adress: adress, cell: cell)
+        let adress = self.viewModel.getAdress(index: indexPath.section)
+        if viewModel.adresses?.count ?? 0 > 1{
+            getAsDefault(adress: adress, cell: cell)
+           
+        }
         self.setCelldata(cell: cell, adress: adress)
         cell.bindAdressToBeUodated = { [weak self] in
            
@@ -61,7 +65,7 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
             print("set default btn pressed .............")
            // self.viewModel.setAdressAsDefault(adress: adress,customerId:7037983686965 , adressId: adress.id ?? 0)
             self.setDefaultadress(adress: adress)
-            self.viewModel.getCustomerAdresses(customerId: 7046569754933)
+            self.viewModel.getCustomerAdresses(customerId: self.id ?? 0)
             self.getAsDefault(adress: adress, cell: cell)
         }
         cell.checkAsDefaultBtn.layer.borderWidth = 1
@@ -94,7 +98,7 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
  
   
     func getAsDefault(adress:PostedAdress,cell:ShoppingAdressTableViewCell){
-        if adress.default == true{
+        if adress.default == true {
            cell.checkAsDefaultBtn.backgroundColor = UIColor.black
             cell.checkAsDefaultBtn.tintColor = UIColor.white
             cell.checkAsDefaultBtn.setImage(UIImage(systemName: "checkmark"), for: .normal)

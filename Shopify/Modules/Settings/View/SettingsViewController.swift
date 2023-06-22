@@ -19,7 +19,7 @@ class SettingsViewController: UIViewController {
         self.fullName.text = UserDefaults.standard.string(forKey: "customerName")
         self.region.text = addressViewModel.getDefaultAdress().address1
         self.city.text = addressViewModel.getDefaultAdress().city
-        
+        print(" use id\(String(describing: UserDefaults.standard.string(forKey: "customerId")))")
     }
     
     func setdressField(){
@@ -45,13 +45,19 @@ class SettingsViewController: UIViewController {
     }
     
     @IBAction func changeAdress(_ sender: Any) {
-        let storyBoard : UIStoryboard = UIStoryboard(name: "CheckOut", bundle:nil) /// <- Different storyboard!
-
-        let adressScreen = storyBoard.instantiateViewController(identifier: "adressScreen") as! AdressesViewController
         
-        self.navigationController?.pushViewController(adressScreen, animated: true)
+        if addressViewModel.adresses?.count == 0{
+            let storyBoard : UIStoryboard = UIStoryboard(name: "CheckOut", bundle:nil) /// <- Different storyboard
+            let addAdressScreen = storyBoard.instantiateViewController(identifier: "addAdressScreen") as! AddAdressViewController
+            addAdressScreen.staus = "add"
+            self.navigationController?.pushViewController(addAdressScreen, animated: true)
+        }
+        else {
+            let storyBoard : UIStoryboard = UIStoryboard(name: "CheckOut", bundle:nil) /// <- Different storyboard
+            let adressScreen = storyBoard.instantiateViewController(identifier: "adressScreen") as! AdressesViewController
+            self.navigationController?.pushViewController(adressScreen, animated: true)
+        }
     }
-    
     @IBAction func chooseCurrency(_ sender: Any) {
     
         let menu = UIMenu(title: "", options: .displayInline, children: setCueencies())

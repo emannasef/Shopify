@@ -33,7 +33,7 @@ class CheckOutViewController: UIViewController {
             }
             
         }
-        adressViewModel.getCustomerAdresses(customerId: 7046569754933)
+        adressViewModel.getCustomerAdresses(customerId:Int(UserDefaults.standard.string(forKey: "customerId") ?? "") ?? 0 )
     }
     
     func setUserAddress(){
