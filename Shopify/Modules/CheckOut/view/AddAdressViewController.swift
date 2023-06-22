@@ -71,8 +71,6 @@ class AddAdressViewController: UIViewController {
             countryMenu.showsMenuAsPrimaryAction = true
         }
         
-        
-    
     func setFieldWithData(){
         
         if staus == "edit" {
