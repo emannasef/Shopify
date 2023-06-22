@@ -67,8 +67,8 @@ class SettingsViewController: UIViewController {
     
     @IBAction func logout(_ sender: Any) {
         UserDefaults.standard.set(false, forKey: "isLogin")
-                let welcomeVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "WelcomeVC") as! WelcomeVC
-                self.navigationController?.pushViewController(welcomeVC , animated: true)
+        let welcomeVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "WelcomeVC") as! WelcomeVC
+        self.navigationController?.pushViewController(welcomeVC , animated: true)
     }
     
 }

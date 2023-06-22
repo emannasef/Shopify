@@ -529,6 +529,9 @@
                                         <rect key="frame" x="0.0" y="0.0" width="48" height="38"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="google"/>
+                                        <connections>
+                                            <action selector="googleLogin:" destination="XEV-Z3-WIL" eventType="touchUpInside" id="4rB-1y-uDl"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxK-Z3-55j">
                                         <rect key="frame" x="99" y="0.0" width="48" height="38"/>

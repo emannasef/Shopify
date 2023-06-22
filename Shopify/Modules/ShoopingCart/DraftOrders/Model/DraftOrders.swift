@@ -91,6 +91,13 @@ struct DraftOrders: Codable {
         self.currency = getCurrency()
     }
     
+    init(id:Int,lineItems:[LineItems],note:String){
+        self.id = id
+        self.lineItems = lineItems
+        self.note = note
+        self.currency = getCurrency()
+    }
+    
   init() {
 
   }

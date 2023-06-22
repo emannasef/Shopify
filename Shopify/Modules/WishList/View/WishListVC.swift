@@ -6,21 +6,50 @@
 //
 
 import UIKit
-
+import Reachability
 class WishListVC: UIViewController {
     
     @IBOutlet weak var noItemsImg: UIImageView!
     @IBOutlet weak var collectionView: UICollectionView!
     
-    var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance)
+    var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance,network: Network())
     var wishListArr:[FavProduct] = []
-    
+    let draftyID = UserDefaults.standard.string(forKey: "UserWishListID")
+    var wishListArrLines:[LineItems] = []
+    var reachability:Reachability?
+    var isConnected:Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        
+        do{
+            reachability = try Reachability()
+            try reachability?.startNotifier()
+        }
+        catch{
+            print("cant creat object of rechability")
+            print("Unable to start notifier")
+        }
+        
+        rech()
+        
+        wishListViewModel.getWishList(Draftid: draftyID!)
+        
+        wishListViewModel.bindingData = { [weak self] in
+            self?.wishListArrLines = self?.wishListViewModel.allLineItemsArr ?? []
+            DispatchQueue.main.async {
+                self?.collectionView.reloadData()
+            }
+            print("my Arrrray",self?.wishListArrLines)
+        }
+        
+     
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,12 +65,28 @@ class WishListVC: UIViewController {
         }
         
     }
+    
+    
+    func rech (){
+        reachability?.whenReachable = { reachability in
+            self.isConnected = true
+//            if reachability.connection == .wifi {
+//                print("Reachable via WiFi")
+//            } else {
+//                print("Reachable via Cellular")
+//            }
+        }
+        reachability?.whenUnreachable = { _ in
+            print("Not reachable")
+            self.isConnected = false
+            self.collectionView.reloadData()
+          
+        }
+    }
 
 }
 extension WishListVC : UICollectionViewDelegate,UICollectionViewDataSource,ClickDelegate{
  
-    
-    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
@@ -51,6 +96,18 @@ extension WishListVC : UICollectionViewDelegate,UICollectionViewDataSource,Click
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WishListCell", for: indexPath) as! WishListCell
+        print("Is Connected",isConnected)
+        
+//        let product : FavProduct!
+//        if(isConnected)
+//        {
+//            let pro = wishListArrLines[indexPath.row]
+//            product = FavProduct(id: pro.productId,title: pro.title,price: pro.price)
+//
+//        }else{
+//             product  = wishListArr[indexPath.row]
+//        }
+        
         
         let product = wishListArr[indexPath.row]
         cell.wishListTitle.text = product.title

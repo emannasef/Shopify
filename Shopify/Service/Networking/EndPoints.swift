@@ -33,6 +33,10 @@ enum EndPoints {
     case orders(tag:Int)
     case postOrder
     
+    case wishDraftOrder
+    case updateCustomer(customerId:Int)
+    case specificWish(draftId:String)
+    
     
     var path:String{
         switch self {
@@ -86,6 +90,16 @@ enum EndPoints {
             return "price_rules.json"
         case .getASingleDraftOrder(draftOrderId: let draftOrderId):
             return "draft_orders/\(draftOrderId).json"
+            
+        case .wishDraftOrder:
+            return "draft_orders.json"
+            
+        case .updateCustomer(customerId:let customerId):
+            return "customers/\(customerId).json"
+            
+        case .specificWish(draftId:let draftId):
+            return "draft_orders/\(draftId).json"
+            
         }
     }
     
