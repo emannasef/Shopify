@@ -53,13 +53,13 @@ class AddAdressViewController: UIViewController {
     func setAdressObj() -> (UploadAdress,UpdatedAdressRequest){
      
         let customerName = splitFullName(name: customerName.text ?? "")
-        let firstname = customerName.0
-        let lastName =  customerName.1
-        let fullName = "\(String(describing: firstname)) \(String(describing: lastName))"
+        _ = customerName.0
+        _ =  customerName.1
+        let fullName = self.customerName.text ?? ""
         let city = city.text
         let region = region.text
         let country = country.text
-        var adress = PostedAdress(firstName: firstname ?? "", lastName: lastName ?? "", city: city ?? "", region: region ?? "",country: country ?? "",zip: zipCode.text ?? "")
+        var adress = PostedAdress(id: adressToBeUpdated?.id ?? 0, name: fullName , city: city ?? "", region: region ?? "", countryName: country ?? "Not found", phone: phoneNum.text ?? "", zip: zipCode.text ?? "")
         adress.default = false
         let uploadAdress = UploadAdress(address: adress)
         let updatedAdress = PostedAdress(id: adressToBeUpdated?.id ?? 0, name: fullName , city: city ?? "", region: region ?? "", countryName: country ?? "Not found", phone: phoneNum.text ?? "", zip: zipCode.text ?? "")
@@ -86,10 +86,7 @@ class AddAdressViewController: UIViewController {
             phoneNum.text = adressToBeUpdated?.phone
             zipCode.text = adressToBeUpdated?.zip
         }
-        
-       
     }
-    
     
     func setCountries() -> [UIAction]{
          

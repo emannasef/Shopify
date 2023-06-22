@@ -17,16 +17,21 @@ class SettingsViewController: UIViewController {
         addressViewModel = AdressViewModel(network: network)
         self.currency.text = getCurrency()
         self.fullName.text = UserDefaults.standard.string(forKey: "customerName")
-        self.region.text = addressViewModel.getDefaultAdress().address1
-        self.city.text = addressViewModel.getDefaultAdress().city
-        print(" use id\(String(describing: UserDefaults.standard.string(forKey: "customerId")))")
+        self.setAdressField()
     }
-    
-    func setdressField(){
+  
+    func setAdressField(){
         
-        let adress = addressViewModel.getDefaultAdress()
-        city.text = adress.city
-        region.text = adress.address1
+        let id = Int(UserDefaults.standard.string(forKey: "customerId") ?? "") ?? 0
+        addressViewModel.getCustomerAdresses(customerId: id )
+        addressViewModel.bindAdressesToViewController = { [weak self] in
+            DispatchQueue.main.async {
+                let adress = self?.addressViewModel.getDefaultAdress()
+                self?.city.text = adress?.city
+                self?.region.text = adress?.address1
+            }
+        }
+       
     }
     
     func setCueencies() -> [UIAction]{

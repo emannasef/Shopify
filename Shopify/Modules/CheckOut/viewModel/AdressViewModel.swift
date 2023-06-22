@@ -72,7 +72,7 @@ class AdressViewModel {
  
     func getAdress(index :Int) -> PostedAdress{
         
-        return (adresses?[index])! 
+        return /*adresses?[index] ??*/PostedAdress()
         
     }
     func updateSdress(adress : UpdatedAdressRequest ,customerId:Int){

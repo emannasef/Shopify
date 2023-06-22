@@ -598,7 +598,6 @@
 		0453D3292A3B772B008A2345 /* viewModel */ = {
 			isa = PBXGroup;
 			children = (
-				0453D32C2A3B772B008A2345 /* PostedAdress.swift */,
 				0453D32A2A3B772B008A2345 /* AdressViewModel.swift */,
 				049CCFBE2A409B1700A95480 /* PostOrderViewModel.swift */,
 			);
@@ -608,6 +607,7 @@
 		0453D32B2A3B772B008A2345 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				0453D32C2A3B772B008A2345 /* PostedAdress.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";

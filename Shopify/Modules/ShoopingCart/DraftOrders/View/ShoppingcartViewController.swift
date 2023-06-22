@@ -10,6 +10,8 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var myTable:UITableView!
     @IBOutlet weak var totalAmount: UILabel!
     @IBOutlet weak var applyChangesBtn: UIButton!
+    @IBOutlet weak var applyChangeBtn: UIButton!
+    @IBOutlet weak var loading: LottieAnimationView!
     var network : NetworkProtocol!
     var viewModel : DraftOrderViewModel!
     var settingViewModel :SettingsViewModel!
@@ -17,10 +19,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     var cell : orderdItemTableCell!
     var bacupItemsList : [LineItems]!
     var isApplyChangeBtn : Bool = false
-    @IBOutlet weak var applyChangeBtn: UIButton!
-    @IBOutlet weak var loading: LottieAnimationView!
-    
-    
+      
     override func viewDidLoad() {
         super.viewDidLoad()
         network = Network()
