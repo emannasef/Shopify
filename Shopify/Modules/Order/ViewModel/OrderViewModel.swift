@@ -13,6 +13,7 @@ protocol OrderViewModelType{
     func fetchOrders(tag:String,endPoint:EndPoints)
     func getOrdersCount()->Int
     func getOrderAtIndexPath(row:Int) -> Order
+    func getCustomerId() -> Int
 }
 
 class OrderViewModel : OrderViewModelType{
@@ -45,6 +46,10 @@ class OrderViewModel : OrderViewModelType{
         result[row]
     }
     
-    
+    func getCustomerId() -> Int {
+        let userId  = Int( UserDefaults.standard.string(forKey: "customerId") ?? "0") ?? 0
+        print("===============user id \(userId)")
+        return userId
+    }
     
 }

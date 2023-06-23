@@ -24,12 +24,12 @@ class OrderDetailsViewController: UIViewController, UICollectionViewDelegate, UI
         super.viewDidLoad()
 
         orderTitle.text = order.name ?? "My Order"
-        orderNumber.text = String(format:"%d",order.orderNumber ?? 1)
-        address.text = order.customer?.defaultAddress?.country
-        totalPrice.text = order.totalPrice ?? "100"
+        orderNumber.text = String(format:"%d",order.order_number ?? 1)
+        address.text = order.shipping_address?.country
+        totalPrice.text = order.total_price ?? "100"
         paymentMethods.text = order.paymentDetails?.creditCardCompany ?? "cash"
         //orderDate.text = DateFormate(date: order.processedAt ?? "3-11-2000" )
-        orderDate.text =  order.processedAt ?? "3-11-2000" 
+        orderDate.text =  order.processed_at ?? "3-11-2000"
         
         let nib = UINib(nibName: "OrderProductsCell", bundle: nil)
         itemsCollection.register(nib, forCellWithReuseIdentifier: "orderProductCell")
@@ -42,23 +42,23 @@ class OrderDetailsViewController: UIViewController, UICollectionViewDelegate, UI
     
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return order.lineItems?.count ?? 0
+        return order.line_items?.count ?? 0
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = itemsCollection.dequeueReusableCell(withReuseIdentifier: "orderProductCell", for: indexPath) as! OrderProductsCell
         
-        cell.productName.text = order.lineItems?[indexPath.row].title
-//        cell.productImage.kf.setImage(
-//            with: URL(string: order.lineItems?[indexPath.row] ?? ""),
-//            placeholder: UIImage(named: "brandplaceholder"),
-//            options: [
-//                .scaleFactor(UIScreen.main.scale),
-//                .transition(.fade(1)),
-//                .cacheOriginalImage
-//            ])
+        cell.productName.text = order.line_items?[indexPath.row].title
+        cell.productImage.kf.setImage(
+            with: URL(string: order.line_items?[indexPath.row].properties?[0].value ?? ""),
+            placeholder: UIImage(named: "brandplaceholder"),
+            options: [
+                .scaleFactor(UIScreen.main.scale),
+                .transition(.fade(1)),
+                .cacheOriginalImage
+            ])
         
-        cell.productPrice.text = order.lineItems?[indexPath.row].price
+        cell.productPrice.text = order.line_items?[indexPath.row].price
         
         cell.isFav.isHidden = true
         cell.layer.cornerRadius = 8

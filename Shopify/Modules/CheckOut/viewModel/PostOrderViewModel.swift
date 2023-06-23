@@ -7,13 +7,13 @@
 
 import Foundation
 
-protocol PotOrderViewModelType{
+protocol PostOrderViewModelType{
     func postOrder(endpoint:EndPoints,params:[String:Any])
     func getUserId()-> Int
-    func getCartProducts()-> [Product]
+    func getLineItems()-> [LineItems]
     func getDiscountCode()-> Int
 }
-class PostOrderViewModel : PotOrderViewModelType{
+class PostOrderViewModel : PostOrderViewModelType{
     
     var network : NetworkProtocol
     init(network: NetworkProtocol) {
@@ -35,9 +35,8 @@ class PostOrderViewModel : PotOrderViewModelType{
         return userId
     }
     
-    func getCartProducts() -> [Product] {
-        let lintItems : [Product] = []
-        
+    func getLineItems() -> [LineItems] {
+        let lintItems : [LineItems] = MyCartItems.cartItemsCodableObject ?? []
         return lintItems
     }
     

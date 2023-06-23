@@ -14,7 +14,6 @@ class OrderViewController: UIViewController , UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
         viewModel = OrderViewModel.getInstatnce(network: NetworkManager())
         ordersTable.dataSource = self
         ordersTable.delegate = self
@@ -30,7 +29,7 @@ class OrderViewController: UIViewController , UITableViewDelegate, UITableViewDa
                 self?.ordersTable.reloadData()
             }
         }
-        viewModel?.fetchOrders(tag:"" , endPoint: .orders(tag: 7056413851957))
+        viewModel?.fetchOrders(tag:"" , endPoint: .orders(tag: viewModel?.getCustomerId() ?? 0))
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,9 +42,9 @@ class OrderViewController: UIViewController , UITableViewDelegate, UITableViewDa
         
         let cell = ordersTable.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderCell
      
-        cell.orderDate.text = order?.processedAt
-        cell.orderID.text = String(format: "%d", order?.orderNumber ?? 0)
-        cell.orderPrice.text = order?.totalPrice
+        cell.orderDate.text = order?.processed_at
+        cell.orderID.text = String(format: "%d", order?.order_number ?? 0)
+        cell.orderPrice.text = order?.total_price
         
         cell.layer.cornerRadius = 8
         cell.layer.shadowRadius = 4

@@ -2,6 +2,7 @@
 
 import UIKit
 import PassKit
+import Alamofire
 
 class CheckOutViewController: UIViewController {
     
@@ -14,11 +15,13 @@ class CheckOutViewController: UIViewController {
     var adressViewModel : AdressViewModel!
     var network : NetworkProtocol!
     var isapplyBtnappear : Bool = false
+    var postOrderViewModel : PostOrderViewModelType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         network = Network()
         adressViewModel = AdressViewModel(network: network)
+        postOrderViewModel = PostOrderViewModel(network: network)
        
         self.applePayBtn.addTarget(self, action: #selector(tapForPay), for: .touchUpInside)
     }
@@ -71,6 +74,23 @@ class CheckOutViewController: UIViewController {
         }()
     
    
+    
+    @IBAction func SubmitOrder(_ sender: UIButton) {
+   
+        let order = Order()
+        let address = PostedAdress(firstName: "Haidy", lastName: "Yassin", city: "Cairo", region: "new Cairo", country: "Egypt", zip: "12345")
+        var customer = OrderCustomer()
+        customer.id = postOrderViewModel.getUserId()
+        order.line_items = postOrderViewModel.getLineItems()
+        order.customer = customer
+        order.shipping_address = address
+        order.discount_codes = []
+        let params : Parameters = encodeToJson(objectClass: PostOrder(order: order)) ?? [:]
+        postOrderViewModel.postOrder(endpoint: .postOrder, params:params )
+        
+    }
+    
+    
    @objc func tapForPay(){
         
         let controller = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)

@@ -11,6 +11,9 @@ func encodeToJson<T: Codable>(objectClass: T) -> [String: Any]?{
     do{
         let jsonData = try JSONEncoder().encode(objectClass)
         let json = String(data: jsonData, encoding: String.Encoding.utf8)!
+        print("============================")
+        print(json)
+        print("============================")
         return jsonToDictionary(from: json)
     }catch let error{
         print(error.localizedDescription)
