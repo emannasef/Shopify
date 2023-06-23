@@ -25,7 +25,7 @@ class LoginViewModel{
     
     func vaildateCustomer(customerEmail:String,customerPasssword:String)->Int{
         var isVailed = 0
-
+        
         if let myCustomerLogin = customerLogin {
             
             print(myCustomerLogin.customers.count)
@@ -36,24 +36,26 @@ class LoginViewModel{
                     UserDefaults.standard.set(myCustomerLogin.customers[i].email, forKey: "customerEmail")
                     UserDefaults.standard.set(true, forKey: "isLogin")
                     UserDefaults.standard.set("user", forKey: "UserType")
-
+                    
                     isVailed = 1
                     return isVailed
                 }
-               else if customerEmail != myCustomerLogin.customers[i].email && customerPasssword == myCustomerLogin.customers[i].tags{
-                 isVailed = 2
+                else if customerEmail != myCustomerLogin.customers[i].email && customerPasssword == myCustomerLogin.customers[i].tags{
+                    isVailed = 2
+                    return isVailed
                 }
                 else if customerEmail == myCustomerLogin.customers[i].email && customerPasssword != myCustomerLogin.customers[i].tags{
-                 isVailed = 3
+                    isVailed = 3
+                    return isVailed
                 }
-        }
-          
+            }
+            
         }
         return isVailed
-
-
+        
+        
     }
-
+    
     
     
 }
