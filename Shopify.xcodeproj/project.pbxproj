@@ -74,6 +74,8 @@
 		0468BD4A2A40EB06005A363C /* gradloading.json in Resources */ = {isa = PBXBuildFile; fileRef = 0468BD492A40EB06005A363C /* gradloading.json */; };
 		0468D53B2A4138E000DF6AFF /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 0468D53A2A4138E000DF6AFF /* Reachability */; };
 		0468D5412A413B4000DF6AFF /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 0468D5402A413B4000DF6AFF /* Lottie */; };
+		0475E6E72A45ECD700C16074 /* RTCustomAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0475E6E52A45ECD700C16074 /* RTCustomAlert.swift */; };
+		0475E6E82A45ECD700C16074 /* RTCustomAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0475E6E62A45ECD700C16074 /* RTCustomAlert.xib */; };
 		0477AFD72A3D90860011DA4F /* ClickDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477AFD62A3D90860011DA4F /* ClickDelegate.swift */; };
 		047A9B722A3C8B8300AE1543 /* ProductsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A9B5E2A3C8B8300AE1543 /* ProductsViewModel.swift */; };
 		047A9B732A3C8B8300AE1543 /* ProductsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 047A9B602A3C8B8300AE1543 /* ProductsModel.swift */; };
@@ -92,6 +94,7 @@
 		047F471C2A3A1D0A0039C9BE /* FacebookCore in Frameworks */ = {isa = PBXBuildFile; productRef = 047F471B2A3A1D0A0039C9BE /* FacebookCore */; };
 		047F471E2A3A1D0A0039C9BE /* FacebookLogin in Frameworks */ = {isa = PBXBuildFile; productRef = 047F471D2A3A1D0A0039C9BE /* FacebookLogin */; };
 		047F47202A3A1D0A0039C9BE /* FacebookShare in Frameworks */ = {isa = PBXBuildFile; productRef = 047F471F2A3A1D0A0039C9BE /* FacebookShare */; };
+		048B16642A45BC52001AFF80 /* postorderlottie.json in Resources */ = {isa = PBXBuildFile; fileRef = 048B16632A45BC52001AFF80 /* postorderlottie.json */; };
 		04944DB92A40813400596768 /* OrderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04944DB82A40813400596768 /* OrderViewController.swift */; };
 		04944DBD2A4081F900596768 /* OrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04944DBB2A4081F900596768 /* OrderCell.swift */; };
 		04944DBE2A4081F900596768 /* OrderCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04944DBC2A4081F900596768 /* OrderCell.xib */; };
@@ -212,6 +215,8 @@
 		046577442A3F4C0500669B3D /* CategoriesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewController.swift; sourceTree = "<group>"; };
 		046577462A3F4C5300669B3D /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		0468BD492A40EB06005A363C /* gradloading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = gradloading.json; sourceTree = "<group>"; };
+		0475E6E52A45ECD700C16074 /* RTCustomAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RTCustomAlert.swift; sourceTree = "<group>"; };
+		0475E6E62A45ECD700C16074 /* RTCustomAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = RTCustomAlert.xib; sourceTree = "<group>"; };
 		0477AFD62A3D90860011DA4F /* ClickDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClickDelegate.swift; sourceTree = "<group>"; };
 		047A9B5E2A3C8B8300AE1543 /* ProductsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsViewModel.swift; sourceTree = "<group>"; };
 		047A9B602A3C8B8300AE1543 /* ProductsModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductsModel.swift; sourceTree = "<group>"; };
@@ -227,6 +232,7 @@
 		047A9B7D2A3C8C8100AE1543 /* NetworkManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		047F418C2A3CBA6B00185642 /* WishList.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = WishList.storyboard; sourceTree = "<group>"; };
 		047F47212A3A24BF0039C9BE /* Shopify.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Shopify.entitlements; sourceTree = "<group>"; };
+		048B16632A45BC52001AFF80 /* postorderlottie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = postorderlottie.json; sourceTree = "<group>"; };
 		04944DB82A40813400596768 /* OrderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderViewController.swift; sourceTree = "<group>"; };
 		04944DBB2A4081F900596768 /* OrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderCell.swift; sourceTree = "<group>"; };
 		04944DBC2A4081F900596768 /* OrderCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = OrderCell.xib; sourceTree = "<group>"; };
@@ -678,6 +684,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		0475E6DF2A45E83900C16074 /* Alerts */ = {
+			isa = PBXGroup;
+			children = (
+				0475E6E52A45ECD700C16074 /* RTCustomAlert.swift */,
+				0475E6E62A45ECD700C16074 /* RTCustomAlert.xib */,
+			);
+			path = Alerts;
+			sourceTree = "<group>";
+		};
 		047A9B5C2A3C8B8300AE1543 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -955,7 +970,9 @@
 		04DE93852A3726F50084F21B /* Utlites */ = {
 			isa = PBXGroup;
 			children = (
+				0475E6DF2A45E83900C16074 /* Alerts */,
 				0477AFD62A3D90860011DA4F /* ClickDelegate.swift */,
+				048B16632A45BC52001AFF80 /* postorderlottie.json */,
 				04DE93862A3726F50084F21B /* Utilites.swift */,
 				0468BD492A40EB06005A363C /* gradloading.json */,
 			);
@@ -1141,6 +1158,8 @@
 				04DE93732A3724690084F21B /* Auth.storyboard in Resources */,
 				0468BD4A2A40EB06005A363C /* gradloading.json in Resources */,
 				0437713B2A371413006C2233 /* LaunchScreen.storyboard in Resources */,
+				048B16642A45BC52001AFF80 /* postorderlottie.json in Resources */,
+				0475E6E82A45ECD700C16074 /* RTCustomAlert.xib in Resources */,
 				044A8E7C2A3E10BD002528D7 /* Test.storyboard in Resources */,
 				04DE93792A3725890084F21B /* ProductInfo.storyboard in Resources */,
 				044A8E742A3DD168002528D7 /* Setting.storyboard in Resources */,
@@ -1178,6 +1197,7 @@
 				0424EF282A3C4D4F00514892 /* TaxLines.swift in Sources */,
 				044A8E7A2A3E106B002528D7 /* AboutVC.swift in Sources */,
 				04DE93762A3725500084F21B /* ProductInfoViewModel.swift in Sources */,
+				0475E6E72A45ECD700C16074 /* RTCustomAlert.swift in Sources */,
 				041C06E72A425CB400403852 /* PriceRules.swift in Sources */,
 				046577402A3F4BA400669B3D /* CategoriesModel.swift in Sources */,
 				044259832A3CD05B00CD3811 /* WishListVC.swift in Sources */,

@@ -1,8 +1,10 @@
 
 import UIKit
 import PassKit
+import Alamofire
+import Lottie
 
-class CheckOutViewController: UIViewController {
+class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
     
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var city: UILabel!
@@ -11,6 +13,8 @@ class CheckOutViewController: UIViewController {
     @IBOutlet weak var applePayBtn: UIButton!
     
     var adressViewModel : AdressViewModel!
+    var postOrderViewModel : PostOrderViewModelType!
+    var draftorderVM: DraftOrderViewModel!
     var network : NetworkProtocol!
     var isapplyBtnappear : Bool = false
     
@@ -18,6 +22,8 @@ class CheckOutViewController: UIViewController {
         super.viewDidLoad()
         network = Network()
         adressViewModel = AdressViewModel(network: network)
+        postOrderViewModel = PostOrderViewModel(network: network)
+        draftorderVM = DraftOrderViewModel(network: network)
         
         self.applePayBtn.addTarget(self, action: #selector(tapForPay), for: .touchUpInside)
     }
@@ -85,26 +91,14 @@ class CheckOutViewController: UIViewController {
         }
     }
     
-    @IBAction func SubmitOrder(_ sender: UIButton) {
-   
-    /*    let order = Order()
-        let address = PostedAdress(firstName: "Haidy", lastName: "Yassin", city: "Cairo", region: "new Cairo", country: "Egypt", zip: "12345")
-        var customer = OrderCustomer()
-        customer.id = postOrderViewModel.getUserId()
-        order.line_items = postOrderViewModel.getLineItems()
-        order.customer = customer
-        order.shipping_address = address
-        order.discount_codes = []
-        let params : Parameters = encodeToJson(objectClass: PostOrder(order: order)) ?? [:]
-        postOrderViewModel.postOrder(endpoint: .postOrder, params:params )
-        */
-    }
     
     @IBAction func supmitOrder(_ sender: Any) {
         
         if adressViewModel.adresses?.count ?? 0 > 0{
             
             // supmit your order here
+            getOrderToSubmit()
+            showSuccessAnimation()
         }
         else{
             let alert = UIAlertController(title: "Alert!", message: "Set a default address to supmit your order", preferredStyle: UIAlertController.Style.alert)
@@ -116,7 +110,42 @@ class CheckOutViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
         }
     }
+    
+    func getOrderToSubmit() {
+        let order = Order()
+        var customer = OrderCustomer()
+            customer.id = postOrderViewModel.getUserId()
+            order.line_items = postOrderViewModel.getLineItems()
+            order.customer = customer
+            order.shipping_address = getAdress()
+            order.discount_codes = []
+            let params : Parameters = encodeToJson(objectClass: PostOrder(order: order)) ?? [:]
+            postOrderViewModel.postOrder(endpoint: .postOrder, params:params )
+            
+    }
+    
+    func getAdress() -> PostedAdress{
+        let address = adressViewModel.adresses?.last ?? adressViewModel.getDefaultAdress()
+        return address
+    }
+    
+    func showSuccessAnimation(){
+        let customAlert = RTCustomAlert()
+               customAlert.alertTitle = "Thank you"
+               customAlert.alertMessage = "Your order successfully done."
+               customAlert.alertTag = 1
+               customAlert.isCancelButtonHidden = true
+               customAlert.delegate = self
+               customAlert.show()
+    }
+    
+    func releaseCart(){
+        MyCartItems.cartItemsCodableObject = []
+       // draftorderVM.deleteItem(index: <#T##Int#>, draftOrderId: <#T##Int#>, customer: <#T##Customer#>)
+    }
 }
+
+
 
 extension CheckOutViewController : PKPaymentAuthorizationViewControllerDelegate{
     
@@ -129,5 +158,18 @@ extension CheckOutViewController : PKPaymentAuthorizationViewControllerDelegate{
         completion(PKPaymentAuthorizationResult(status: .success, errors: nil))
     }
     
+    func okButtonPressed(_ alert: RTCustomAlert, alertTag: Int) {
+        
+        if alertTag == 1 {
+            print("Single button alert: Ok button pressed")
+        } else {
+            print("Two button alert: Ok button pressed")
+        }
+        print(alert.alertTitle)
+    }
     
+    func cancelButtonPressed(_ alert: RTCustomAlert, alertTag: Int) {
+        print("Cancel button pressed")
+    }
+
 }
