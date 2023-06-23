@@ -43,3 +43,17 @@ func DateFormate(date:String) -> String{
     return "\(String(describing: dateString) )"
 }
 
+
+func showLoginAlert(viewController:UIViewController){
+    
+    let alert = UIAlertController(title: "Not Logged in", message: "Please loginn so yo can add product it in wishList", preferredStyle: .alert)
+    alert.addAction(UIAlertAction(title: "Login", style: .cancel, handler: {  (action) in
+        let loginVC =  UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+        loginVC.modalPresentationStyle = .fullScreen
+       viewController.present(loginVC , animated: true, completion: nil)
+    }))
+   //alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+    viewController.present(alert, animated: true)
+}
+
+

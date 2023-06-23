@@ -49,10 +49,9 @@ class RegisterVC: UIViewController {
                 DispatchQueue.main.async {
                     
                     if self?.registerViewModel.statusCode  == 201{
-                        print("Suceeeeeeeesssss")
                         let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
                         let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
-                        (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                        self?.navigationController?.pushViewController(mainTabBarController, animated: true)
                         
                     } else if self?.registerViewModel.statusCode == 422{
                         self?.showToast(message: "Already Exist", seconds: 2.0)
@@ -70,16 +69,10 @@ class RegisterVC: UIViewController {
     }
     
     @IBAction func goToLogin(_ sender: Any) {
-        
         let loginVC = self.storyboard?.instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-        
-        loginVC.modalPresentationStyle = .fullScreen
-        self.present(loginVC , animated: true, completion: nil)
+        navigationController?.pushViewController(loginVC, animated: true)
     }
-    
-    @IBAction func backBtn(_ sender: Any) {
-        self.dismiss(animated: true)
-    }
+
     
     func showToast(message : String, seconds: Double){
         
@@ -110,7 +103,7 @@ class RegisterVC: UIViewController {
                 
                 let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
                 let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                self.navigationController?.pushViewController(mainTabBarController, animated: true)
             }
         
     }

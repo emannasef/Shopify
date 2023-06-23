@@ -45,6 +45,8 @@ class RegisterViewModel{
         UserDefaults.standard.set(customer.customer.firstName, forKey: "customerName")
         UserDefaults.standard.set(customer.customer.email, forKey: "customerEmail")
         UserDefaults.standard.set(true, forKey: "isLogin")
+        UserDefaults.standard.set("user", forKey: "UserType")
+
     }
     
     
