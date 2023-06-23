@@ -18,10 +18,12 @@ class ProductInfoVC: UIViewController{
     @IBOutlet weak var reviewsTableView: UITableView!
     @IBOutlet weak var sizeLB: UILabel!
     @IBOutlet weak var price: UILabel!
+    @IBOutlet weak var cartBtn: UIButton!
+    @IBOutlet weak var favImg: UIImageView!
     @IBOutlet weak var slider: UIPageControl!
     @IBOutlet weak var imsgesCollectionView: UICollectionView!
     @IBOutlet weak var productName: UILabel!
-    @IBOutlet weak var cartBtn: UIButton!
+  
     var favBtn : UIBarButtonItem!
     var productId = 8360376402229
     var viewModel:ProductInfoViewModel = ProductInfoViewModel(network: Network())
@@ -47,8 +49,8 @@ class ProductInfoVC: UIViewController{
         super.viewDidLoad()
         favBtn = self.tabBarController?.navigationItem.rightBarButtonItem
         favBtn = UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action:#selector(addToFav))
-        setCarBtn()
-        
+       // setCarBtn()
+        isItemAdded()
         //        scrollview.contentSize = CGSize(width: 400, height: 2300)
         imsgesCollectionView.dataSource = self
         imsgesCollectionView.delegate = self
@@ -116,12 +118,25 @@ class ProductInfoVC: UIViewController{
         if userType == "guest" {
             showLoginAlert(viewController: self)
         }else{
-            viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
-            createToastMessage(message: "new item added to your cart",view: self.view)
+            if viewModel.ISAddedToCart(product: (viewModel.product?.product)!){
+              //  viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
+                //createToastMessage(message: "new item added to your cart",view: self.view)
+            }
+            else{
+                self.cartBtn.imageView?.image = UIImage(systemName: "cart.fill")
+                viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
+                createToastMessage(message: "new item added to your cart",view: self.view)
+            }
         }
-        
-        
-       
+    }
+    
+    func isItemAdded(){
+        if viewModel.ISAddedToCart(product: (viewModel.product?.product) ?? Product()){
+            cartBtn.imageView?.image = UIImage(systemName: "cart.fill")
+        }
+        else{
+            cartBtn.imageView?.image = UIImage(systemName: "cart")
+        }
     }
     
     @IBAction func moreBtn(_ sender: Any) {
