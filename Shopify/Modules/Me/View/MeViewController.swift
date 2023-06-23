@@ -19,6 +19,12 @@ class MeViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
     @IBOutlet weak var ordersTable: UITableView!
     @IBOutlet weak var wishListCollection: UICollectionView!
     @IBOutlet weak var fullName: UILabel!
+    let userType =  UserDefaults.standard.string(forKey: "UserType")
+    var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance,network: Network())
+    var wishArr:[FavProduct]!
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
     
     var meViewModel : MeViewModelType!
     
@@ -35,12 +41,46 @@ class MeViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
         let nib = UINib(nibName: "OrderCell", bundle: nil)
         ordersTable.register(nib, forCellReuseIdentifier: "orderCell")
         
+        if userType == "guest" {
+            notLoginView.isHidden = false
+        }else {
+            ordersTable.delegate = self
+            ordersTable.dataSource = self
+            wishListCollection.dataSource = self
+            wishListCollection.delegate = self
+            fullName.text = UserDefaults.standard.string( forKey: "customerName")
+            let nib = UINib(nibName: "OrderCell", bundle: nil)
+            ordersTable.register(nib, forCellReuseIdentifier: "orderCell")
+            
+            let nibb = UINib(nibName: "OrderProductsCell", bundle: nil)
+            wishListCollection.register(nibb, forCellWithReuseIdentifier: "orderProductCell")
+            
+            notLoginView.isHidden = true
+            
+        }
+        
         let nibb = UINib(nibName: "OrderProductsCell", bundle: nil)
         wishListCollection.register(nibb, forCellWithReuseIdentifier: "orderProductCell")
         
         getOrders()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        wishArr = wishListViewModel.getSoredFavs()
+        wishListCollection.reloadData()
+        
+        if wishListViewModel.getSoredFavs().count > 2 {
+            wishArr = [wishListViewModel.getSoredFavs()[0],wishListViewModel.getSoredFavs()[1]]
+            wishListCollection.reloadData()
+        }
+        
+    }
+    
+    @IBAction func goToLogin(_ sender: Any) {
+        let loginVC =  UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
+        loginVC.modalPresentationStyle = .fullScreen
+        self.present(loginVC , animated: true, completion: nil)
+    }
     
     func getOrders(){
         self.meViewModel?.bindOrdersToViewController = {[weak self] in
