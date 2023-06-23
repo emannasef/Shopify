@@ -33,7 +33,7 @@ class LoginVC: UIViewController {
                 //  self.customer.tags = user.profile?.email
                 let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
                 let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
-                (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                self.navigationController?.pushViewController(mainTabBarController, animated: true)
             }
     }
     
@@ -45,7 +45,7 @@ class LoginVC: UIViewController {
                 if self?.loginViewModel.vaildateCustomer(customerEmail: self?.emailTF.text ?? "", customerPasssword: self?.passwordTF.text ?? "") == 1 {
                     let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
                     let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
-                    (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.changeRootViewController(mainTabBarController)
+                    self?.navigationController?.pushViewController(mainTabBarController, animated: true)
                     
                 }
                 if self?.loginViewModel.vaildateCustomer(customerEmail: self?.emailTF.text ?? "", customerPasssword: self?.passwordTF.text ?? "") == 2{
@@ -67,9 +67,7 @@ class LoginVC: UIViewController {
         
     }
     
-    @IBAction func backBtn(_ sender: Any) {
-        self.dismiss(animated: true)
-    }
+
     
     @IBAction func signUp(_ sender: Any) {
         let registerVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC

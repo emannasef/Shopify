@@ -94,6 +94,9 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
         case 3:
             fromCategory = "kids"
             return CategoryType.kids.rawValue
+        case 4 :
+            fromCategory = "all"
+            return CategoryType.allCategories.rawValue
         default:
             fromCategory = "sale"
             return CategoryType.sale.rawValue

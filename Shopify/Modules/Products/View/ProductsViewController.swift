@@ -78,6 +78,8 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
             getCategory(tag: CategoryType.kids.rawValue)
         case "sale" :
             getCategory(tag: CategoryType.sale.rawValue)
+        case "all" :
+            getAllProducts()
         default:
             print(" there are no data")
         }
