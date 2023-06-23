@@ -33,10 +33,23 @@ class MeViewController: UIViewController {
             
             let nibb = UINib(nibName: "OrderProductsCell", bundle: nil)
             wishListCollection.register(nibb, forCellWithReuseIdentifier: "orderProductCell")
+            
             notLoginView.isHidden = true
-            wishArr = wishListViewModel.getSoredFavs()
+            
         }
         
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        wishArr = wishListViewModel.getSoredFavs()
+        wishListCollection.reloadData()
+        
+        if wishListViewModel.getSoredFavs().count > 2 {
+            wishArr = [wishListViewModel.getSoredFavs()[0],wishListViewModel.getSoredFavs()[1]]
+            wishListCollection.reloadData()
+        }
         
     }
     
@@ -91,19 +104,24 @@ extension MeViewController : UITableViewDelegate, UITableViewDataSource{
 extension MeViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if wishArr.isEmpty {
-            return 1
-        }else {
-            return 2
-        }
+        return wishArr.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = wishListCollection.dequeueReusableCell(withReuseIdentifier: "orderProductCell", for: indexPath)
-     //   let wishPro1 = wishArr[0]
-//        let wishPro2 = wishArr[1]
-     //   print(wishPro1)
-      //  print(wishPro2)
+        let cell = wishListCollection.dequeueReusableCell(withReuseIdentifier: "orderProductCell", for: indexPath) as! OrderProductsCell
+        let wishPro = wishArr[indexPath.row]
+        cell.productImage.kf.setImage(
+            with: URL(string: wishPro.image ?? ""),
+            placeholder: UIImage(named: "brandplaceholder"),
+            options: [
+                .scaleFactor(UIScreen.main.scale),
+                .transition(.fade(1)),
+                .cacheOriginalImage
+            ])
+        
+        cell.productName.text = wishPro.title
+        cell.isFav.setImage(UIImage(systemName: "heart.fill" ), for: .normal)
+        
         cell.layer.cornerRadius = 8
         cell.layer.shadowRadius = 4
         cell.layer.shadowColor = UIColor.black.cgColor
@@ -116,6 +134,12 @@ extension MeViewController : UICollectionViewDelegate, UICollectionViewDataSourc
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 167, height: 232)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let productInfo = UIStoryboard(name: "ProductInfo", bundle: nil).instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+        productInfo.productId = wishArr[indexPath.row].id ?? 8360376402229
+        self.navigationController?.pushViewController(productInfo, animated: true)
     }
     
 }
