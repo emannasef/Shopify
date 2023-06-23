@@ -71,7 +71,7 @@ init(id:Int,name:String,city:String,region:String,countryName:String,phone:Strin
     self.id = id
     self.zip = zip
     self.name = name
-    self.countryName = countryName
+    self.country = countryName
     self.phone = phone
     self.city = city
     self.province = region
@@ -83,7 +83,7 @@ init(id:Int,name:String,city:String,region:String,countryName:String,phone:Strin
       self.address1 = region
       self.firstName = firstName
       self.lastName = lastName
-      self.countryName = country
+      self.country = country
       self.zip = zip
       self.phone = phone
   }

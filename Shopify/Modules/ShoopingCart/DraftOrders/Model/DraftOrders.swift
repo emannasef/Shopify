@@ -98,6 +98,10 @@ struct DraftOrders: Codable {
         self.currency = getCurrency()
     }
     
+    init(id:Int,appliedDiscount:AppliedDiscount,customer:Customer){
+        
+    }
+    
   init() {
 
   }
@@ -114,6 +118,9 @@ struct AppliedDiscount: Codable {
   
   }
 
+    init(appliedDiscount:ApliedDiscountDetails){
+        self .appliedDiscount = appliedDiscount
+    }
   init() {
 
   }
@@ -138,7 +145,14 @@ struct ApliedDiscountDetails: Codable {
   
   }
 
-
+  
+    init(value:String,title:String,amount:String,valueType:String){
+        self.value = valueType
+        self.title = title
+        self.amount = amount
+        self.valueType = valueType
+    }
+    
   init() {
 
   }
