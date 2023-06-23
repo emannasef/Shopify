@@ -32,8 +32,8 @@ class ProductInfoVC: UIViewController{
     var favPro:FavProduct = FavProduct()
     
     let revierImages = ["person1","person2","person3"]
-    let revierText = ["I Love This","Meduim quality Product","It's pretty much and I liked it"]
-    let revierNames = ["person1","person2","person3"]
+    let revierText = ["I love this","Meduim quality product","It's pretty much and I liked it"]
+    let revierNames = ["Eman Nasef","Haidy Yasin","Manal Hamada"]
     
     let userId  =  UserDefaults.standard.string(forKey: "customerId")
     let userType =  UserDefaults.standard.string(forKey: "UserType")
