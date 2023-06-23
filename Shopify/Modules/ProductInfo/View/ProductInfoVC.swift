@@ -98,11 +98,11 @@ class ProductInfoVC: UIViewController{
         if  wishListViewModel.isProductExist(product:favPro)  {
             favImg.image = UIImage(systemName: "heart.fill")
             
-            print("Will Appear",favPro)
+           // print("Will Appear",favPro)
             
         }else{
             favImg.image = UIImage(systemName: "heart")
-            print("Will Apear",favPro)
+          //  print("Will Apear",favPro)
             
         }
     }
@@ -115,6 +115,9 @@ class ProductInfoVC: UIViewController{
             viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
             createToastMessage(message: "new item added to your cart",view: self.view)
         }
+        
+        
+       
     }
     
     @IBAction func moreBtn(_ sender: Any) {
