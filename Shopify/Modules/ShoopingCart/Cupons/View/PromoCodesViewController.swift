@@ -55,17 +55,23 @@ class PromoCodesViewController: UIViewController,UITableViewDelegate,UITableView
         return 10
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = promoCodesTable.dequeueReusableCell(withIdentifier: "promocodecell") as! promocodeTableViewCell
+        let cell = cuponsTable.dequeueReusableCell(withIdentifier: "promocodecell") as! promocodeTableViewCell
+        let discount = viewModel.cupons?[indexPath.section]
         cell.offerLabel.text = viewModel.cupons?[indexPath.section].code//discountsArr?[indexPath.section].discount?.code//viewModel.cupons?[indexPath.section].code
         cell.layer.cornerRadius = 10.0
         cell.offerBg.layer.cornerRadius = 10.0
+        cell.bindApplyActionToViewController = { [weak self] in
+            let customer = Customer(id:/*Int(UserDefaults.standard.integer(forKey: "customerId"))*/7046569754933 )
+            self?.draftOrderViewModel.applyDiscountToDraftOrder(discount:discount!, draftOrderId: 1118107795765, customer:customer)
+            
+        }
         
         return cell
         
     }
     
-  /*  func applyDiscount(){
-        viewModel.
+  /*  func applyDiscount(draftOrderId:Int,price:String,discount:Discount){
+        draftOrderViewModel.applyDiscount(draftOrderId: draftOrderId, discount: discount, price: price, lineItems: MyCartItems.cartItemsCodableObject!)
     }*/
     
 }

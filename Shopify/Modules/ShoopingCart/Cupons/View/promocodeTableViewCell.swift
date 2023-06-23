@@ -15,7 +15,7 @@ class promocodeTableViewCell: UITableViewCell {
     @IBOutlet weak var remaningDays: UILabel!
     @IBOutlet weak var applyBtn: UIButton!
     @IBOutlet weak var offerBg: UIView!
-    var bindApplyActionToViewController : (()->()) = {}
+    var bindApplyActionToViewController:(() ->()) = {}
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -29,10 +29,11 @@ class promocodeTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    @IBAction func applyCode(_ sender: Any) {
-        applyDiscount()
+    @IBAction func applyDiscount(_ sender: Any) {
+        self.applyDiscount()
+        print("aplyyyy btn")
+        
     }
-    
     @objc func applyDiscount(){
         bindApplyActionToViewController()
     }

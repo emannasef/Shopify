@@ -364,7 +364,7 @@
                                                         <color key="baseBackgroundColor" name="AccentColor"/>
                                                     </buttonConfiguration>
                                                     <connections>
-                                                        <action selector="applyCode:" destination="2wD-vM-6hf" eventType="touchUpInside" id="yYF-i4-URY"/>
+                                                        <action selector="applyDiscount:" destination="2wD-vM-6hf" eventType="touchUpInside" id="Zf7-49-rvN"/>
                                                     </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Summer sales" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UCg-yi-St5">
@@ -449,9 +449,8 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="cuponsTable" destination="Iu3-eE-5MX" id="lEn-Ty-kkv"/>
+                        <outlet property="cuponsTable" destination="Iu3-eE-5MX" id="7d9-iM-X9y"/>
                         <outlet property="enterPromfield" destination="Tq4-Ss-yYU" id="nA9-sA-wRU"/>
-                        <outlet property="promoCodesTable" destination="Iu3-eE-5MX" id="ykK-Sc-83I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="XwL-9U-rbm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

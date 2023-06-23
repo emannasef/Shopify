@@ -15,6 +15,9 @@ class WishListVC: UIViewController {
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance,network: Network())
     var wishListArr:[FavProduct] = []
     let draftyID = UserDefaults.standard.string(forKey: "UserWishListID")
+  //  let userId  =  UserDefaults.standard.string(forKey: "customerId")
+    
+    
     var wishListArrLines:[LineItems] = []
     var reachability:Reachability?
     var isConnected:Bool = false
@@ -37,15 +40,15 @@ class WishListVC: UIViewController {
         
         rech()
         
-        wishListViewModel.getWishList(Draftid: draftyID!)
+    //    wishListViewModel.getWishList(Draftid: draftyID!)
         
-        wishListViewModel.bindingData = { [weak self] in
-            self?.wishListArrLines = self?.wishListViewModel.allLineItemsArr ?? []
-            DispatchQueue.main.async {
-                self?.collectionView.reloadData()
-            }
-            print("my Arrrray",self?.wishListArrLines)
-        }
+//        wishListViewModel.bindingData = { [weak self] in
+//            self?.wishListArrLines = self?.wishListViewModel.allLineItemsArr ?? []
+//            DispatchQueue.main.async {
+//                self?.collectionView.reloadData()
+//            }
+//            print("my Arrrray",self?.wishListArrLines)
+//        }
         
      
         
@@ -144,7 +147,7 @@ extension WishListVC : UICollectionViewDelegate,UICollectionViewDataSource,Click
         let pro = wishListArr[row]
         let favPro = FavProduct(id: pro.id,title: pro.title,rate: 3.5, price: "500", image: pro.image)
         
-        let alert = UIAlertController(title: "\(String(describing: pro.title))", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Delete", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
             
             self.wishListViewModel.deleteFavProduct(product: favPro)

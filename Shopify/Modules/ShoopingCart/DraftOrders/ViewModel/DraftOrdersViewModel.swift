@@ -86,34 +86,36 @@ class DraftOrderViewModel {
         network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrderId), params: params) {(response:MyDraftOrder?, error )in
             guard let result = response?.draft_order else{
                 print(error ?? "there is an errror while updating  your cart")
+                print(error.debugDescription)
+                print("\(String(describing: error))")
                 return}
             MyCartItems.cartItemsCodableObject = result.lineItems
             
         }
         
     }
-    func applyDiscountToDraftOrder(discount:Discount,draftOrderId:Int,customer:Customer,price:String){
-        let params:Parameters = encodeToJson(objectClass:self.applyDiscount(draftOrderId: draftOrderId, discount: discount, price: price))!
+    func applyDiscountToDraftOrder(discount:Discount,draftOrderId:Int,customer:Customer){
+        let params:Parameters = encodeToJson(objectClass:self.applyDiscount(draftOrderId: draftOrderId, discount: discount))!
         network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrderId), params: params) {(response:MyDraftOrder?, error )in
             guard let result = response?.draft_order else{
                 print(error ?? "there is an errror while applying your discount")
                 return}
+            print("aftert applying discount..... \(String(describing: result.appliedDiscount?.appliedDiscount?.amount))")
         }
         
     }
     
     
-    func setAnAppliedDiscount(discount:Discount,price:String) ->AppliedDiscount{
+    func setAnAppliedDiscount(discount:Discount) ->AppliedDiscount{
         let value = Int(discount.code ) ?? 0
-        let amount = (Int(price ) ?? 0 ) * value
-        let AppliedDiscountDetails = ApliedDiscountDetails(value: "10.0", title: "custom", amount: "50,0", valueType: "percentage")
-        let appliedDiscount = AppliedDiscount()
+        let appliedDiscountDetails = ApliedDiscountDetails(value: "10.0", valueType: "percentage")
+        let appliedDiscount = AppliedDiscount(appliedDiscount: appliedDiscountDetails)
         return appliedDiscount
     }
     
-    func applyDiscount(draftOrderId : Int ,discount:Discount,price:String) -> MyDraftOrder{
+    func applyDiscount(draftOrderId : Int ,discount:Discount) -> MyDraftOrder{
         let customer = Customer(id:Int(UserDefaults.standard.integer(forKey: "customerId")))
-        let appliedDiscount = setAnAppliedDiscount(discount: discount, price: price)
+        let appliedDiscount = setAnAppliedDiscount(discount: discount)
         return MyDraftOrder(myDraftOrder: DraftOrders(id: draftOrderId, appliedDiscount: appliedDiscount, customer: customer))
     }
 }

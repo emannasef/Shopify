@@ -22,11 +22,9 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         cuponsVieModel = CuponsViewModel(network: network)
         homeCollection.dataSource = self
         homeCollection.delegate = self
-        self.navigationController?.navigationItem.title  = "Home"
+       // self.navigationController?.navigationItem.title  = "Home"
         
-        let searchBtn = UIBarButtonItem(title: "", image: UIImage(named: "baseline-search-24px"), target: self, action: #selector(addTapped))
-        
-        self.tabBarController?.navigationItem.leftBarButtonItem = searchBtn
+        self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", image: UIImage(named: "baseline-search-24px"), target: self, action: #selector(searchScreen))
         
         self.tabBarController?.navigationItem.rightBarButtonItems = [
             UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action: #selector(favScreen)),
@@ -240,7 +238,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         return section
     }
     
-    @objc func addTapped(){
+    @objc func searchScreen(){
         let productsScreen = storyboard?.instantiateViewController(withIdentifier: "collectionproducts") as! ProductsViewController
         productsScreen.fromScreen = "Home"
         UserDefaults.standard.set(productsScreen.fromScreen, forKey: "Screen")

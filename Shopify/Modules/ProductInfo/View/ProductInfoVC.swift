@@ -14,13 +14,14 @@ class ProductInfoVC: UIViewController{
     //    @IBOutlet weak var discriptionTxt: UITextView!
     @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet weak var descriptionLbl: UILabel!
-    @IBOutlet weak var favImg: UIImageView!
     @IBOutlet weak var reviewsTableView: UITableView!
     @IBOutlet weak var sizeLB: UILabel!
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var slider: UIPageControl!
     @IBOutlet weak var imsgesCollectionView: UICollectionView!
     @IBOutlet weak var productName: UILabel!
+    @IBOutlet weak var cartBtn: UIButton!
+    var favBtn : UIBarButtonItem!
     var productId = 8360376402229
     var viewModel:ProductInfoViewModel = ProductInfoViewModel(network: Network())
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance,network: Network())
@@ -29,10 +30,11 @@ class ProductInfoVC: UIViewController{
     var currentIndex = 0
     var proImages:[ProductImage] = []
     var favPro:FavProduct = FavProduct()
-    
     let revierImages = ["person1","person2","person3"]
     let revierText = ["I Love This","Meduim quality Product","It's pretty much and I liked it"]
-    
+    let userId  =  UserDefaults.standard.string(forKey: "customerId")
+    let userType =  UserDefaults.standard.string(forKey: "UserType")
+
     
     override func viewDidAppear(_ animated: Bool) {
         scrollview.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -40,6 +42,10 @@ class ProductInfoVC: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        favBtn = self.tabBarController?.navigationItem.rightBarButtonItem
+        favBtn = UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action:#selector(addToFav))
+        setCarBtn()
+        
         //        scrollview.contentSize = CGSize(width: 400, height: 2300)
         imsgesCollectionView.dataSource = self
         imsgesCollectionView.delegate = self
@@ -49,9 +55,9 @@ class ProductInfoVC: UIViewController{
         reviewsTableView.dataSource = self
         registerTableCell(tableView: reviewsTableView)
         
-        let tab = UITapGestureRecognizer(target: self, action: #selector(addToFav(_:)))
-        favImg.addGestureRecognizer(tab)
-        favImg.isUserInteractionEnabled = true
+       // let tab = UITapGestureRecognizer(target: self, action: #selector(addToFav(_:)))
+       // favImg.addGestureRecognizer(tab)
+        //favImg.isUserInteractionEnabled = true
         
        
         
@@ -65,8 +71,8 @@ class ProductInfoVC: UIViewController{
                 self?.slider.numberOfPages = self?.myProduct?.images?.count ?? 0
                 self?.proImages = self?.myProduct?.images ?? []
                 self?.imsgesCollectionView.reloadData()
-                self?.favPro = FavProduct(id: self?.myProduct.id,title: self?.myProduct.title,rate: 3.5, price: "500", image: self?.myProduct.image?.src)
-                self?.check()
+                self?.favPro = FavProduct(id: self?.myProduct.id,title: self?.myProduct.title,rate: 3.5, price: self?.myProduct.variants?[0].price, image: self?.myProduct.image?.src,userId: "\(String(describing: self?.userId))")
+                                self?.check()
                 
             }
         }
@@ -75,14 +81,25 @@ class ProductInfoVC: UIViewController{
         
     }
     
+    func setCarBtn(){
+        if viewModel.ISAddedToCart(product:(viewModel.product?.product) ?? Product()){
+            self.cartBtn.imageView?.image = UIImage(systemName: "cart.fill")
+            self.cartBtn.titleLabel?.text = "Remove from cart"
+        }
+        else {
+            self.cartBtn.imageView?.image = UIImage(systemName: "cart")
+            self.cartBtn.titleLabel?.text = "Add to cart"
+        }
+    }
+    
     func check (){
         if  wishListViewModel.isProductExist(product:favPro)  {
-            favImg.image = UIImage(systemName: "heart.fill")
+            favBtn.image = UIImage(systemName: "heart.fill")
         
             print("Will Appear",favPro)
             
         }else{
-            favImg.image = UIImage(systemName: "heart")
+            favBtn.image = UIImage(systemName: "heart")
             print("Will Apear",favPro)
 
         }
@@ -90,10 +107,14 @@ class ProductInfoVC: UIViewController{
     
     
     @IBAction func addToCart(_ sender: Any) {
-        
+        if userType == "guest" {
+            showLoginAlert(viewController: self)
+        }else{
+            viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
+            createToastMessage(message: "new item added to your cart",view: self.view)
+        }
         viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
         createToastMessage(message: "new item added to your cart",view: self.view)
-        
     }
     
     @IBAction func moreBtn(_ sender: Any) {
@@ -103,16 +124,28 @@ class ProductInfoVC: UIViewController{
         self.present(reviewsVC, animated: true)
     }
     
-    @objc func addToFav(_ sender:UITapGestureRecognizer) {
+    @objc func addToFav() {
         
-        if  wishListViewModel.isProductExist(product:favPro) == false {
-            wishListViewModel.insertFavProduct(product: favPro)
-            favImg.image = UIImage(systemName: "heart.fill")
+
+        if userType == "guest" {
+            showLoginAlert(viewController: self)
         }else{
-            wishListViewModel.deleteFavProduct(product: favPro)
-            favImg.image = UIImage(systemName: "heart")
+            
+            if  wishListViewModel.isProductExist(product:favPro) == false {
+                wishListViewModel.insertFavProduct(product: favPro)
+                favBtn.image = UIImage(systemName: "heart.fill")
+            }else{
+                // wishListViewModel.deleteFavProduct(product: favPro)
+                // favImg.image = UIImage(systemName: "heart")
+                let alert = UIAlertController(title: "Delete", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
+                    self.wishListViewModel.deleteFavProduct(product: self.favPro)
+                    self.favBtn.image = UIImage(systemName: "heart")
+                }))
+                self.present(alert, animated: true)
+                
+            }
         }
-        
         
     }
 }
@@ -142,9 +175,6 @@ extension ProductInfoVC : UICollectionViewDelegate,UICollectionViewDataSource,UI
                       , height:  imsgesCollectionView.frame.height)
     }
     
-    
-    
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
@@ -171,9 +201,7 @@ extension ProductInfoVC : UICollectionViewDelegate,UICollectionViewDataSource,UI
 }
 
 extension ProductInfoVC : UITableViewDelegate,UITableViewDataSource{
-    
-    
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

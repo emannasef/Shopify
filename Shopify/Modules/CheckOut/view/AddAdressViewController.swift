@@ -81,7 +81,7 @@ class AddAdressViewController: UIViewController {
             addAdressBtn.titleLabel?.text = "UPDATE ADDRESS"
             customerName.text = adressToBeUpdated?.name
             city.text = adressToBeUpdated?.city
-            region.text = adressToBeUpdated?.address1
+            region.text = adressToBeUpdated?.province
             country.text = adressToBeUpdated?.countryName
             phoneNum.text = adressToBeUpdated?.phone
             zipCode.text = adressToBeUpdated?.zip

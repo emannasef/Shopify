@@ -99,7 +99,7 @@ struct DraftOrders: Codable {
     }
     
     init(id:Int,appliedDiscount:AppliedDiscount,customer:Customer){
-        
+        self.note = "cart"
     }
     
   init() {
@@ -146,10 +146,8 @@ struct ApliedDiscountDetails: Codable {
   }
 
   
-    init(value:String,title:String,amount:String,valueType:String){
-        self.value = valueType
-        self.title = title
-        self.amount = amount
+    init(value:String,valueType:String){
+        self.value = value
         self.valueType = valueType
     }
     

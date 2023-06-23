@@ -78,4 +78,13 @@ class ProductInfoViewModel{
         return createDraftOrder(draftOrderId: draftOrdrId, lineItems: MyCartItems.cartItemsCodableObject ?? [],customer: customer )
         
     }
+    
+    func ISAddedToCart(product:Product) -> Bool{
+        
+        let product = MyCartItems.cartItemsCodableObject?.filter({ $0.productId == product.id })
+        if product?.count == 0{
+            return false
+        }
+        return true
+    }
 }
