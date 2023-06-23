@@ -49,7 +49,8 @@ class MeViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
         
         let setting = UIStoryboard(name: "Setting", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
         self.navigationController?.pushViewController(setting, animated: true)
-
+        
+        
         
     }
     
@@ -122,4 +123,7 @@ class MeViewController: UIViewController, UITableViewDelegate, UITableViewDataSo
         return CGSize(width: 167, height: 232)
     }
     
+    
 }
+
+

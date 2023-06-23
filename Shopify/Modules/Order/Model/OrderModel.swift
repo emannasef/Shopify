@@ -71,7 +71,6 @@ class Order: Codable {
     var shipping_address: PostedAdress? = nil
     var shippingLines: [ShippingLine]? = nil
 
-  
 }
 
 
