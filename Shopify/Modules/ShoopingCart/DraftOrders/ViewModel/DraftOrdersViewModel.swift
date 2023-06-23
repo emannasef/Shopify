@@ -92,7 +92,30 @@ class DraftOrderViewModel {
         }
         
     }
+    func applyDiscountToDraftOrder(discount:Discount,draftOrderId:Int,customer:Customer,price:String){
+        let params:Parameters = encodeToJson(objectClass:self.applyDiscount(draftOrderId: draftOrderId, discount: discount, price: price))!
+        network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrderId), params: params) {(response:MyDraftOrder?, error )in
+            guard let result = response?.draft_order else{
+                print(error ?? "there is an errror while applying your discount")
+                return}
+        }
+        
+    }
     
+    
+    func setAnAppliedDiscount(discount:Discount,price:String) ->AppliedDiscount{
+        let value = Int(discount.code ) ?? 0
+        let amount = (Int(price ) ?? 0 ) * value
+        let AppliedDiscountDetails = ApliedDiscountDetails(value: "10.0", title: "custom", amount: "50,0", valueType: "percentage")
+        let appliedDiscount = AppliedDiscount()
+        return appliedDiscount
+    }
+    
+    func applyDiscount(draftOrderId : Int ,discount:Discount,price:String) -> MyDraftOrder{
+        let customer = Customer(id:Int(UserDefaults.standard.integer(forKey: "customerId")))
+        let appliedDiscount = setAnAppliedDiscount(discount: discount, price: price)
+        return MyDraftOrder(myDraftOrder: DraftOrders(id: draftOrderId, appliedDiscount: appliedDiscount, customer: customer))
+    }
 }
 
 

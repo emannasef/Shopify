@@ -35,25 +35,28 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     
         setLayout()
         startTimer()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        getData()
         cuponsVieModel.bindPricerulesToViewControllers = { [weak self] in
             DispatchQueue.main.async {
                 let i = 0
                 print("IDES COUNT \(String(describing: self?.cuponsVieModel.priceRuleIdes?.count))")
                     let id = self?.cuponsVieModel.priceRuleIdes?[i]
                     self?.cuponsVieModel.getCupons(priceruleId:id ?? 0)
+              
                     
             }
         }
         cuponsVieModel.bindToViewController = {  [weak self] in
             DispatchQueue.main.async {
                 self?.setCuponsArr(totalCupons: self?.cuponsVieModel.totalCupons ?? [])
+                print("your cupons...\(String(describing: self?.cuponsVieModel.cupons?.count))")
             }
         }
         cuponsVieModel.getPriceRules()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        getData()
+
     }
     
     func setCuponsArr (totalCupons:[Discount]){

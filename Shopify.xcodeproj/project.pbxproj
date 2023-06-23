@@ -293,6 +293,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		041E13672A457C4B00ECCA1C /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0424EF332A3C4E7B00514892 /* PromoCodesViewController.swift */,
+				0424EF352A3C4E7F00514892 /* promocodeTableViewCell.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		042067F22A3C84C1004F74C2 /* UserDefaults */ = {
 			isa = PBXGroup;
 			children = (
@@ -325,6 +334,7 @@
 		0424EF1E2A3C4D0B00514892 /* Cupons */ = {
 			isa = PBXGroup;
 			children = (
+				041E13672A457C4B00ECCA1C /* View */,
 				0424EF312A3C4E4400514892 /* ViewModel */,
 				0424EF302A3C4E3C00514892 /* Model */,
 			);
@@ -363,8 +373,6 @@
 			isa = PBXGroup;
 			children = (
 				0424EF2C2A3C4D8400514892 /* ShoppingcartViewController.swift */,
-				0424EF352A3C4E7F00514892 /* promocodeTableViewCell.swift */,
-				0424EF332A3C4E7B00514892 /* PromoCodesViewController.swift */,
 				0424EF292A3C4D7D00514892 /* orderdItemTableCell.swift */,
 			);
 			path = View;
@@ -598,7 +606,6 @@
 		0453D3292A3B772B008A2345 /* viewModel */ = {
 			isa = PBXGroup;
 			children = (
-				0453D32C2A3B772B008A2345 /* PostedAdress.swift */,
 				0453D32A2A3B772B008A2345 /* AdressViewModel.swift */,
 				049CCFBE2A409B1700A95480 /* PostOrderViewModel.swift */,
 			);
@@ -608,6 +615,7 @@
 		0453D32B2A3B772B008A2345 /* model */ = {
 			isa = PBXGroup;
 			children = (
+				0453D32C2A3B772B008A2345 /* PostedAdress.swift */,
 			);
 			path = model;
 			sourceTree = "<group>";

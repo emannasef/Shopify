@@ -10,17 +10,12 @@ import UIKit
 class promocodeTableViewCell: UITableViewCell {
     
     @IBOutlet weak var offerLabel: UILabel!
-    
     @IBOutlet weak var promoCodeName: UILabel!
-    
     @IBOutlet weak var promocodeid: UILabel!
-    
     @IBOutlet weak var remaningDays: UILabel!
-    
     @IBOutlet weak var applyBtn: UIButton!
-    
     @IBOutlet weak var offerBg: UIView!
-    
+    var bindApplyActionToViewController : (()->()) = {}
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -35,7 +30,10 @@ class promocodeTableViewCell: UITableViewCell {
     }
 
     @IBAction func applyCode(_ sender: Any) {
+        applyDiscount()
     }
     
-    
+    @objc func applyDiscount(){
+        bindApplyActionToViewController()
+    }
 }
