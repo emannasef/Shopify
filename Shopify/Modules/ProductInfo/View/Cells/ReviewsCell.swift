@@ -12,14 +12,15 @@ class ReviewsCell: UITableViewCell {
     
     @IBOutlet weak var reviewerText: UILabel!
     
-    @IBOutlet weak var reviewerRate: CosmosView!
+    @IBOutlet weak var reviewerName: UILabel!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
         reviewerImg.layer.cornerRadius = reviewerImg.frame.height / 2
         reviewerImg.layer.masksToBounds = true
-        reviewerImg.layer.borderColor = UIColor.blue.cgColor
-        reviewerImg.layer.borderWidth = 0.7
+       // reviewerImg.layer.borderColor = UIColor.blue.cgColor
+      //  reviewerImg.layer.borderWidth = 0.7
         reviewerImg.clipsToBounds = true
     }
 

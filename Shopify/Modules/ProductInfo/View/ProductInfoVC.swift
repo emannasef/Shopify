@@ -11,7 +11,8 @@ import Kingfisher
 class ProductInfoVC: UIViewController{
     
     
-    //    @IBOutlet weak var discriptionTxt: UITextView!
+    
+    @IBOutlet weak var sizePopButton: UIButton!
     @IBOutlet weak var scrollview: UIScrollView!
     @IBOutlet weak var descriptionLbl: UILabel!
     @IBOutlet weak var favImg: UIImageView!
@@ -32,9 +33,11 @@ class ProductInfoVC: UIViewController{
     
     let revierImages = ["person1","person2","person3"]
     let revierText = ["I Love This","Meduim quality Product","It's pretty much and I liked it"]
+    let revierNames = ["person1","person2","person3"]
+    
     let userId  =  UserDefaults.standard.string(forKey: "customerId")
     let userType =  UserDefaults.standard.string(forKey: "UserType")
-
+    
     
     override func viewDidAppear(_ animated: Bool) {
         scrollview.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
@@ -55,20 +58,21 @@ class ProductInfoVC: UIViewController{
         favImg.addGestureRecognizer(tab)
         favImg.isUserInteractionEnabled = true
         
-       
+     
         
         viewModel.bindingProductInfo = { [weak self] in
             DispatchQueue.main.async {
                 self?.myProduct = self?.viewModel.product?.product
                 self?.productName.text = self?.myProduct?.title
                 self?.price.text = self?.myProduct?.variants?[0].price
-                self?.sizeLB.text = self?.myProduct?.variants?[0].title
+               // self?.sizeLB.text = self?.myProduct?.variants?[0].title
+                self?.setUpSize(size: self?.myProduct?.variants ?? [])
                 self?.descriptionLbl.text = self?.myProduct?.description
                 self?.slider.numberOfPages = self?.myProduct?.images?.count ?? 0
                 self?.proImages = self?.myProduct?.images ?? []
                 self?.imsgesCollectionView.reloadData()
                 self?.favPro = FavProduct(id: self?.myProduct.id,title: self?.myProduct.title,rate: 3.5, price: self?.myProduct.variants?[0].price, image: self?.myProduct.image?.src,userId: "\(String(describing: self?.userId))")
-                                self?.check()
+                self?.check()
                 
             }
         }
@@ -77,16 +81,29 @@ class ProductInfoVC: UIViewController{
         
     }
     
+    func setUpSize(size: [ProductVariant]){
+        var menuActions: [UIAction] = []
+      
+        size.forEach({ value in
+            let button = UIAction (title:value.title ?? "",state: .on ,handler: { UIAction in
+                self.price.text = value.price
+            })
+            menuActions.append(button)
+        })
+        
+        sizePopButton.menu = UIMenu(children: menuActions)
+    }
+    
     func check (){
         if  wishListViewModel.isProductExist(product:favPro)  {
             favImg.image = UIImage(systemName: "heart.fill")
-        
+            
             print("Will Appear",favPro)
             
         }else{
             favImg.image = UIImage(systemName: "heart")
             print("Will Apear",favPro)
-
+            
         }
     }
     
@@ -187,7 +204,7 @@ extension ProductInfoVC : UICollectionViewDelegate,UICollectionViewDataSource,UI
 }
 
 extension ProductInfoVC : UITableViewDelegate,UITableViewDataSource{
-
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -199,8 +216,12 @@ extension ProductInfoVC : UITableViewDelegate,UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "ReviewsCell", for: indexPath) as! ReviewsCell
         cell.reviewerText.text = revierText[indexPath.row]
         cell.reviewerImg.image = UIImage(named: revierImages[indexPath.row])
-        
+        cell.reviewerName.text = revierNames[indexPath.row]
         return cell
+    }
+    
+    private func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
+        return 40
     }
     
     
