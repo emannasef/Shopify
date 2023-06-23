@@ -1,8 +1,6 @@
 
-
 import UIKit
 import PassKit
-import Alamofire
 
 class CheckOutViewController: UIViewController {
     
@@ -15,14 +13,12 @@ class CheckOutViewController: UIViewController {
     var adressViewModel : AdressViewModel!
     var network : NetworkProtocol!
     var isapplyBtnappear : Bool = false
-    var postOrderViewModel : PostOrderViewModelType!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         network = Network()
         adressViewModel = AdressViewModel(network: network)
-        postOrderViewModel = PostOrderViewModel(network: network)
-       
+        
         self.applePayBtn.addTarget(self, action: #selector(tapForPay), for: .touchUpInside)
     }
     
@@ -45,7 +41,7 @@ class CheckOutViewController: UIViewController {
         if (adressViewModel.adresses?.count ?? 0 > 0){
             let defaultAddress = adressViewModel.getDefaultAdress()
             userName.text = defaultAddress.name
-            region.text = defaultAddress.address1
+            region.text = defaultAddress.province
             city.text = defaultAddress.city
         }
     }
@@ -63,25 +59,21 @@ class CheckOutViewController: UIViewController {
         self.applePayBtn.setImage(UIImage(systemName: ""), for: .normal)
     }
     
-   
     
-    @IBAction func SubmitOrder(_ sender: UIButton) {
-   
-        let order = Order()
-        let address = PostedAdress(firstName: "Haidy", lastName: "Yassin", city: "Cairo", region: "new Cairo", country: "Egypt", zip: "12345")
-        var customer = OrderCustomer()
-        customer.id = postOrderViewModel.getUserId()
-        order.line_items = postOrderViewModel.getLineItems()
-        order.customer = customer
-        order.shipping_address = address
-        order.discount_codes = []
-        let params : Parameters = encodeToJson(objectClass: PostOrder(order: order)) ?? [:]
-        postOrderViewModel.postOrder(endpoint: .postOrder, params:params )
-        
-    }
+    var paymentRequest : PKPaymentRequest = {
+        let request = PKPaymentRequest()
+        request.merchantIdentifier = "merchant.mad43team2.com"
+        request.supportedNetworks = [.idCredit,.visa]
+        request.supportedCountries = ["EG"]
+        request.merchantCapabilities = .capability3DS
+        request.countryCode = "EG"
+        request.currencyCode = "EGP"
+        request.paymentSummaryItems = [PKPaymentSummaryItem(label: "Adidas shoes", amount: 2)]
+        return request
+    }()
     
     
-   @objc func tapForPay(){
+    @objc func tapForPay(){
         
         let controller = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
         if controller != nil {
@@ -91,6 +83,21 @@ class CheckOutViewController: UIViewController {
                 print("process is completed")
             }
         }
+    }
+    
+    @IBAction func SubmitOrder(_ sender: UIButton) {
+   
+    /*    let order = Order()
+        let address = PostedAdress(firstName: "Haidy", lastName: "Yassin", city: "Cairo", region: "new Cairo", country: "Egypt", zip: "12345")
+        var customer = OrderCustomer()
+        customer.id = postOrderViewModel.getUserId()
+        order.line_items = postOrderViewModel.getLineItems()
+        order.customer = customer
+        order.shipping_address = address
+        order.discount_codes = []
+        let params : Parameters = encodeToJson(objectClass: PostOrder(order: order)) ?? [:]
+        postOrderViewModel.postOrder(endpoint: .postOrder, params:params )
+        */
     }
     
     @IBAction func supmitOrder(_ sender: Any) {

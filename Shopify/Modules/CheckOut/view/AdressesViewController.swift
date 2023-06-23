@@ -80,7 +80,7 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
         
         cell.userName.text = adress.name
         cell.city.text = adress.city
-        cell.street.text = adress.address1
+        cell.street.text = adress.province
         cell.layer.cornerRadius = 8
         
     }
