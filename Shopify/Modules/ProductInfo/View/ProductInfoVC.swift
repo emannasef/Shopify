@@ -7,6 +7,7 @@
 
 import UIKit
 import Kingfisher
+import Reachability
 
 class ProductInfoVC: UIViewController{
     
@@ -36,17 +37,18 @@ class ProductInfoVC: UIViewController{
     let revierImages = ["person1","person2","person3"]
     let revierText = ["I love this","Meduim quality product","It's pretty much and I liked it"]
     let revierNames = ["Eman Nasef","Haidy Yasin","Manal Hamada"]
-    
     let userId  =  UserDefaults.standard.string(forKey: "customerId")
     let userType =  UserDefaults.standard.string(forKey: "UserType")
-    
-    
+    var draftViewModel : DraftOrderViewModel!
+    var network :NetworkProtocol!
     override func viewDidAppear(_ animated: Bool) {
         scrollview.contentSize = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        network = Network()
+        draftViewModel = DraftOrderViewModel(network:network)
         favBtn = self.tabBarController?.navigationItem.rightBarButtonItem
         favBtn = UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action:#selector(addToFav))
        // setCarBtn()
@@ -242,6 +244,33 @@ extension ProductInfoVC : UITableViewDelegate,UITableViewDataSource{
     private func tableView(tableView: UITableView!, heightForRowAtIndexPath indexPath: NSIndexPath!) -> CGFloat {
         return 40
     }
+    func deleteItem(cell:orderdItemTableCell,index:Int,indexPath:IndexPath){
+        
+        let reachability = try! Reachability()
+        if reachability.connection != .unavailable{
+            setDeletealert(cell: cell, index: indexPath.section, indexPath: indexPath)
+        }
+        else{
+            let alert : UIAlertController = UIAlertController(title: "ALERT!", message: "No Connection \n set connection to apply your changes", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel,handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
     
+    func setDeletealert(cell:orderdItemTableCell,index:Int,indexPath:IndexPath){
+        let alert = UIAlertController(title: "Confirmation!", message: "Remove item..?", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
+            self.draftViewModel.deleteItem(index: index, draftOrderId:getDraftOrdertId(),customer: Customer(id: UserDefaults.standard.integer(forKey: "customerId")))
+            MyCartItems.cartItemsCodableObject?.remove(at: index)
+            createToastMessage(message: "item deleted from your cart", view: self.view)
+            
+        }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler:{_ in
+            alert.dismiss(animated: true)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
+    }
     
 }

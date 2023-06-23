@@ -25,7 +25,7 @@ class OrderDetailsViewController: UIViewController, UICollectionViewDelegate, UI
 
         orderTitle.text = order.name ?? "My Order"
         orderNumber.text = String(format:"%d",order.order_number ?? 1)
-        address.text = order.shipping_address?.country
+        address.text = order.shipping_address?.province
         totalPrice.text = order.total_price ?? "100"
         paymentMethods.text = order.paymentDetails?.creditCardCompany ?? "cash"
         //orderDate.text = DateFormate(date: order.processedAt ?? "3-11-2000" )

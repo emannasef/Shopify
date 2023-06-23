@@ -1,6 +1,8 @@
 import Foundation
 
 
+let provenices = ["Aswan","Asyut","Beheira","Cairo","Damietta","Giza","Luxor","Alexandria"]
+
 struct AllAdresses : Codable{
     
     var addresses : [PostedAdress]?

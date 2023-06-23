@@ -28,7 +28,7 @@ class SettingsViewController: UIViewController {
             DispatchQueue.main.async {
                 let adress = self?.addressViewModel.getDefaultAdress()
                 self?.city.text = adress?.city
-                self?.region.text = adress?.address1
+                self?.region.text = adress?.province
             }
         }
        

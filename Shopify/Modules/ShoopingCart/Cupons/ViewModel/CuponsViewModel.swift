@@ -21,7 +21,7 @@ class CuponsViewModel {
                     
                     self.cupons = response?.discount_codes
                     self.totalCupons! += self.cupons ?? []
-                    print("dISCOUNT CODE  \(String(describing: self.totalCupons?[0].code))")
+                   // print("dISCOUNT CODE  \(String(describing: self.totalCupons?[0].code))")
                     self.bindToViewController!()
                 
             })

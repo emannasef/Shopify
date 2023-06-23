@@ -53,7 +53,7 @@ class ProductInfoViewModel{
     
     func addItem(product:Product){
         let proVarient = product.variants?[0]
-        let variantId = proVarient?.id ?? 0
+        _ = proVarient?.id ?? 0
         let title = product.title
         let variTitle = proVarient?.title
         let price = proVarient?.price
@@ -87,4 +87,6 @@ class ProductInfoViewModel{
         }
         return true
     }
+    
+   
 }

@@ -77,6 +77,34 @@ class DraftOrderViewModel {
         
     }
     
+/*   func deleteProduct(product:Product){
+        
+        var listOfCartItems = MyCartItems.cartItemsCodableObject
+  
+        let params:Parameters = encodeToJson(objectClass: createDraftOrder(draftOrderId: draftOrderId, lineItems: listOfCartItems!,customer: customer))!
+        
+        if listOfCartItems?.count ?? 0 > 0 /*1*/{
+            network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrderId), params: params) {(response:MyDraftOrder?, error )in
+                guard let result = response?.draft_order else{
+                    print(error ?? "there is an errror while deleting an item from your cart")
+                    return}
+                MyCartItems.cartItemsCodableObject = result.lineItems
+                
+            }
+        }
+        else{
+            network.delete(endPoint: .deleteDraftOrder(draftOrderId: draftOrderId), params: params)
+            setDraftOrderId(draftOrderId: 0)
+        }
+        
+    }
+    
+    func deleteByProductId(product:Product) -> [LineItems]{
+        let pro = MyCartItems.cartItemsCodableObject?.remov({ $0.productId == product.id
+        })
+        return pro?[0] ?? LineItems()
+    }*/
+    
     func convertCurrency(){
         
     }

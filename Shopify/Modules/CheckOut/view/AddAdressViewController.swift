@@ -13,7 +13,9 @@ class AddAdressViewController: UIViewController {
     @IBOutlet weak var customerName: UITextField!
     @IBOutlet weak var phoneNum: UITextField!
     @IBOutlet weak var city: UITextField!
-    @IBOutlet weak var region: UITextField!
+    
+    @IBOutlet weak var regionMenue: UIButton!
+    @IBOutlet weak var region: UILabel!
     @IBOutlet weak var zipCode: UITextField!
     @IBOutlet weak var country: UITextField!
     @IBOutlet weak var addAdressBtn: UIButton!
@@ -75,6 +77,15 @@ class AddAdressViewController: UIViewController {
             countryMenu.showsMenuAsPrimaryAction = true
         }
         
+    
+    @IBAction func chooseProvenice(_ sender: Any) {
+        let menu = UIMenu(title: "Regions", options: .displayInline, children: setProvenices())
+        
+        regionMenue.menu = menu
+        regionMenue.showsMenuAsPrimaryAction = true
+        
+    }
+    
     func setFieldWithData(){
         
         if staus == "edit" {
@@ -102,6 +113,21 @@ class AddAdressViewController: UIViewController {
         return list
     }
 
+    
+    func setProvenices() -> [UIAction]{
+         
+        var list : [UIAction]! = []
+        for prov in provenices{
+           
+            let provniece = UIAction(title: prov) { (action) in
+                self.region.text = prov
+              
+             }
+            list.append(provniece)
+        }
+        return list
+    }
+    
     @IBAction func saveAdress(_ sender: Any) {
         
         let customerId  = Int(UserDefaults.standard.string(forKey: "customerId")!)
