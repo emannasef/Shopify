@@ -782,11 +782,21 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKd-VC-GOE">
                                         <rect key="frame" x="70" y="450" width="253" height="35"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Login">
+                                        <buttonConfiguration key="configuration" style="filled" title="LOGIN">
                                             <color key="baseBackgroundColor" red="0.25098039215686274" green="0.074509803921568626" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="goToLogin:" destination="f59-HF-lav" eventType="touchUpInside" id="p4T-jY-zb7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pTU-Nz-2hi">
+                                        <rect key="frame" x="70" y="515" width="253" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="SIGNUP">
+                                            <color key="baseBackgroundColor" red="0.25098039215686274" green="0.074509803921568626" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="goToSignUp:" destination="f59-HF-lav" eventType="touchUpInside" id="u7k-5f-HWI"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -794,6 +804,9 @@
                                 <constraints>
                                     <constraint firstItem="gKd-VC-GOE" firstAttribute="leading" secondItem="y82-Mg-bhR" secondAttribute="leading" constant="70" id="30i-kH-1eB"/>
                                     <constraint firstItem="PeG-R4-HkX" firstAttribute="centerX" secondItem="y82-Mg-bhR" secondAttribute="centerX" id="EDl-xp-dZP"/>
+                                    <constraint firstItem="pTU-Nz-2hi" firstAttribute="top" secondItem="gKd-VC-GOE" secondAttribute="bottom" constant="30" id="TPG-fu-Qh4"/>
+                                    <constraint firstItem="pTU-Nz-2hi" firstAttribute="leading" secondItem="y82-Mg-bhR" secondAttribute="leading" constant="70" id="dVP-DI-oSM"/>
+                                    <constraint firstAttribute="trailing" secondItem="pTU-Nz-2hi" secondAttribute="trailing" constant="70" id="e7s-1o-SH0"/>
                                     <constraint firstItem="PeG-R4-HkX" firstAttribute="centerY" secondItem="y82-Mg-bhR" secondAttribute="centerY" id="ezC-Hv-KC9"/>
                                     <constraint firstItem="gKd-VC-GOE" firstAttribute="top" secondItem="PeG-R4-HkX" secondAttribute="bottom" constant="55" id="i4U-4l-c0A"/>
                                     <constraint firstAttribute="trailing" secondItem="gKd-VC-GOE" secondAttribute="trailing" constant="70" id="oqE-qB-xAT"/>

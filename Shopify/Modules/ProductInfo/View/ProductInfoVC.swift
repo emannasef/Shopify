@@ -25,7 +25,7 @@ class ProductInfoVC: UIViewController{
     @IBOutlet weak var imsgesCollectionView: UICollectionView!
     @IBOutlet weak var productName: UILabel!
   
-    var favBtn : UIBarButtonItem!
+    //var favBtn : UIBarButtonItem!
     var productId = 8360376402229
     var viewModel:ProductInfoViewModel = ProductInfoViewModel(network: Network())
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance,network: Network())
@@ -49,8 +49,8 @@ class ProductInfoVC: UIViewController{
         super.viewDidLoad()
         network = Network()
         draftViewModel = DraftOrderViewModel(network:network)
-        favBtn = self.tabBarController?.navigationItem.rightBarButtonItem
-        favBtn = UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action:#selector(addToFav))
+//        favBtn = self.tabBarController?.navigationItem.rightBarButtonItem
+//        favBtn = UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action:#selector(addToFav))
        // setCarBtn()
         isItemAdded()
         //        scrollview.contentSize = CGSize(width: 400, height: 2300)
@@ -62,9 +62,9 @@ class ProductInfoVC: UIViewController{
         reviewsTableView.dataSource = self
         registerTableCell(tableView: reviewsTableView)
         
-       // let tab = UITapGestureRecognizer(target: self, action: #selector(addToFav(_:)))
-       // favImg.addGestureRecognizer(tab)
-        //favImg.isUserInteractionEnabled = true
+        let tab = UITapGestureRecognizer(target: self, action: #selector(addToFav(_:)))
+        favImg.addGestureRecognizer(tab)
+        favImg.isUserInteractionEnabled = true
         
      
         
@@ -105,13 +105,8 @@ class ProductInfoVC: UIViewController{
     func check (){
         if  wishListViewModel.isProductExist(product:favPro)  {
             favImg.image = UIImage(systemName: "heart.fill")
-            
-           // print("Will Appear",favPro)
-            
         }else{
             favImg.image = UIImage(systemName: "heart")
-          //  print("Will Apear",favPro)
-            
         }
     }
     
@@ -148,27 +143,25 @@ class ProductInfoVC: UIViewController{
         self.present(reviewsVC, animated: true)
     }
     
-    @objc func addToFav() {
-        
-
+    @objc func addToFav(_ sender:UITapGestureRecognizer) {
+        wishListViewModel.isProductExist(product:favPro)
         if userType == "guest" {
             showLoginAlert(viewController: self)
         }else{
             
             if  wishListViewModel.isProductExist(product:favPro) == false {
                 wishListViewModel.insertFavProduct(product: favPro)
-                favBtn.image = UIImage(systemName: "heart.fill")
+                favImg.image = UIImage(systemName: "heart.fill")
             }else{
-                // wishListViewModel.deleteFavProduct(product: favPro)
-                // favImg.image = UIImage(systemName: "heart")
                 let alert = UIAlertController(title: "Delete", message: "Do You want to remove this from your Wishlist?", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: { (action) in
                     self.wishListViewModel.deleteFavProduct(product: self.favPro)
-                    self.favBtn.image = UIImage(systemName: "heart")
+                    self.favImg.image = UIImage(systemName: "heart")
                 }))
                 self.present(alert, animated: true)
                 
             }
+            
         }
         
     }

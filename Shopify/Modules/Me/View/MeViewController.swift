@@ -68,9 +68,14 @@ class MeViewController: UIViewController {
     
     @IBAction func goToLogin(_ sender: Any) {
         let loginVC =  UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-        loginVC.modalPresentationStyle = .fullScreen
-        self.present(loginVC , animated: true, completion: nil)
+        navigationController?.pushViewController(loginVC, animated: true)
     }
+    
+    @IBAction func goToSignUp(_ sender: Any) {
+        let registerVC =  UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
+        navigationController?.pushViewController(registerVC, animated: true)
+    }
+    
     @IBAction func settingAction(_ sender: Any) {
         
         let setting = UIStoryboard(name: "Setting", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController

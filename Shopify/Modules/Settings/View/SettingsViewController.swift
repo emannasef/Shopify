@@ -83,7 +83,9 @@ class SettingsViewController: UIViewController {
         UserDefaults.standard.set("", forKey: "customerEmail")
       //  UserDefaults.standard.set("user", forKey: "UserType")
         let welcomeVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "WelcomeVC") as! WelcomeVC
-        self.navigationController?.pushViewController(welcomeVC , animated: true)
+//        self.navigationController?.pushViewController(welcomeVC , animated: true)
+        navigationController?.pushViewController(welcomeVC, animated: true)
+
     }
     
 }
