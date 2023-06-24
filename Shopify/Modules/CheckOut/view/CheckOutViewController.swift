@@ -115,6 +115,7 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
             let alert = UIAlertController(title: "Alert!", message: "Set a default address to supmit your order", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
                 let addAddresScreen = self.storyboard?.instantiateViewController(identifier: "addAdressScreen")  as! AddAdressViewController
+                addAddresScreen.staus = "add"
                 self.navigationController?.pushViewController(addAddresScreen, animated: true)
                 
             }))

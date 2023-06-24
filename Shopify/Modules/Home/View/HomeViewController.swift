@@ -26,7 +26,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         cuponsVieModel = CuponsViewModel(network: network)
         homeCollection.dataSource = self
         homeCollection.delegate = self
-        self.navigationController?.navigationItem.title  = "Home"
+      //  self.navigationController?.navigationItem.title  = "Home"
         
         self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", image: UIImage(named: "baseline-search-24px"), target: self, action: #selector(searchScreen))
         
@@ -184,7 +184,8 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     }
     
     func startTimer(){
-        timer = Timer.scheduledTimer(timeInterval: 2.5, target: self, selector: #selector(moveToNextItem), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval:
+                                        5, target: self, selector: #selector(moveToNextItem), userInfo: nil, repeats: true)
     }
     
     

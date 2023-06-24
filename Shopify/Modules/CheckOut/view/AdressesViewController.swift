@@ -30,6 +30,7 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        adressTable.reloadData()
         viewModel.getCustomerAdresses(customerId: id ?? 0 )
  
     }
