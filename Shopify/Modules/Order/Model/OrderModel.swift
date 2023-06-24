@@ -66,7 +66,7 @@ class Order: Codable {
     var discountApplications: [DiscountApplication]? = nil
     var fulfillments: [Fulfillment]? = nil
     var line_items: [LineItems]? = nil
-    var paymentDetails: PaymentDetails? = nil
+    var payment_details: PaymentDetails? = nil
     var refunds: [Refund]? = nil
     var shipping_address: PostedAdress? = nil
     var shippingLines: [ShippingLine]? = nil
@@ -108,20 +108,20 @@ struct Money: Codable {
 struct OrderCustomer: Codable {
     var id: Int?
     var email: String?
-    var acceptsMarketing: Bool?
-    var createdAt, updatedAt: String?
-    var firstName, lastName: String?
-    var ordersCount: Int?
-    var state, totalSpent: String?
-    var lastOrderID: Int?
-    var verifiedEmail: Bool?
-    var taxExempt: Bool?
+    var accepts_marketing: Bool?
+    var created_at, updated_at: String?
+    var first_name, last_name: String?
+    var orders_count: Int?
+    var state, total_spent: String?
+    var last_order_id: Int?
+    var verified_email: Bool?
+    var tax_exempt: Bool?
     var phone, tags: String?
     var currency: String?
-    var lastOrderName: String?
-    var acceptsMarketingUpdatedAt: String?
-    var adminGraphqlAPIID: String?
-    var defaultAddress: PostedAdress?
+    var last_order_name: String?
+    var accepts_marketing_updated_at: String?
+    var admin_graphqlapi_id: String?
+    var default_address: PostedAdress?
 
 }
 
@@ -228,12 +228,8 @@ struct Receipt: Codable {
 // MARK: - PaymentDetails
 struct PaymentDetails: Codable {
    
-    let creditCardNumber, creditCardCompany: String?
+    let credit_card_number, credit_card_company: String?
 
-    enum CodingKeys: String, CodingKey {
-        case creditCardNumber = "credit_card_number"
-        case creditCardCompany = "credit_card_company"
-    }
 }
 
 // MARK: - Refund

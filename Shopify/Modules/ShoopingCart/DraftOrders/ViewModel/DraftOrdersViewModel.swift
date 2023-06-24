@@ -77,6 +77,14 @@ class DraftOrderViewModel {
         
     }
     
+    func clearDraftOrder(draftOrderId:Int,customer:Customer,lineItems:[LineItems]){
+            
+            let draftOrder = createDraftOrder(draftOrderId: draftOrderId, lineItems: lineItems, customer: customer)
+            let params = encodeToJson(objectClass: draftOrder) ?? [:]
+            network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrderId), params:  params, completionHandeler: { (response:MyDraftOrder?, error )in
+                guard let result = response else {return}
+            })
+}
 /*   func deleteProduct(product:Product){
         
         var listOfCartItems = MyCartItems.cartItemsCodableObject

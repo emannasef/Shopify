@@ -15,6 +15,9 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     @IBOutlet weak var filterView: UIView!
     @IBOutlet weak var priceSlider: UISlider!
     
+    @IBOutlet weak var priceLabel: UILabel!
+    //    @IBOutlet weak var priceSlider: ThumbTextSlider!
+    
     var collectionId:Int!
     var collectionName:String!
     var viewModel = ProductsViewModel.getInstatnce(network: NetworkManager())
@@ -38,7 +41,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         productsCollection.delegate = self
         productsCollection.dataSource = self
         filterView.isHidden = true
-        priceSlider.value = 500
+       // priceSlider.value = 500
         priceSlider.minimumValue = 0
         priceSlider.maximumValue = 800
         
@@ -93,6 +96,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         searchedArr = copyArr.filter {
             Float($0.variants?[0].price ?? "0")! < priceSlider.value }
         productsCollection.reloadData()
+        priceLabel.text = String(format: "%0.2f", priceSlider.value)
         print(priceSlider.value)
         //filterView.isHidden = true
     }

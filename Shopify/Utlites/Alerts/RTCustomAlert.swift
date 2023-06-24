@@ -27,6 +27,7 @@ class RTCustomAlert: UIViewController {
     var cancelButtonTitle = "Cancel"
     var alertTag = 0
     //var statusImage = UIImage.init(named: "smiley")
+    var lottieName = "postorderlottie"
     var isCancelButtonHidden = false
     
     weak var delegate: RTCustomAlertDelegate?
@@ -57,6 +58,7 @@ class RTCustomAlert: UIViewController {
         titleLabel.text = alertTitle
         messageLabel.text = alertMessage
        // statusImageView.image = statusImage
+        //self.orderAnimation = .init(name: lottieName)
         self.orderAnimation.contentMode = .scaleAspectFit
         self.orderAnimation.loopMode = .loop
         self.orderAnimation.animationSpeed = 0.5

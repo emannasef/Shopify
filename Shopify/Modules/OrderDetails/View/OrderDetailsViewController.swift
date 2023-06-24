@@ -18,6 +18,7 @@ class OrderDetailsViewController: UIViewController, UICollectionViewDelegate, UI
     @IBOutlet weak var orderTitle: UILabel!
     @IBOutlet weak var paymentMethods: UILabel!
     
+    @IBOutlet weak var paymentText: UILabel!
     var order:Order!
     
     override func viewDidLoad() {
@@ -25,11 +26,12 @@ class OrderDetailsViewController: UIViewController, UICollectionViewDelegate, UI
 
         orderTitle.text = order.name ?? "My Order"
         orderNumber.text = String(format:"%d",order.order_number ?? 1)
-        address.text = order.shipping_address?.province
+        address.text = order.customer?.default_address?.city
         totalPrice.text = order.total_price ?? "100"
-        paymentMethods.text = order.paymentDetails?.creditCardCompany ?? "cash"
-        //orderDate.text = DateFormate(date: order.processedAt ?? "3-11-2000" )
-        orderDate.text =  order.processed_at ?? "3-11-2000"
+        //paymentMethods.text = order.payment_details?.credit_card_company ?? "cash"
+        paymentText.isHidden = true
+        orderDate.text = DateFormate(orderDate: order.processed_at ?? "3-11-2000" )
+       
         
         let nib = UINib(nibName: "OrderProductsCell", bundle: nil)
         itemsCollection.register(nib, forCellWithReuseIdentifier: "orderProductCell")

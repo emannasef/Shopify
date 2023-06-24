@@ -98,7 +98,18 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
             
             // supmit your order here
             getOrderToSubmit()
-            showSuccessAnimation()
+            postOrderViewModel.bindPostresponse = {[weak self] in
+                    DispatchQueue.main.async {
+                        if((self?.checkifOrderPosted()) != nil){
+                            self?.releaseCart()
+                            self?.showSuccessAnimation()
+                        }else{
+                            self?.showFailureAnimation()
+                        }
+                    }
+            }
+            
+           
         }
         else{
             let alert = UIAlertController(title: "Alert!", message: "Set a default address to supmit your order", preferredStyle: UIAlertController.Style.alert)
@@ -115,13 +126,21 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
         let order = Order()
         var customer = OrderCustomer()
             customer.id = postOrderViewModel.getUserId()
-            order.line_items = postOrderViewModel.getLineItems()
+           order.line_items = postOrderViewModel.getLineItems()
             order.customer = customer
             order.shipping_address = getAdress()
             order.discount_codes = []
             let params : Parameters = encodeToJson(objectClass: PostOrder(order: order)) ?? [:]
             postOrderViewModel.postOrder(endpoint: .postOrder, params:params )
             
+    }
+    
+    func checkifOrderPosted() -> Bool{
+        if(postOrderViewModel.myError == nil){
+            return true
+        }else{
+            return false
+        }
     }
     
     func getAdress() -> PostedAdress{
@@ -133,6 +152,18 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
         let customAlert = RTCustomAlert()
                customAlert.alertTitle = "Thank you"
                customAlert.alertMessage = "Your order successfully done."
+        customAlert.orderAnimation = .init( name: "postorerlottie")
+               customAlert.alertTag = 1
+               customAlert.isCancelButtonHidden = true
+               customAlert.delegate = self
+               customAlert.show()
+    }
+    
+    func showFailureAnimation(){
+        let customAlert = RTCustomAlert()
+               customAlert.alertTitle = "Error"
+               customAlert.alertMessage = "UnExpected Error happened, please Try Agin"
+              customAlert.orderAnimation = .init( name: "postorerlottie")
                customAlert.alertTag = 1
                customAlert.isCancelButtonHidden = true
                customAlert.delegate = self
@@ -140,8 +171,10 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
     }
     
     func releaseCart(){
-        MyCartItems.cartItemsCodableObject = []
-       // draftorderVM.deleteItem(index: <#T##Int#>, draftOrderId: <#T##Int#>, customer: <#T##Customer#>)
+        let customer = Customer(id:Int(UserDefaults.standard.integer(forKey: "customerId")))
+        let items = LineItems(title: "Dress" , varientTitle: "lll" , price: "99" , properties: [Properties(name: "img_url", value:"https://cdn.shopify.com/s/files/1/0767/9013/7124/products/8072c8b5718306d4be25aac21836ce16.jpg?v=1685539054")], quantity: 1)
+        draftorderVM.clearDraftOrder(draftOrderId: getDraftOrdertId(), customer: customer, lineItems: [items])
+        
     }
 }
 

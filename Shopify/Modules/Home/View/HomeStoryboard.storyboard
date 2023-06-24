@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="I0J-uV-rnQ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="I0J-uV-rnQ">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -230,23 +229,39 @@
                                 <buttonConfiguration key="configuration" style="plain" image="filter" title=""/>
                             </button>
                             <view contentMode="scaleToFill" id="2rx-n7-yTU">
-                                <rect key="frame" x="0.0" y="86" width="393" height="54"/>
+                                <rect key="frame" x="0.0" y="91" width="393" height="61"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="q0u-4o-LIT">
+                                    <slider opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="q0u-4o-LIT">
                                         <rect key="frame" x="6" y="12" width="381" height="30"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <connections>
                                             <action selector="SliderChanged:" destination="mZm-FU-iQQ" eventType="valueChanged" id="i80-UU-ea3"/>
                                         </connections>
                                     </slider>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="800" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q6y-wT-ZA9">
+                                        <rect key="frame" x="356" y="5" width="25" height="15"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <color key="textColor" name="AccentColor 1"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9B9-Y8-xaw">
+                                        <rect key="frame" x="136" y="40" width="120" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="14"/>
+                                        <color key="textColor" name="AccentColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3r5-hj-Jqg">
+                                        <rect key="frame" x="8" y="8" width="9" height="15"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="12"/>
+                                        <color key="textColor" name="AccentColor 1"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemGray4Color"/>
-                                <constraints>
-                                    <constraint firstItem="q0u-4o-LIT" firstAttribute="top" secondItem="2rx-n7-yTU" secondAttribute="top" constant="12" id="6e3-Lz-zJO"/>
-                                    <constraint firstAttribute="bottom" secondItem="q0u-4o-LIT" secondAttribute="bottom" constant="13" id="7l8-z6-Tjk"/>
-                                    <constraint firstAttribute="trailing" secondItem="q0u-4o-LIT" secondAttribute="trailing" constant="8" id="XzW-zy-z5g"/>
-                                    <constraint firstItem="q0u-4o-LIT" firstAttribute="leading" secondItem="2rx-n7-yTU" secondAttribute="leading" constant="8" id="m88-ro-WQu"/>
-                                </constraints>
                             </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="pLL-Y7-qNM"/>
@@ -268,7 +283,8 @@
                     <connections>
                         <outlet property="filterBtn" destination="Vbc-xE-4Zv" id="MVN-cj-d7z"/>
                         <outlet property="filterView" destination="2rx-n7-yTU" id="MFA-PX-xE6"/>
-                        <outlet property="priceSlider" destination="q0u-4o-LIT" id="KNI-dw-xRI"/>
+                        <outlet property="priceLabel" destination="9B9-Y8-xaw" id="an4-fl-1Vf"/>
+                        <outlet property="priceSlider" destination="q0u-4o-LIT" id="uqg-8d-CMz"/>
                         <outlet property="productsCollection" destination="u4k-KW-UGJ" id="nAv-TR-dTW"/>
                     </connections>
                 </viewController>
@@ -300,6 +316,10 @@
                                     <action selector="selectCategory:" destination="5Ln-cq-ved" eventType="valueChanged" id="r5o-Sf-eOy"/>
                                 </connections>
                             </segmentedControl>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noitems" id="gvd-76-x7O">
+                                <rect key="frame" x="0.0" y="142" width="393" height="604"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="vOX-Hn-oFq">
                                 <rect key="frame" x="0.0" y="155" width="393" height="614"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -400,6 +420,7 @@
                     <connections>
                         <outlet property="categoriesCollection" destination="vOX-Hn-oFq" id="2oA-En-Z8Z"/>
                         <outlet property="categoriesSegmentedControl" destination="7uo-FG-cFa" id="tM6-Eh-3JM"/>
+                        <outlet property="noItemsImg" destination="gvd-76-x7O" id="lef-J3-blA"/>
                         <outlet property="subCategoriesBtn" destination="2cj-9s-dQ5" id="OcS-Ly-Ug4"/>
                     </connections>
                 </viewController>
@@ -415,6 +436,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="noitems" translatesAutoresizingMaskIntoConstraints="NO" id="KdD-PS-UjZ">
+                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="5c5-2u-JD2">
                                 <rect key="frame" x="0.0" y="59" width="393" height="759"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -433,13 +457,18 @@
                         <viewLayoutGuide key="safeArea" id="8zL-4V-Ilc"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="KdD-PS-UjZ" secondAttribute="bottom" id="FJh-36-piw"/>
+                            <constraint firstItem="KdD-PS-UjZ" firstAttribute="top" secondItem="8zL-4V-Ilc" secondAttribute="top" id="HD5-bH-4VU"/>
+                            <constraint firstItem="KdD-PS-UjZ" firstAttribute="leading" secondItem="8zL-4V-Ilc" secondAttribute="leading" id="b7Q-ku-cbJ"/>
                             <constraint firstItem="5c5-2u-JD2" firstAttribute="trailing" secondItem="8zL-4V-Ilc" secondAttribute="trailing" id="efH-EQ-dGA"/>
                             <constraint firstItem="5c5-2u-JD2" firstAttribute="leading" secondItem="8zL-4V-Ilc" secondAttribute="leading" id="f9w-dx-AEk"/>
                             <constraint firstItem="5c5-2u-JD2" firstAttribute="top" secondItem="8zL-4V-Ilc" secondAttribute="top" id="fBK-BO-CMX"/>
                             <constraint firstItem="5c5-2u-JD2" firstAttribute="bottom" secondItem="8zL-4V-Ilc" secondAttribute="bottom" id="vs8-NN-HdC"/>
+                            <constraint firstItem="KdD-PS-UjZ" firstAttribute="trailing" secondItem="8zL-4V-Ilc" secondAttribute="trailing" id="x1r-di-XL2"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="noItemsImg" destination="KdD-PS-UjZ" id="2s9-M7-U2i"/>
                         <outlet property="ordersTable" destination="5c5-2u-JD2" id="FrM-LN-j8G"/>
                     </connections>
                 </viewController>
@@ -567,8 +596,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="paypal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIw-bs-BVT">
-                                <rect key="frame" x="156" y="628" width="221" height="22"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XIw-bs-BVT">
+                                <rect key="frame" x="156" y="628" width="221" height="0.0"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="221" id="ERS-uo-vQz"/>
                                 </constraints>
@@ -627,6 +656,7 @@
                         <outlet property="orderNumber" destination="KH9-qT-Nsh" id="Al2-Lx-Bov"/>
                         <outlet property="orderTitle" destination="7pv-dk-M4r" id="P38-UH-73P"/>
                         <outlet property="paymentMethods" destination="XIw-bs-BVT" id="iCS-0i-ztZ"/>
+                        <outlet property="paymentText" destination="5C6-Rv-RqB" id="wEU-bR-lyL"/>
                         <outlet property="totalPrice" destination="GhI-Vp-AHM" id="Oyc-Mm-bCZ"/>
                     </connections>
                 </viewController>
@@ -842,6 +872,7 @@
         <image name="filter" width="18" height="12"/>
         <image name="gearshape.fill" catalog="system" width="128" height="123"/>
         <image name="heart" catalog="system" width="128" height="107"/>
+        <image name="noitems" width="233" height="203"/>
         <image name="person" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="square.grid.3x3" catalog="system" width="128" height="113"/>

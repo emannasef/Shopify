@@ -10,6 +10,7 @@ import UIKit
 class OrderViewController: UIViewController , UITableViewDelegate, UITableViewDataSource {
     var viewModel : OrderViewModelType?
     
+    @IBOutlet weak var noItemsImg: UIImageView!
     @IBOutlet weak var ordersTable: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,12 +22,21 @@ class OrderViewController: UIViewController , UITableViewDelegate, UITableViewDa
         let nib = UINib(nibName: "OrderCell", bundle: nil)
         ordersTable.register(nib, forCellReuseIdentifier: "orderCell")
         getData()
+        
+        
     }
     
     func getData(){
         self.viewModel?.bindOrdersToViewController = {[weak self] in
             DispatchQueue.main.async {
                 self?.ordersTable.reloadData()
+                if(self?.viewModel?.getOrdersCount() == 0){
+                    self?.ordersTable.isHidden = true
+                    self?.noItemsImg.isHidden = false
+                }else{
+                    self?.ordersTable.isHidden = false
+                    self?.noItemsImg.isHidden = true
+                }
             }
         }
         viewModel?.fetchOrders(tag:"" , endPoint: .orders(tag: viewModel?.getCustomerId() ?? 0))
@@ -42,7 +52,7 @@ class OrderViewController: UIViewController , UITableViewDelegate, UITableViewDa
         
         let cell = ordersTable.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderCell
      
-        cell.orderDate.text = order?.processed_at
+        cell.orderDate.text = DateFormate(orderDate: order?.processed_at ?? "3-11-2000") 
         cell.orderID.text = String(format: "%d", order?.order_number ?? 0)
         cell.orderPrice.text = order?.total_price
         

@@ -10,7 +10,11 @@ import Kingfisher
 
 class HomeViewController: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource {
     
+    @IBOutlet weak var homeBar: UINavigationBar!
     @IBOutlet weak var homeCollection: UICollectionView!
+    
+   
+    
     var viewmodel = HomeViewModel.getInstatnce(network: NetworkManager())
     var cuponsVieModel :CuponsViewModel!
     var network : NetworkProtocol!
@@ -22,7 +26,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         cuponsVieModel = CuponsViewModel(network: network)
         homeCollection.dataSource = self
         homeCollection.delegate = self
-       // self.navigationController?.navigationItem.title  = "Home"
+        self.navigationController?.navigationItem.title  = "Home"
         
         self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", image: UIImage(named: "baseline-search-24px"), target: self, action: #selector(searchScreen))
         
@@ -30,7 +34,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
             UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action: #selector(favScreen)),
             UIBarButtonItem(title: "", image: UIImage(systemName: "cart.fill"), target: self, action: #selector(cartScreen))
         ]
-    
+        
         setLayout()
         startTimer()
         cuponsVieModel.bindPricerulesToViewControllers = { [weak self] in

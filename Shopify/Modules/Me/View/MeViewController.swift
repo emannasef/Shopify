@@ -13,12 +13,18 @@ class MeViewController: UIViewController {
     @IBOutlet weak var ordersTable: UITableView!
     @IBOutlet weak var wishListCollection: UICollectionView!
     @IBOutlet weak var fullName: UILabel!
+    
+    
+    @IBOutlet weak var meNavigationItem: UINavigationItem!
+    
     let userType =  UserDefaults.standard.string(forKey: "UserType")
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance,network: Network())
     var wishArr:[FavProduct]!
+    var meViewModel : MeViewModelType!
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        meViewModel = MeViewModel.getInstatnce(network: NetworkManager())
         
         if userType == "guest" {
             notLoginView.isHidden = false
@@ -35,11 +41,9 @@ class MeViewController: UIViewController {
             wishListCollection.register(nibb, forCellWithReuseIdentifier: "orderProductCell")
             
             notLoginView.isHidden = true
-            
+            getOrders()
         }
-        
-        
-        
+   
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,6 +57,15 @@ class MeViewController: UIViewController {
         
     }
     
+    func getOrders(){
+        self.meViewModel.bindOrdersToViewController = {[weak self] in
+            DispatchQueue.main.async {
+                self?.ordersTable.reloadData()
+            }
+        }
+        meViewModel.fetchOrders(tag:"" , endPoint: .orders(tag: meViewModel.getCustomerId() ))
+    }
+    
     @IBAction func goToLogin(_ sender: Any) {
         let loginVC =  UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
         loginVC.modalPresentationStyle = .fullScreen
@@ -62,9 +75,7 @@ class MeViewController: UIViewController {
         
         let setting = UIStoryboard(name: "Setting", bundle: nil).instantiateViewController(withIdentifier: "SettingsViewController") as! SettingsViewController
         self.navigationController?.pushViewController(setting, animated: true)
-        
-        
-        
+      
     }
     
     @IBAction func showAllOrders(_ sender: UIButton) {
@@ -78,18 +89,26 @@ class MeViewController: UIViewController {
         self.navigationController?.pushViewController(wishList, animated: true)
         
     }
-    
-
-    
   
 }
 extension MeViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        if(meViewModel.getOrdersCount() == 0){
+            return 0}
+        else if(meViewModel.getOrdersCount() == 1){
+            return 1
+        }else{
+            return 2
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = ordersTable.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath)
+        let order = meViewModel.getOrderAtIndexPath(row: indexPath.row)
+        let cell = ordersTable.dequeueReusableCell(withIdentifier: "orderCell", for: indexPath) as! OrderCell
+        
+        cell.orderID.text = String(format: "%d", order.order_number ?? 0)
+        cell.orderDate.text = DateFormate(orderDate: order.processed_at ?? "3-11-2000") 
+        cell.orderPrice.text = order.total_price
         
         cell.layer.cornerRadius = 8
         cell.layer.shadowRadius = 4
@@ -100,6 +119,15 @@ extension MeViewController : UITableViewDelegate, UITableViewDataSource{
         cell.layer.borderColor =  UIColor.systemGray6.cgColor
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 100
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let details = storyboard?.instantiateViewController(withIdentifier: "orderDetails") as! OrderDetailsViewController
+        details.order = meViewModel.getOrderAtIndexPath(row: indexPath.row)
+        navigationController?.pushViewController(details, animated: true)
     }
 }
 extension MeViewController : UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{

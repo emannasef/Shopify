@@ -9,8 +9,12 @@ import UIKit
 
 class CategoriesViewController: UIViewController , UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     @IBOutlet weak var subCategoriesBtn: UIButton!
-    
+    @IBOutlet weak var noItemsImg: UIImageView!
     @IBOutlet weak var categoriesSegmentedControl: UISegmentedControl!
+    
+    
+    @IBOutlet weak var categoriesNaviationItem: UINavigationItem!
+    
     var viewModel = CategoriesViewModel.getInstatnce(network: NetworkManager())
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance,network: Network())
     var productType = ""
@@ -66,6 +70,13 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
         self.viewModel.bindCategoryToViewController = {[weak self] in
             DispatchQueue.main.async {
                 self?.categoriesCollection.reloadData()
+                if(self?.viewModel.getProductsCount() == 0){
+                    self?.noItemsImg.isHidden = false
+                    self?.categoriesCollection.isHidden = true
+                }else{
+                    self?.noItemsImg.isHidden = true
+                    self?.categoriesCollection.isHidden = false
+                }
                 
             }
         }
