@@ -12,6 +12,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var applyChangesBtn: UIButton!
     @IBOutlet weak var applyChangeBtn: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
+    @IBOutlet weak var emptyImg: UIImageView!
     var network : NetworkProtocol!
     var viewModel : DraftOrderViewModel!
     var settingViewModel :SettingsViewModel!
@@ -32,6 +33,14 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        if getDraftOrdertId() == 0{
+            emptyImg.isHidden = false
+           
+        }
+        else {
+            emptyImg.isHidden = true
+           
+        }
         myTable.backgroundColor = UIColor(named: "screenbg")
         loading.layer.cornerRadius = 10.0
         playLottie()
@@ -273,6 +282,12 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             self.present(alert, animated: true, completion: nil)
         }
         applyChangesBtn.isHidden = true
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let productInfo = UIStoryboard(name: "ProductInfo", bundle: nil).instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+        print("productId..\(String(describing: viewModel.lineItems?[indexPath.section].productId) )")
+        productInfo.productId = viewModel.lineItems?[indexPath.section].productId ?? 8360376402229
+        self.navigationController?.pushViewController(productInfo, animated: true)
     }
 }
 

@@ -46,12 +46,20 @@ func getCurrency() ->String{
     return defaults.string(forKey: "currency") ?? "USD"
 }
 
+func setCurrencyEquvelant(quote:Double){
+    
+    defaults.setValue(quote, forKey: "equvelant")
+
+}
+func getCurrencyEquvelant() -> Double{
+    return defaults.double(forKey: "equvelant") 
+}
+
 func setCurrency(currency:String){
     
     defaults.setValue(currency, forKey: "currency")
 
 }
-
 
 extension UserDefaults{
     func setCodableObject<T: Codable>(_ data: T?, forKey cartItems: String) {

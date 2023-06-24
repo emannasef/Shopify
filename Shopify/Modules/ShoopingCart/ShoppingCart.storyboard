@@ -31,6 +31,9 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="animationName" value="loading2"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0dF-35-Q1h">
+                                <rect key="frame" x="76" y="335" width="240" height="202"/>
+                            </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="2mr-iT-mVq">
                                 <rect key="frame" x="16" y="182" width="361" height="419"/>
                                 <color key="backgroundColor" name="screenBg"/>
@@ -248,8 +251,11 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="2mr-iT-mVq" secondAttribute="trailing" constant="16" id="Obx-nS-EM2"/>
                             <constraint firstItem="2mr-iT-mVq" firstAttribute="top" secondItem="AUu-P4-14B" secondAttribute="bottom" constant="8" id="Orj-xO-KSX"/>
                             <constraint firstItem="AUu-P4-14B" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="25" id="RVm-nm-eIW"/>
+                            <constraint firstItem="0dF-35-Q1h" firstAttribute="top" secondItem="AUu-P4-14B" secondAttribute="bottom" constant="161" id="T89-G4-smw"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="0dF-35-Q1h" secondAttribute="trailing" constant="77" id="U8I-ry-BQ7"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="54q-9I-XBG" secondAttribute="bottom" constant="72" id="Ui0-hy-oza"/>
                             <constraint firstItem="0Qp-Ql-LOd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="Uja-qD-UoZ"/>
+                            <constraint firstItem="0dF-35-Q1h" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="76" id="VX5-Lf-wUz"/>
                             <constraint firstItem="54q-9I-XBG" firstAttribute="top" secondItem="yzF-cQ-2Cu" secondAttribute="bottom" constant="20" id="Y0u-RG-xux"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="yzF-cQ-2Cu" secondAttribute="trailing" constant="16" id="e5e-iV-Ydb"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="54q-9I-XBG" secondAttribute="trailing" constant="17" id="iVD-2X-BHn"/>
@@ -257,12 +263,14 @@
                             <constraint firstItem="2mr-iT-mVq" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="rlN-QY-YS3"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="0Qp-Ql-LOd" secondAttribute="trailing" constant="44" id="tvh-8f-ffa"/>
                             <constraint firstItem="0Qp-Ql-LOd" firstAttribute="top" secondItem="2mr-iT-mVq" secondAttribute="bottom" constant="14" id="xwR-QP-SNh"/>
+                            <constraint firstItem="0Qp-Ql-LOd" firstAttribute="top" secondItem="0dF-35-Q1h" secondAttribute="bottom" constant="78" id="y3h-Yj-l2E"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Your Orders" id="Oku-Wq-PjH"/>
                     <connections>
                         <outlet property="applyChangeBtn" destination="Y8w-DP-OBZ" id="9Wu-xi-h6l"/>
                         <outlet property="applyChangesBtn" destination="Y8w-DP-OBZ" id="Qvi-V0-RMX"/>
+                        <outlet property="emptyImg" destination="0dF-35-Q1h" id="aGb-sC-QGp"/>
                         <outlet property="loading" destination="ejW-eP-2vf" id="eLj-Bt-NhR"/>
                         <outlet property="myTable" destination="2mr-iT-mVq" id="BWg-hu-uoC"/>
                         <outlet property="totalAmount" destination="yzF-cQ-2Cu" id="bSz-lp-MYG"/>

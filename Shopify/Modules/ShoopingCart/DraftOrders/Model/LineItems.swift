@@ -68,7 +68,8 @@ struct LineItems: Codable {
         self.price = price
         self.properties = properties
         self.quantity = quantity
-     
+       
+        
       
     }
   init() {

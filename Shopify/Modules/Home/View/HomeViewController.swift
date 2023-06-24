@@ -198,11 +198,8 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         }
         
         homeCollection.scrollToItem(at: IndexPath(item: currentIndex, section: 0), at: .centeredHorizontally, animated: true)
-        
-        
-        
-    }
     
+    }
     
     func AdsSection() -> NSCollectionLayoutSection{
         let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .fractionalHeight(1))
