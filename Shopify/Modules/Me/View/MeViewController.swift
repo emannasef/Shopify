@@ -67,7 +67,7 @@ class MeViewController: UIViewController {
     }
     
     @IBAction func goToSignUp(_ sender: Any) {
-        let registerVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
+        let registerVC =  UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
         navigationController?.pushViewController(registerVC, animated: true)
     }
     @IBAction func goToLogin(_ sender: Any) {
