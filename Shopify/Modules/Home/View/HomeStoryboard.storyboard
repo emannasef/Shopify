@@ -782,21 +782,32 @@
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gKd-VC-GOE">
                                         <rect key="frame" x="70" y="450" width="253" height="35"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Login">
+                                        <buttonConfiguration key="configuration" style="filled" title="LOGIN">
                                             <color key="baseBackgroundColor" red="0.25098039215686274" green="0.074509803921568626" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </buttonConfiguration>
                                         <connections>
                                             <action selector="goToLogin:" destination="f59-HF-lav" eventType="touchUpInside" id="p4T-jY-zb7"/>
                                         </connections>
                                     </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D73-dA-XkG">
+                                        <rect key="frame" x="70" y="515" width="253" height="35"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="SIGNUP"/>
+                                        <connections>
+                                            <action selector="goToSignUp:" destination="f59-HF-lav" eventType="touchUpInside" id="ktM-2a-5lO"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstItem="gKd-VC-GOE" firstAttribute="leading" secondItem="y82-Mg-bhR" secondAttribute="leading" constant="70" id="30i-kH-1eB"/>
+                                    <constraint firstItem="D73-dA-XkG" firstAttribute="leading" secondItem="y82-Mg-bhR" secondAttribute="leading" constant="70" id="8Kl-At-sLz"/>
                                     <constraint firstItem="PeG-R4-HkX" firstAttribute="centerX" secondItem="y82-Mg-bhR" secondAttribute="centerX" id="EDl-xp-dZP"/>
+                                    <constraint firstAttribute="trailing" secondItem="D73-dA-XkG" secondAttribute="trailing" constant="70" id="GkR-H9-RtL"/>
                                     <constraint firstItem="PeG-R4-HkX" firstAttribute="centerY" secondItem="y82-Mg-bhR" secondAttribute="centerY" id="ezC-Hv-KC9"/>
                                     <constraint firstItem="gKd-VC-GOE" firstAttribute="top" secondItem="PeG-R4-HkX" secondAttribute="bottom" constant="55" id="i4U-4l-c0A"/>
                                     <constraint firstAttribute="trailing" secondItem="gKd-VC-GOE" secondAttribute="trailing" constant="70" id="oqE-qB-xAT"/>
+                                    <constraint firstItem="D73-dA-XkG" firstAttribute="top" secondItem="gKd-VC-GOE" secondAttribute="bottom" constant="30" id="oqh-1g-4Q7"/>
                                 </constraints>
                             </view>
                         </subviews>

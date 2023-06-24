@@ -66,6 +66,10 @@ class MeViewController: UIViewController {
         meViewModel.fetchOrders(tag:"" , endPoint: .orders(tag: meViewModel.getCustomerId() ))
     }
     
+    @IBAction func goToSignUp(_ sender: Any) {
+        let registerVC = self.storyboard?.instantiateViewController(withIdentifier: "RegisterVC") as! RegisterVC
+        navigationController?.pushViewController(registerVC, animated: true)
+    }
     @IBAction func goToLogin(_ sender: Any) {
         let loginVC =  UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
         navigationController?.pushViewController(loginVC, animated: true)
