@@ -62,9 +62,9 @@ class ProductInfoVC: UIViewController{
         reviewsTableView.dataSource = self
         registerTableCell(tableView: reviewsTableView)
         
-       // let tab = UITapGestureRecognizer(target: self, action: #selector(addToFav(_:)))
-       // favImg.addGestureRecognizer(tab)
-        //favImg.isUserInteractionEnabled = true
+        let tab = UITapGestureRecognizer(target: self, action: #selector(addToFav(_:)))
+        favImg.addGestureRecognizer(tab)
+        favImg.isUserInteractionEnabled = true
         
      
         
@@ -148,7 +148,7 @@ class ProductInfoVC: UIViewController{
         self.present(reviewsVC, animated: true)
     }
     
-    @objc func addToFav() {
+    @objc func addToFav(_ sender:UITapGestureRecognizer)  {
         
 
         if userType == "guest" {

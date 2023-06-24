@@ -35,7 +35,7 @@ class RegisterViewModel{
             self.setCustomerDefaults(customer: cust!)
             self.creatWishList(singleCustomer: cust!)
             self.assignWishListToUser(singleCustomer: cust!.customer)
-                        
+            print ("Customer",cust!.customer)
         }
         
     }

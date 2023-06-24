@@ -55,6 +55,8 @@ func showLoginAlert(viewController:UIViewController){
         let loginVC =  UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
         loginVC.modalPresentationStyle = .fullScreen
        viewController.present(loginVC , animated: true, completion: nil)
+        
+       // navigationController?.pushViewController(loginVC, animated: true)
     }))
     alert.addAction(UIAlertAction(title: "cancel", style: .destructive, handler: nil))
     viewController.present(alert, animated: true)
