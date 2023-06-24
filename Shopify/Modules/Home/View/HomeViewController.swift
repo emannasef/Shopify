@@ -14,7 +14,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     @IBOutlet weak var homeCollection: UICollectionView!
     
    
-    
+    let userType =  UserDefaults.standard.string(forKey: "UserType")
     var viewmodel = HomeViewModel.getInstatnce(network: NetworkManager())
     var cuponsVieModel :CuponsViewModel!
     var network : NetworkProtocol!
@@ -30,11 +30,14 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         
         self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", image: UIImage(named: "baseline-search-24px"), target: self, action: #selector(searchScreen))
         
-        self.tabBarController?.navigationItem.rightBarButtonItems = [
-            UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action: #selector(favScreen)),
-            UIBarButtonItem(title: "", image: UIImage(systemName: "cart.fill"), target: self, action: #selector(cartScreen))
-        ]
-        
+        if userType == "guest" {
+            print("")
+        }else{
+            self.tabBarController?.navigationItem.rightBarButtonItems = [
+                UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action: #selector(favScreen)),
+                UIBarButtonItem(title: "", image: UIImage(systemName: "cart.fill"), target: self, action: #selector(cartScreen))
+            ]
+        }
         setLayout()
         startTimer()
         cuponsVieModel.bindPricerulesToViewControllers = { [weak self] in

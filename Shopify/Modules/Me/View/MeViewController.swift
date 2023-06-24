@@ -68,8 +68,7 @@ class MeViewController: UIViewController {
     
     @IBAction func goToLogin(_ sender: Any) {
         let loginVC =  UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "LoginVC") as! LoginVC
-        loginVC.modalPresentationStyle = .fullScreen
-        self.present(loginVC , animated: true, completion: nil)
+        navigationController?.pushViewController(loginVC, animated: true)
     }
     @IBAction func settingAction(_ sender: Any) {
         

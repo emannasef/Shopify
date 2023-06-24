@@ -42,11 +42,11 @@ class LoginViewModel{
                 }
                 else if customerEmail != myCustomerLogin.customers[i].email && customerPasssword == myCustomerLogin.customers[i].tags{
                     isVailed = 2
-                    return isVailed
+                 
                 }
                 else if customerEmail == myCustomerLogin.customers[i].email && customerPasssword != myCustomerLogin.customers[i].tags{
                     isVailed = 3
-                    return isVailed
+                 
                 }
             }
             

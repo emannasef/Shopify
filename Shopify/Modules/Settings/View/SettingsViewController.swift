@@ -82,9 +82,10 @@ class SettingsViewController: UIViewController {
         UserDefaults.standard.set("", forKey: "customerName")
         UserDefaults.standard.set("", forKey: "customerEmail")
 
-      //  UserDefaults.standard.set("user", forKey: "UserType")
+        UserDefaults.standard.set("", forKey: "UserType")
         let welcomeVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "WelcomeVC") as! WelcomeVC
-        self.navigationController?.pushViewController(welcomeVC , animated: true)
+        welcomeVC.modalPresentationStyle = .fullScreen
+        self.present(welcomeVC , animated: true, completion: nil)
     }
     
 }

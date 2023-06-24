@@ -56,7 +56,7 @@ func showLoginAlert(viewController:UIViewController){
         loginVC.modalPresentationStyle = .fullScreen
        viewController.present(loginVC , animated: true, completion: nil)
     }))
-   //alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+    alert.addAction(UIAlertAction(title: "cancel", style: .destructive, handler: nil))
     viewController.present(alert, animated: true)
 }
 
