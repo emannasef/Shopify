@@ -51,8 +51,6 @@ class ProductInfoVC: UIViewController{
         network = Network()
         draftViewModel = DraftOrderViewModel(network:network)
         currency.text = getCurrency()
-        isItemAdded()
-
         imsgesCollectionView.dataSource = self
         imsgesCollectionView.delegate = self
         startTimer()
@@ -62,7 +60,7 @@ class ProductInfoVC: UIViewController{
         let tab = UITapGestureRecognizer(target: self, action: #selector(addToFav(_:)))
         favImg.addGestureRecognizer(tab)
         favImg.isUserInteractionEnabled = true
-        
+        isItemAdded()
         viewModel.bindingProductInfo = { [weak self] in
             DispatchQueue.main.async {
                 self?.myProduct = self?.viewModel.product?.product
@@ -83,6 +81,10 @@ class ProductInfoVC: UIViewController{
         viewModel.getProductDetails(productId: productId)
         
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        isItemAdded()
     }
     
     func setUpSize(size: [ProductVariant]){
@@ -110,35 +112,46 @@ class ProductInfoVC: UIViewController{
     
     
     @IBAction func addToCart(_ sender: Any) {
-        
-        if userType == "guest" {
+       
+       if userType == "guest" {
             showLoginAlert(viewController: self)
         }
         else{
-            let product = viewModel.product?.product!
-            if viewModel.isAddedToCart(product: (product)!){
+            let product = viewModel.product?.product ?? Product()
+            if viewModel.isAddedToCart(product: (product)){
                 let alert = UIAlertController(title: "Confirmation!", message: "Remove item from your cart", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: {[self]_ in
                     
                     let customer = Customer(id:UserDefaults.standard.integer(forKey: "customerId"))
                     cartBtn.imageView?.image = UIImage(systemName: "cart")
-                    draftViewModel.deleteProduct(product: product!, draftOrderId: getDraftOrdertId(), customer: customer)
+                    draftViewModel.deleteProduct(product: product, draftOrderId: getDraftOrdertId(), customer: customer)
                     
                 }))
                 self.present(alert, animated: true, completion: nil)
             }
             
             else{
-                cartBtn.imageView?.image = UIImage(systemName: "cart.fill")
+              
                 viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
-                createToastMessage(message: "new item added to your cart",view: self.view)
+                cartBtn.imageView?.image = UIImage(systemName: "cart.fill.badge.plus")
+              //  createToastMessage(message: "new item added to your cart",view: self.view)
+                self.showToast(message: "New item added to your cart", seconds: 2.0)
             }
         }
     }
+    func showToast(message : String, seconds: Double){
         
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
+        alert.view.backgroundColor = UIColor(named: "AccentColor")
+        alert.view.layer.cornerRadius = 15
+        self.present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alert.dismiss(animated: true)
+        }
+    }
         func isItemAdded(){
-            if viewModel.isAddedToCart(product: (viewModel.product?.product) ?? Product()){
-                cartBtn.imageView?.image = UIImage(systemName: "cart.fill")
+            if viewModel.isAddedToCart(product: (viewModel.product?.product) ?? Product()) == true{
+                cartBtn.imageView?.image = UIImage(systemName: "cart.fill.badge.plus")
             }
             else{
                 cartBtn.imageView?.image = UIImage(systemName: "cart")

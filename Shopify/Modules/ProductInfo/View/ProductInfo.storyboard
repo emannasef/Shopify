@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -203,7 +203,7 @@
                                                 </constraints>
                                                 <color key="tintColor" name="AccentColor 1"/>
                                                 <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="plain" image="cart" catalog="system"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="cart.fill.badge.plus" catalog="system"/>
                                                 <connections>
                                                     <action selector="addToCart:" destination="VAB-Rn-j7Y" eventType="touchUpInside" id="0gq-Hb-Ytv"/>
                                                 </connections>
@@ -352,7 +352,7 @@
     </scenes>
     <resources>
         <image name="back" width="10" height="16"/>
-        <image name="cart" catalog="system" width="128" height="102"/>
+        <image name="cart.fill.badge.plus" catalog="system" width="128" height="105"/>
         <image name="outlined" width="30" height="30"/>
         <namedColor name="AccentColor 1">
             <color red="0.25099998712539673" green="0.075000002980232239" blue="0.27099999785423279" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

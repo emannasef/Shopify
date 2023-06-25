@@ -65,11 +65,6 @@ class PromoCodesViewController: UIViewController,UITableViewDelegate,UITableView
         cell.bindApplyActionToViewController = { [weak self] in
             self?.viewModel.setSelectedDiscount(discount: discount! )
             ShoppingcartViewController.cuponsViewModel.setSelectedDiscount(discount: discount!)
-          //  self?.applyDiscountCode()
-           // let customer = Customer(id:Int(UserDefaults.standard.integer(forKey: "customerId")))
-            //self?.draftOrderViewModel.applyDiscountToDraftOrder(discount:discount!, draftOrderId: getDraftOrdertId(), customer:customer)
-           
-          
         }
         
         return cell
@@ -80,8 +75,6 @@ class PromoCodesViewController: UIViewController,UITableViewDelegate,UITableView
         bindDiscountToViewController()
     }
     
-  /*  func applyDiscount(draftOrderId:Int,price:String,discount:Discount){
-        draftOrderViewModel.applyDiscount(draftOrderId: draftOrderId, discount: discount, price: price, lineItems: MyCartItems.cartItemsCodableObject!)
-    }*/
     
 }
+

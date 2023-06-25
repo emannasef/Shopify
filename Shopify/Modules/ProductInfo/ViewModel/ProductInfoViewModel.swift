@@ -27,9 +27,9 @@ class ProductInfoViewModel{
     }
     
     func isAddedToCart(product:Product) -> Bool{
-        
-        let product = MyCartItems.cartItemsCodableObject?.filter({ $0.variantId == product.variants?[0].id })
-        if product?.count == 0{
+        var products : [LineItems] = []
+        products = MyCartItems.cartItemsCodableObject?.filter({ $0.variantId == product.variants?[0].id }) ?? []
+        if products.count == 0{
             return false
         }
         return true

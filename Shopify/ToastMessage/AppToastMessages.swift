@@ -19,3 +19,4 @@ func createToastMessage(message:String , view:UIView){
     view.makeToast(message, duration: 3.0, position: .bottom, style: style)
 }
 
+

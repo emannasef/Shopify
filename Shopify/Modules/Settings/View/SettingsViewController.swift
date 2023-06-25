@@ -11,7 +11,7 @@ class SettingsViewController: UIViewController {
     var addressViewModel :AdressViewModel!
     var settingViewModel:SettingsViewModel!
     var network :NetworkProtocol!
-    var settingViewModel : SettingsViewModel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -63,14 +63,7 @@ class SettingsViewController: UIViewController {
         return list
     }
     
-    func setPrice(){
-        settingViewModel.bindResultToviewController = { [weak self] in
-            DispatchQueue.main.async{
-                setCurrencyEquvelant(quote:  self?.settingViewModel.quote ?? 0.0)
-            }
-        }
-        settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: "5")
-    }
+
     @IBAction func changeAdress(_ sender: Any) {
         
         if addressViewModel.adresses?.count == 0{
@@ -104,8 +97,8 @@ class SettingsViewController: UIViewController {
         UserDefaults.standard.set("", forKey: "customerEmail")
       //  UserDefaults.standard.set("user", forKey: "UserType")
         let welcomeVC = UIStoryboard(name: "Auth", bundle: nil).instantiateViewController(withIdentifier: "WelcomeVC") as! WelcomeVC
-//        self.navigationController?.pushViewController(welcomeVC , animated: true)
-        navigationController?.pushViewController(welcomeVC, animated: true)
+        welcomeVC.modalPresentationStyle = .fullScreen
+        present(welcomeVC, animated: true,completion: nil)
 
     }
     

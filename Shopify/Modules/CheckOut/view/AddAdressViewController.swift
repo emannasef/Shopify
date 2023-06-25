@@ -17,7 +17,8 @@ class AddAdressViewController: UIViewController {
     @IBOutlet weak var regionMenue: UIButton!
     @IBOutlet weak var region: UILabel!
     @IBOutlet weak var zipCode: UITextField!
-    @IBOutlet weak var country: UITextField!
+   
+    @IBOutlet weak var country: UILabel!
     @IBOutlet weak var addAdressBtn: UIButton!
     @IBOutlet weak var countryMenu: UIButton!
     @IBOutlet weak var phoneNumView: UIView!

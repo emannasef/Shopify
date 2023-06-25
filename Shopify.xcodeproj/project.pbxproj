@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0407C2EF2A48D33B003C5EC6 /* loading3.json in Resources */ = {isa = PBXBuildFile; fileRef = 0407C2EE2A48D33B003C5EC6 /* loading3.json */; };
 		040BA3832A46862700CB1AF9 /* postorderlottie.json in Resources */ = {isa = PBXBuildFile; fileRef = 040BA3822A46862700CB1AF9 /* postorderlottie.json */; };
 		040BA3852A46864F00CB1AF9 /* error.json in Resources */ = {isa = PBXBuildFile; fileRef = 040BA3842A46864F00CB1AF9 /* error.json */; };
 		040BA3882A46938200CB1AF9 /* ThumbTextSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040BA3872A46938200CB1AF9 /* ThumbTextSlider.swift */; };
@@ -150,6 +151,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0407C2EE2A48D33B003C5EC6 /* loading3.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loading3.json; sourceTree = "<group>"; };
 		040BA3822A46862700CB1AF9 /* postorderlottie.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = postorderlottie.json; sourceTree = "<group>"; };
 		040BA3842A46864F00CB1AF9 /* error.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = error.json; sourceTree = "<group>"; };
 		040BA3872A46938200CB1AF9 /* ThumbTextSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThumbTextSlider.swift; sourceTree = "<group>"; };
@@ -991,6 +993,7 @@
 				0475E6DF2A45E83900C16074 /* Alerts */,
 				0477AFD62A3D90860011DA4F /* ClickDelegate.swift */,
 				04DE93862A3726F50084F21B /* Utilites.swift */,
+				0407C2EE2A48D33B003C5EC6 /* loading3.json */,
 				040BA3822A46862700CB1AF9 /* postorderlottie.json */,
 				040BA3842A46864F00CB1AF9 /* error.json */,
 				1F9EB1542A4883A800AF3834 /* shopifySplash.json */,
@@ -1197,6 +1200,7 @@
 				0468BD4A2A40EB06005A363C /* gradloading.json in Resources */,
 				0437713B2A371413006C2233 /* LaunchScreen.storyboard in Resources */,
 				0475E6E82A45ECD700C16074 /* RTCustomAlert.xib in Resources */,
+				0407C2EF2A48D33B003C5EC6 /* loading3.json in Resources */,
 				044A8E7C2A3E10BD002528D7 /* Test.storyboard in Resources */,
 				040BA3832A46862700CB1AF9 /* postorderlottie.json in Resources */,
 				04DE93792A3725890084F21B /* ProductInfo.storyboard in Resources */,

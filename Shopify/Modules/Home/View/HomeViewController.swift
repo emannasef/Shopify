@@ -20,7 +20,6 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     var network : NetworkProtocol!
     var currentIndex = 0
     var timer : Timer?
-    var settingViewModel : SettingsViewModel!
     override func viewDidLoad() {
         super.viewDidLoad()
         network = Network()
@@ -74,15 +73,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         getData()
 
     }
-    
-    func setPrice(){
-        settingViewModel.bindResultToviewController = { [weak self] in
-            DispatchQueue.main.async{
-                setCurrencyEquvelant(quote:  self?.settingViewModel.quote ?? 0.0)
-            }
-        }
-        settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: "5")
-    }
+
     
     func setCuponsArr (totalCupons:[Discount]){
         for e in totalCupons {
