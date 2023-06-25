@@ -214,7 +214,7 @@ class Network : NetworkProtocol{
    
             let path = "\(CURRENCY_BASE_URL)\(endPoint.path)"
             let headers : HTTPHeaders = [
-            "apikey" : "8mGJZxjbWYaEXpKbAkp1CuPgN2m9OtQD"]
+            "apikey" : "nPSmOzmTMfj7J87Yw7WrVl8DOciJRJXt"]
             
             AF.request(path, method: .get, parameters: nil, encoding: URLEncoding.default, headers: headers).responseData { response in
                 switch response.result{

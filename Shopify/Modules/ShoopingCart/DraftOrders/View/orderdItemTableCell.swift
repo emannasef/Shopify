@@ -11,7 +11,7 @@ class orderdItemTableCell: UITableViewCell {
     @IBOutlet weak var brand: UILabel!
     @IBOutlet weak var itemTitle: UILabel!
     @IBOutlet weak var itemImg: UIImageView!
-    
+    @IBOutlet weak var currencyLabel: UILabel!
     var deleteitem : () ->() = {}
     var increaseQuantity:() ->() = {}
     var decreaseQuantity:() ->() = {}

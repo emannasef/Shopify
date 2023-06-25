@@ -13,10 +13,14 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var applyChangeBtn: UIButton!
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var emptyImg: UIImageView!
+    @IBOutlet weak var currencyLabel: UILabel!
+    @IBOutlet weak var priceAfterDiscount: UILabel!
+    @IBOutlet weak var curencyLabel2: UILabel!
+    @IBOutlet weak var discountAmount: UILabel!
     var network : NetworkProtocol!
     var viewModel : DraftOrderViewModel!
     var settingViewModel :SettingsViewModel!
-    var totalPrice:Int = 0
+    var totalPrice:Double = 0.0
     var cell : orderdItemTableCell!
     var bacupItemsList : [LineItems]!
     var isApplyChangeBtn : Bool = false
@@ -26,6 +30,8 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         network = Network()
         viewModel = DraftOrderViewModel(network: network)
         settingViewModel = SettingsViewModel(network: network)
+        setPrice()
+       
         bacupItemsList = MyCartItems.cartItemsCodableObject
         print("\n  cart count \(String(describing: MyCartItems.cartItemsCodableObject?.count))")
         
@@ -33,6 +39,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
         if getDraftOrdertId() == 0{
             emptyImg.isHidden = false
            
@@ -105,29 +112,28 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         
         cell.itemsNum.text = String(item.quantity ?? 0)
+        
         cell.decreaseQuantity = {[weak self] in
             guard let self = self else { return }
+            totalPrice = 0.0
             if item.quantity! > 1{
                 item.quantity = (item.quantity ?? 0) - 1
                 self.cell.itemsNum.text = String(item.quantity ?? 0)
                 self.myTable.reloadData()
-               //Int(cell.itemsNum.text ?? "0")
+ 
             }
-            //cell.itemsNum.text = String(item.quantity ?? 0)
-            //item.price = cell.itemPrice.text
             self.changePrice(cell: self.cell,  index:indexPath.section,item: item)
-            // self.bacupItemsList[indexPath.section] = item
             MyCartItems.cartItemsCodableObject![indexPath.section] = item
             
         }
         
        cell.increaseQuantity = {[weak self] in
             guard let self = self else { return }
+            totalPrice = 0.0
             item.quantity = (item.quantity ?? 0) + 1
-           self.cell.itemsNum.text = String(item.quantity ?? 0)
-           self.myTable.reloadData()//Int(cell.itemsNum.text ?? "0")
-           // item.price = cell.itemPrice.text
-           self.changePrice(cell: self.cell,index:indexPath.section,item: item)
+            self.cell.itemsNum.text = String(item.quantity ?? 0)
+            self.myTable.reloadData()
+            self.changePrice(cell: self.cell,index:indexPath.section,item: item)
             MyCartItems.cartItemsCodableObject![indexPath.section] = item
         }
         return cell
@@ -153,8 +159,8 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             self.viewModel.deleteItem(index: index, draftOrderId:getDraftOrdertId(),customer: Customer(id: UserDefaults.standard.integer(forKey: "customerId")))
             MyCartItems.cartItemsCodableObject?.remove(at: index)
             myTable.reloadData()
-            self.totalPrice -= Int(cell.itemPrice.text ?? "0") ?? 0
-            cell.itemPrice.text = String(self.totalPrice)
+            self.totalPrice -= Double(cell.itemPrice.text ?? "0") ?? 0
+            self.totalAmount.text = String(self.totalPrice)
             createToastMessage(message: "item deleted from your card", view: self.view)
             
         }))
@@ -167,11 +173,15 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func setCellData(cell:orderdItemTableCell, item:LineItems, index:Int){
         cell.itemsNum.text = String(item.quantity ?? 0)
-       // setPrice(cell: cell, price: item.price ?? "",quantity: item.quantity ?? 0)
+        let itemPrice = Double(item.quantity ?? 0) * ( getCurrencyEquvelant() * (Double(item.price ?? "") ?? 0.0))
+        cell.itemPrice.text = String(format: "%.2f",itemPrice)
+        self.totalPrice = Double(self.totalPrice + itemPrice)
+        self.totalAmount.text = String(format: "%.2f",totalPrice)
+        cell.currencyLabel.text = getCurrency()
         cell.itemTitle.text = splitProductName(name:item.name ?? "").1
         cell.brand.text = splitProductName(name:item.name ?? "").0
         print("color is \(String(describing: item.vendor))")
-       let imgUrl = URL(string: item.properties?[0].value ?? "")
+        let imgUrl = URL(string: item.properties?[0].value ?? "")
         cell.itemImg.kf.setImage(with: imgUrl ,placeholder: "imagegirl" as? Placeholder)
         cell.itemImg.layer.borderWidth = 0.2
         cell.itemImg.layer.borderColor = UIColor(named: "screenbg")?.cgColor
@@ -179,23 +189,21 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     
-    func setPrice(cell:orderdItemTableCell,price:String,quantity:Int){
+    func setPrice(){
         
         settingViewModel.bindResultToviewController = { [weak self] in
             DispatchQueue.main.async{
-              //  let price = self?.settingViewModel.result
-                //let convertedPrice = Int(price ??  0) //let convertedPrice = quantity * Int(price ??  0)
-                //self?.totalPrice += Int(convertedPrice)
-               // cell.itemPrice.text = String(convertedPrice)
-               // self?.totalAmount.text = String(self?.totalPrice ?? 0)
-                
+                self?.totalAmount.text = String(format: "%.2f", 0.0)
+                self?.totalPrice = 0.0
+                self?.currencyLabel.text = getCurrency()
+                setCurrencyEquvelant(quote:  self?.settingViewModel.quote ?? 0.0)
                 self?.myTable.reloadData()
                 self?.myTable.isHidden = false
                 self?.loading.stop()
                 self?.loading.isHidden = true
             }
         }
-        settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: price)
+        settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: "5")
     }
     
     
@@ -238,7 +246,6 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             isApplyChangeBtn = false
         }))
         alert.addAction(UIAlertAction(title: "Discard", style: UIAlertAction.Style.cancel, handler:{_ in
-           // MyCartItems.cartItemsCodableObject = self.bacupItemsList
             self.applyChangesBtn.isHidden = true
             self.isApplyChangeBtn = false
             alert.dismiss(animated: true)
@@ -251,14 +258,9 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         
     }
     func changePrice(cell:orderdItemTableCell,index:Int,item:LineItems){
-       // var totalPrice = (Int(totalAmount.text!) ?? 0 - Int(cell.itemPrice.text!)!)
-        //cell.itemPrice.text = String(Int(item.price!) ?? 0 *  (item.quantity ?? 0)/*cell.itemsCount*/)
-       // totalPrice = totalPrice + Int(cell.itemPrice.text!)!
-        totalAmount.text = String(totalPrice)
         applyChangesBtn.isHidden = false
         isApplyChangeBtn = true
         bacupItemsList[index].quantity = item.quantity
-        //bacupItemsList[index].price = totalAmount.text
     }
     
     @IBAction func checkOut(_ sender: Any) {

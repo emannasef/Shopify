@@ -9,6 +9,7 @@ protocol CurrencyViewModel {
 class SettingsViewModel : CurrencyViewModel{
     
     var result : Double!
+    var quote : Double!
     var bindResultToviewController : (()->())?
     var network:NetworkProtocol!
     
@@ -26,6 +27,7 @@ class SettingsViewModel : CurrencyViewModel{
                 return
             }
             self?.result = result.result
+            self?.quote = result.info?.quote
             self?.bindResultToviewController!()
         })
         

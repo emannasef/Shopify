@@ -112,7 +112,11 @@ class ProductInfoVC: UIViewController{
     
     
     @IBAction func addToCart(_ sender: Any) {
-        if userType == "guest" {
+        
+        self.cartBtn.imageView?.image = UIImage(systemName: "cart.fill")
+        viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
+        createToastMessage(message: "new item added to your cart",view: self.view)
+        /*if userType == "guest" {
             showLoginAlert(viewController: self)
         }else{
             if viewModel.isAddedToCart(product: (viewModel.product?.product)!){
@@ -124,7 +128,7 @@ class ProductInfoVC: UIViewController{
                 viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
                 createToastMessage(message: "new item added to your cart",view: self.view)
             }
-        }
+        }*/
     }
     
     func isItemAdded(){
