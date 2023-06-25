@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -20,65 +21,87 @@
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iHX-wd-16d">
                         <rect key="frame" x="0.0" y="0.0" width="167" height="232"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADIDAS | Red Dress" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWP-p7-hxn">
+                                <rect key="frame" x="8" y="193" width="151" height="33"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="151" id="Dbx-2q-RX9"/>
+                                    <constraint firstAttribute="height" constant="33" id="xrD-Gu-5PX"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="NotoSansKannada-Regular" family="Noto Sans Kannada" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="US" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r7N-LR-rfM">
+                                <rect key="frame" x="87" y="170" width="52" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="52" id="k9j-7y-XGS"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <color key="textColor" name="AccentColor 1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="70.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DM3-SX-jdh">
+                                <rect key="frame" x="8" y="170" width="71" height="19"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="71" id="GOH-pZ-4hD"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <color key="textColor" name="AccentColor 1"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="rWP-p7-hxn" secondAttribute="bottom" constant="6" id="56L-o2-fNG"/>
+                            <constraint firstItem="r7N-LR-rfM" firstAttribute="leading" secondItem="DM3-SX-jdh" secondAttribute="trailing" constant="8" symbolic="YES" id="8n4-wB-scl"/>
+                            <constraint firstAttribute="trailing" secondItem="r7N-LR-rfM" secondAttribute="trailing" constant="28" id="A7L-in-iCP"/>
+                            <constraint firstAttribute="width" constant="167" id="DWT-Wl-tYC"/>
+                            <constraint firstItem="rWP-p7-hxn" firstAttribute="leading" secondItem="iHX-wd-16d" secondAttribute="leading" constant="8" id="G7X-Jt-wkY"/>
+                            <constraint firstAttribute="trailing" secondItem="rWP-p7-hxn" secondAttribute="trailing" constant="8" id="SIm-dn-IaP"/>
+                            <constraint firstAttribute="height" constant="232" id="XuF-wF-Uvd"/>
+                            <constraint firstItem="rWP-p7-hxn" firstAttribute="top" secondItem="r7N-LR-rfM" secondAttribute="bottom" constant="3" id="YBs-g4-dsh"/>
+                            <constraint firstItem="DM3-SX-jdh" firstAttribute="leading" secondItem="rWP-p7-hxn" secondAttribute="leading" id="biw-FU-Vhs"/>
+                        </constraints>
                     </view>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dress3" translatesAutoresizingMaskIntoConstraints="NO" id="zTd-nA-a66">
                         <rect key="frame" x="0.0" y="0.0" width="167" height="162"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="167" id="7RP-bM-Lcp"/>
-                            <constraint firstAttribute="height" constant="162" id="xPh-yY-YlZ"/>
+                            <constraint firstAttribute="height" constant="162" id="KyT-Mw-cWs"/>
+                            <constraint firstAttribute="width" constant="167" id="inW-Cy-UIv"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="70.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DM3-SX-jdh">
-                        <rect key="frame" x="8" y="175" width="116" height="19.333333333333343"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="19.329999999999998" id="RX1-tf-ra6"/>
-                            <constraint firstAttribute="width" constant="116" id="llq-9s-UhJ"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
-                        <color key="textColor" name="AccentColor 1"/>
-                        <nil key="highlightedColor"/>
-                    </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ADIDAS | Red Dress" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWP-p7-hxn">
-                        <rect key="frame" x="8" y="199" width="151" height="29"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="29" id="Ahh-kY-F6v"/>
-                            <constraint firstAttribute="width" constant="151" id="csa-l1-uNz"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" name="NotoSansKannada-Regular" family="Noto Sans Kannada" pointSize="12"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9JD-4r-4Lb">
                         <rect key="frame" x="123" y="8" width="34" height="26"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="26" id="Jpf-xf-OK4"/>
-                            <constraint firstAttribute="width" constant="34" id="Lzr-On-5b4"/>
+                            <constraint firstAttribute="height" constant="26" id="0fP-2G-1RA"/>
+                            <constraint firstAttribute="width" constant="34" id="gYD-w3-ctn"/>
                         </constraints>
                         <color key="tintColor" name="AccentColor 1"/>
                         <state key="normal" title="Button"/>
                         <buttonConfiguration key="configuration" style="plain" image="heart" catalog="system" title=""/>
+                        <connections>
+                            <action selector="favBtnClick:" destination="gTV-IL-0wX" eventType="touchUpInside" id="iwc-C6-t6n"/>
+                        </connections>
                     </button>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="iHX-wd-16d" secondAttribute="trailing" id="47E-st-41a"/>
-                <constraint firstItem="9JD-4r-4Lb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="4MJ-aZ-gVH"/>
-                <constraint firstItem="DM3-SX-jdh" firstAttribute="top" secondItem="zTd-nA-a66" secondAttribute="bottom" constant="13" id="89W-OL-EYp"/>
-                <constraint firstAttribute="trailing" secondItem="zTd-nA-a66" secondAttribute="trailing" id="Cfv-uM-YWX"/>
-                <constraint firstItem="DM3-SX-jdh" firstAttribute="top" secondItem="zTd-nA-a66" secondAttribute="bottom" constant="13" id="EPN-J0-RWb"/>
-                <constraint firstItem="zTd-nA-a66" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Exx-DQ-Sey"/>
-                <constraint firstAttribute="trailing" secondItem="9JD-4r-4Lb" secondAttribute="trailing" constant="10" id="L2l-OM-5gf"/>
-                <constraint firstItem="rWP-p7-hxn" firstAttribute="leading" secondItem="DM3-SX-jdh" secondAttribute="leading" id="bKM-lT-5P6"/>
-                <constraint firstItem="iHX-wd-16d" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="ikH-1z-n7x"/>
-                <constraint firstItem="zTd-nA-a66" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="nDH-Dw-nIs"/>
-                <constraint firstItem="DM3-SX-jdh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" constant="8" id="oil-gk-S7j"/>
-                <constraint firstAttribute="bottom" secondItem="iHX-wd-16d" secondAttribute="bottom" id="u5w-cs-od1"/>
-                <constraint firstItem="iHX-wd-16d" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="uZv-t3-SQC"/>
-                <constraint firstItem="ZTg-uK-7eu" firstAttribute="bottom" secondItem="rWP-p7-hxn" secondAttribute="bottom" constant="4" id="xbP-sk-jpg"/>
+                <constraint firstItem="iHX-wd-16d" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="1RB-4V-OlR"/>
+                <constraint firstAttribute="trailing" secondItem="iHX-wd-16d" secondAttribute="trailing" id="4lC-7j-DmO"/>
+                <constraint firstAttribute="trailing" secondItem="zTd-nA-a66" secondAttribute="trailing" id="9hg-5n-ZPU"/>
+                <constraint firstItem="zTd-nA-a66" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="JRq-FH-Ec9"/>
+                <constraint firstItem="r7N-LR-rfM" firstAttribute="top" secondItem="zTd-nA-a66" secondAttribute="bottom" constant="8" symbolic="YES" id="RIH-GS-ESW"/>
+                <constraint firstItem="9JD-4r-4Lb" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" constant="8" id="S5Q-VJ-iMh"/>
+                <constraint firstItem="DM3-SX-jdh" firstAttribute="top" secondItem="zTd-nA-a66" secondAttribute="bottom" constant="8" symbolic="YES" id="V2N-r3-j27"/>
+                <constraint firstAttribute="trailing" secondItem="9JD-4r-4Lb" secondAttribute="trailing" constant="10" id="a4S-ut-L6G"/>
+                <constraint firstItem="iHX-wd-16d" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="hbJ-gt-rWj"/>
+                <constraint firstAttribute="bottom" secondItem="iHX-wd-16d" secondAttribute="bottom" id="nGD-Tc-V8E"/>
+                <constraint firstItem="zTd-nA-a66" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="rxM-Tg-79m"/>
             </constraints>
             <connections>
+                <outlet property="currencyLabel" destination="r7N-LR-rfM" id="yuU-yw-ine"/>
                 <outlet property="isFav" destination="9JD-4r-4Lb" id="JHJ-8t-Ded"/>
                 <outlet property="productImage" destination="zTd-nA-a66" id="jpA-hd-PlP"/>
                 <outlet property="productName" destination="rWP-p7-hxn" id="Mww-LS-HXK"/>

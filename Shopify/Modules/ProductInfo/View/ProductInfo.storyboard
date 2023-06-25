@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -73,7 +73,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kGr-1O-eDm">
-                                                <rect key="frame" x="289.66666666666669" y="295" width="44.333333333333314" height="24"/>
+                                                <rect key="frame" x="322.66666666666669" y="295" width="44.333333333333314" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -182,8 +182,8 @@
                                                 </menu>
                                                 <state key="normal" title="Button"/>
                                             </button>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="EGP" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCr-8O-3H1">
-                                                <rect key="frame" x="344" y="295" width="33" height="24"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XCr-8O-3H1">
+                                                <rect key="frame" x="377" y="295" width="0.0" height="24"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -271,6 +271,7 @@
                     <size key="freeformSize" width="393" height="1000"/>
                     <connections>
                         <outlet property="cartBtn" destination="sua-aQ-Qhg" id="r4r-T2-n56"/>
+                        <outlet property="currency" destination="XCr-8O-3H1" id="wvi-yu-0Xr"/>
                         <outlet property="descriptionLbl" destination="4eC-8S-Sa1" id="ell-2K-FeH"/>
                         <outlet property="favImg" destination="i6g-LX-18C" id="zAH-uJ-dTU"/>
                         <outlet property="imsgesCollectionView" destination="fiq-5n-Uq7" id="B3A-Ts-2Xg"/>

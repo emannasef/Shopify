@@ -4,19 +4,25 @@ import PassKit
 import Alamofire
 import Lottie
 
-class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
-    
+class CheckOutViewController: UIViewController, RTCustomAlertDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+   
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var city: UILabel!
     @IBOutlet weak var region: UILabel!
     @IBOutlet weak var cashbtn: UIButton!
     @IBOutlet weak var applePayBtn: UIButton!
+    @IBOutlet weak var itemsCollection: UICollectionView!
+    @IBOutlet weak var totalPriceText: UILabel!
+    @IBOutlet weak var currencyLabel: UILabel!
     
     var adressViewModel : AdressViewModel!
     var postOrderViewModel : PostOrderViewModelType!
     var draftorderVM: DraftOrderViewModel!
     var network : NetworkProtocol!
     var isapplyBtnappear : Bool = false
+    var lineItems : [LineItems]!
+    var totalPrice:Double!
+    var isPayed:Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,8 +30,17 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
         adressViewModel = AdressViewModel(network: network)
         postOrderViewModel = PostOrderViewModel(network: network)
         draftorderVM = DraftOrderViewModel(network: network)
+        isPayed = false
         
         self.applePayBtn.addTarget(self, action: #selector(tapForPay), for: .touchUpInside)
+        
+        let nib = UINib(nibName: "OrderProductsCell", bundle: nil)
+        itemsCollection.register(nib, forCellWithReuseIdentifier: "orderProductCell")
+        itemsCollection.dataSource = self
+        itemsCollection.delegate = self
+        lineItems = postOrderViewModel.getLineItems()
+        totalPriceText.text = String(format: "%0.2f", totalPrice)
+        currencyLabel.text = getCurrency()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -55,32 +70,48 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
     @IBAction func payByApplePay(_ sender: Any) {
         self.applePayBtn.addTarget(self, action: #selector(tapForPay), for: .touchUpOutside)
         self.applePayBtn.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+        self.applePayBtn.tintColor = UIColor(named: "AccentColor")
         self.cashbtn.setImage(UIImage(systemName: ""), for: .normal)
+        self.cashbtn.tintColor = UIColor.white
+        isPayed = true
         
     }
     
     
     @IBAction func paycash(_ sender: Any) {
-        self.cashbtn.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
-        self.applePayBtn.setImage(UIImage(systemName: ""), for: .normal)
+        
+        if totalPrice > 1000.0{
+            let alert = UIAlertController(title: "Alert!", message: "Huge amount pay by Apple pay", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil ))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            isPayed = true
+            self.cashbtn.setImage(UIImage(systemName: "checkmark.circle.fill"), for: .normal)
+            self.cashbtn.tintColor = UIColor(named: "AccentColor")
+            self.applePayBtn.setImage(UIImage(systemName: ""), for: .normal)
+            self.applePayBtn.tintColor = UIColor.white
+        }
     }
     
     
-    var paymentRequest : PKPaymentRequest = {
-        let request = PKPaymentRequest()
-        request.merchantIdentifier = "merchant.mad43team2.com"
-        request.supportedNetworks = [.idCredit,.visa]
-        request.supportedCountries = ["EG"]
-        request.merchantCapabilities = .capability3DS
-        request.countryCode = "EG"
-        request.currencyCode = "EGP"
-        request.paymentSummaryItems = [PKPaymentSummaryItem(label: "Adidas shoes", amount: 2)]
-        return request
-    }()
+  
     
     
     @objc func tapForPay(){
-        
+        var paymentRequest : PKPaymentRequest = {
+            let request = PKPaymentRequest()
+            request.merchantIdentifier = "merchant.mad43team2.com"
+            request.supportedNetworks = [.idCredit,.visa]
+            request.supportedCountries = ["EG"]
+            request.merchantCapabilities = .capability3DS
+            request.countryCode = "EG"
+            request.currencyCode = getCurrency()
+            request.paymentSummaryItems = [PKPaymentSummaryItem(label: "Adidas shoes", amount:NSDecimalNumber(value: UInt8(totalPrice)))]
+            return request
+            
+            
+        }()
         let controller = PKPaymentAuthorizationViewController(paymentRequest: paymentRequest)
         if controller != nil {
             controller?.delegate = self
@@ -97,8 +128,9 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
         if adressViewModel.adresses?.count ?? 0 > 0{
             
             // supmit your order here
-            getOrderToSubmit()
-            postOrderViewModel.bindPostresponse = {[weak self] in
+            if isPayed{
+                getOrderToSubmit()
+                postOrderViewModel.bindPostresponse = {[weak self] in
                     DispatchQueue.main.async {
                         if((self?.checkifOrderPosted()) != nil){
                             self?.releaseCart()
@@ -107,9 +139,14 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
                             self?.showFailureAnimation()
                         }
                     }
+                }
+                
             }
-            
-           
+            else {
+                let alert = UIAlertController(title: "Alert!", message: "Choose payment method", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil ))
+                self.present(alert, animated: true, completion: nil)
+            }
         }
         else{
             let alert = UIAlertController(title: "Alert!", message: "Set a default address to supmit your order", preferredStyle: UIAlertController.Style.alert)
@@ -127,7 +164,7 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
         let order = Order()
         var customer = OrderCustomer()
             customer.id = postOrderViewModel.getUserId()
-           order.line_items = postOrderViewModel.getLineItems()
+            order.line_items = lineItems
             order.customer = customer
             order.shipping_address = getAdress()
             order.discount_codes = []
@@ -200,10 +237,49 @@ extension CheckOutViewController : PKPaymentAuthorizationViewControllerDelegate{
             print("Two button alert: Ok button pressed")
         }
         print(alert.alertTitle)
+        
+        let homeScreen = UIStoryboard(name: "HomeStoryboard", bundle: nil).instantiateViewController(withIdentifier: "mainVC") as! UITabBarController
+        self.navigationController?.pushViewController(homeScreen, animated: true)
     }
     
     func cancelButtonPressed(_ alert: RTCustomAlert, alertTag: Int) {
         print("Cancel button pressed")
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return lineItems.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = itemsCollection.dequeueReusableCell(withReuseIdentifier: "orderProductCell", for: indexPath) as! OrderProductsCell
+        
+        cell.productName.text = lineItems[indexPath.row].title
+        cell.productImage.kf.setImage(
+            with: URL(string: lineItems[indexPath.row].properties?[0].value ?? ""),
+            placeholder: UIImage(named: "brandplaceholder"),
+            options: [
+                .scaleFactor(UIScreen.main.scale),
+                .transition(.fade(1)),
+                .cacheOriginalImage
+            ])
+        
+        cell.productPrice.text = lineItems[indexPath.row].price
+        cell.currencyLabel.text = getCurrency()
+        
+        cell.isFav.isHidden = true
+        cell.layer.cornerRadius = 8
+       // cell.layer.shadowRadius = 4
+       // cell.layer.shadowColor = UIColor.black.cgColor
+       // cell.layer.shadowOpacity = 0.30
+       //cell.layer.shadowOffset = CGSize(width: 0, height: 5)
+        cell.layer.borderWidth = 3
+        cell.layer.borderColor =  UIColor.systemGray6.cgColor
+        
+        return cell
+    }
 
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: 167, height: 232)
+    }
 }

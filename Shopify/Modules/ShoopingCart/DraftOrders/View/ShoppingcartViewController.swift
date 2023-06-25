@@ -75,6 +75,8 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             
         }
         
+        totalAmount.text = String(format: "%0.2f", totalPrice)
+        
     }
     
     
@@ -190,7 +192,6 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     func setPrice(){
-        
         settingViewModel.bindResultToviewController = { [weak self] in
             DispatchQueue.main.async{
                 self?.totalAmount.text = String(format: "%.2f", 0.0)
@@ -201,11 +202,11 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
                 self?.myTable.isHidden = false
                 self?.loading.stop()
                 self?.loading.isHidden = true
+                
             }
         }
         settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: "5")
     }
-    
     
     func setBtnShadow(btn:UIButton){
         btn.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
@@ -270,11 +271,17 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             self.present(alert, animated: true, completion: nil)
         }
         else {
-            
-            let paymentScreen = self.storyboard?.instantiateViewController(identifier: "CheckOutViewController") as! CheckOutViewController
-            self.navigationController?.pushViewController(paymentScreen, animated: true)
+            if MyCartItems.cartItemsCodableObject?.count == 0{
+                let alert = UIAlertController(title: "Alert!", message: "Add items to your cart ", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil ))
+                self.present(alert, animated: true, completion: nil)
+            }
+            else {
+                let paymentScreen = self.storyboard?.instantiateViewController(identifier: "CheckOutViewController") as! CheckOutViewController
+                paymentScreen.totalPrice = totalPrice
+                self.navigationController?.pushViewController(paymentScreen, animated: true)
+            }
         }
-        
     }
     
     override func viewWillDisappear(_ animated: Bool) {

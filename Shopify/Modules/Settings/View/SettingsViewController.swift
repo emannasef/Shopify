@@ -9,11 +9,13 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var currencyMenu: UIButton!
     @IBOutlet weak var region: UITextField!
     var addressViewModel :AdressViewModel!
+    var settingViewModel:SettingsViewModel!
     var network :NetworkProtocol!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         network = Network()
+        settingViewModel = SettingsViewModel(network: network)
         addressViewModel = AdressViewModel(network: network)
         self.currency.text = getCurrency()
         self.fullName.text = UserDefaults.standard.string(forKey: "customerName")
@@ -42,13 +44,21 @@ class SettingsViewController: UIViewController {
             let currency = UIAction(title: cur ) { (action) in
                 setCurrency(currency: cur)
                 self.currency.text = getCurrency()
-              
+                self.setPrice()
              }
             list.append(currency)
         }
         return list
     }
     
+    func setPrice(){
+        settingViewModel.bindResultToviewController = { [weak self] in
+            DispatchQueue.main.async{
+                setCurrencyEquvelant(quote:  self?.settingViewModel.quote ?? 0.0)
+            }
+        }
+        settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: "5")
+    }
     @IBAction func changeAdress(_ sender: Any) {
         
         if addressViewModel.adresses?.count == 0{
@@ -67,16 +77,15 @@ class SettingsViewController: UIViewController {
     
         let menu = UIMenu(title: "", options: .displayInline, children: setCueencies())
         
-       currencyMenu.menu = menu
+        currencyMenu.menu = menu
         currencyMenu.showsMenuAsPrimaryAction = true
     }
     
-
-    
-    @IBAction func displayappInfo(_ sender: Any) {
+    @IBAction func displayAppInfo(_ sender: Any) {
     }
     
     @IBAction func logout(_ sender: Any) {
+        setDraftOrderId(draftOrderId: 0)
         UserDefaults.standard.set(false, forKey: "isLogin")
         UserDefaults.standard.set("", forKey: "customerId")
         UserDefaults.standard.set("", forKey: "customerName")

@@ -61,6 +61,7 @@ class OrderDetailsViewController: UIViewController, UICollectionViewDelegate, UI
             ])
         
         cell.productPrice.text = order.line_items?[indexPath.row].price
+        cell.currencyLabel.text = getCurrency()
         
         cell.isFav.isHidden = true
         cell.layer.cornerRadius = 8

@@ -12,6 +12,7 @@ import Reachability
 class ProductInfoVC: UIViewController{
     
     
+    @IBOutlet weak var currency: UILabel!
     
     @IBOutlet weak var sizePopButton: UIButton!
     @IBOutlet weak var scrollview: UIScrollView!
@@ -49,11 +50,9 @@ class ProductInfoVC: UIViewController{
         super.viewDidLoad()
         network = Network()
         draftViewModel = DraftOrderViewModel(network:network)
-//        favBtn = self.tabBarController?.navigationItem.rightBarButtonItem
-//        favBtn = UIBarButtonItem(title: "", image: UIImage(systemName: "heart.fill"), target: self, action:#selector(addToFav))
-       // setCarBtn()
+        currency.text = getCurrency()
         isItemAdded()
-        //        scrollview.contentSize = CGSize(width: 400, height: 2300)
+
         imsgesCollectionView.dataSource = self
         imsgesCollectionView.delegate = self
         startTimer()
@@ -72,7 +71,8 @@ class ProductInfoVC: UIViewController{
             DispatchQueue.main.async {
                 self?.myProduct = self?.viewModel.product?.product
                 self?.productName.text = self?.myProduct?.title
-                self?.price.text = self?.myProduct?.variants?[0].price
+                let price = (Double(self?.myProduct?.variants?[0].price ?? "") ?? 0.0) * getCurrencyEquvelant()
+                self?.price.text = String(format:"%.2f",price)
                // self?.sizeLB.text = self?.myProduct?.variants?[0].title
                 self?.setUpSize(size: self?.myProduct?.variants ?? [])
                 self?.descriptionLbl.text = self?.myProduct?.description
@@ -94,7 +94,9 @@ class ProductInfoVC: UIViewController{
       
         size.forEach({ value in
             let button = UIAction (title:value.title ?? "",state: .on ,handler: { UIAction in
-                self.price.text = value.price
+                let itemPrice = Double(Double(value.price ?? "") ?? 0.0) * getCurrencyEquvelant()
+                self.price.text = String(format: "%.2f",itemPrice)
+                //self.price.text = value.price
             })
             menuActions.append(button)
         })
