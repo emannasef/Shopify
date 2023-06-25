@@ -10,6 +10,7 @@ class PromoCodesViewController: UIViewController,UITableViewDelegate,UITableView
     var viewModel:CuponsViewModel!
     var draftOrderViewModel : DraftOrderViewModel!
     var network:NetworkProtocol!
+    var bindDiscountToViewController:() ->() = {}
     
     
     override func viewDidLoad() {
@@ -58,16 +59,25 @@ class PromoCodesViewController: UIViewController,UITableViewDelegate,UITableView
         let cell = cuponsTable.dequeueReusableCell(withIdentifier: "promocodecell") as! promocodeTableViewCell
         let discount = viewModel.cupons?[indexPath.section]
         cell.offerLabel.text = viewModel.cupons?[indexPath.section].code//discountsArr?[indexPath.section].discount?.code//viewModel.cupons?[indexPath.section].code
+        
         cell.layer.cornerRadius = 10.0
         cell.offerBg.layer.cornerRadius = 10.0
         cell.bindApplyActionToViewController = { [weak self] in
-            let customer = Customer(id:/*Int(UserDefaults.standard.integer(forKey: "customerId"))*/7046569754933 )
-            self?.draftOrderViewModel.applyDiscountToDraftOrder(discount:discount!, draftOrderId: 1118107795765, customer:customer)
-            
+            self?.viewModel.setSelectedDiscount(discount: discount! )
+            ShoppingcartViewController.cuponsViewModel.setSelectedDiscount(discount: discount!)
+          //  self?.applyDiscountCode()
+           // let customer = Customer(id:Int(UserDefaults.standard.integer(forKey: "customerId")))
+            //self?.draftOrderViewModel.applyDiscountToDraftOrder(discount:discount!, draftOrderId: getDraftOrdertId(), customer:customer)
+           
+          
         }
         
         return cell
         
+    }
+    
+    @objc func applyDiscountCode(){
+        bindDiscountToViewController()
     }
     
   /*  func applyDiscount(draftOrderId:Int,price:String,discount:Discount){

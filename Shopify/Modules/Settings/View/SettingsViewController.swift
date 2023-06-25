@@ -10,16 +10,18 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var region: UITextField!
     var addressViewModel :AdressViewModel!
     var network :NetworkProtocol!
+    var settingViewModel : SettingsViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         network = Network()
         addressViewModel = AdressViewModel(network: network)
+        settingViewModel = SettingsViewModel(network: network)
         self.currency.text = getCurrency()
         self.fullName.text = UserDefaults.standard.string(forKey: "customerName")
         self.setAdressField()
     }
-  
+
     func setAdressField(){
         
         let id = Int(UserDefaults.standard.string(forKey: "customerId") ?? "") ?? 0
@@ -33,6 +35,15 @@ class SettingsViewController: UIViewController {
         }
        
     }
+    func setPrice(){
+        
+        settingViewModel.bindResultToviewController = { [weak self] in
+            DispatchQueue.main.async{
+                setCurrencyEquvelant(quote:  self?.settingViewModel.quote ?? 0.0)
+            }
+        }
+        settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: "5")
+    }
     
     func setCueencies() -> [UIAction]{
          
@@ -42,6 +53,7 @@ class SettingsViewController: UIViewController {
             let currency = UIAction(title: cur ) { (action) in
                 setCurrency(currency: cur)
                 self.currency.text = getCurrency()
+                self.setPrice()
               
              }
             list.append(currency)

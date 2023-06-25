@@ -30,10 +30,11 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        adressTable.reloadData()
+        viewModel.getDefaultAdress()
         viewModel.getCustomerAdresses(customerId: id ?? 0 )
- 
+        adressTable.reloadData()
     }
+   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
         }

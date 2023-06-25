@@ -1,7 +1,7 @@
 
 import Foundation
 
-var adsImageArray = ["cupon2","cupon3","cupon4","cupon5","cupon7","cupon8","cupon9"]
+var adsImageArray = ["cupon22","cupon33","cupon11","cupon66","cupon11"]
 
 
 struct BrandsResponse: Codable {

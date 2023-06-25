@@ -14,39 +14,47 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     @IBOutlet weak var loading: LottieAnimationView!
     @IBOutlet weak var emptyImg: UIImageView!
     @IBOutlet weak var currencyLabel: UILabel!
-    @IBOutlet weak var priceAfterDiscount: UILabel!
+    @IBOutlet weak var priceAfterDiscountLabel: UILabel!
     @IBOutlet weak var curencyLabel2: UILabel!
     @IBOutlet weak var discountAmount: UILabel!
     var network : NetworkProtocol!
     var viewModel : DraftOrderViewModel!
+    static var cuponsViewModel:CuponsViewModel!
     var settingViewModel :SettingsViewModel!
     var totalPrice:Double = 0.0
     var cell : orderdItemTableCell!
     var bacupItemsList : [LineItems]!
     var isApplyChangeBtn : Bool = false
-      
+    var discount : Discount!
+    var promocodes:PromoCodesViewController!
+    var priceAfterDiscount  = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         network = Network()
         viewModel = DraftOrderViewModel(network: network)
         settingViewModel = SettingsViewModel(network: network)
-        setPrice()
-       
+        ShoppingcartViewController.cuponsViewModel = CuponsViewModel(network: network)
+        // setPrice()
         bacupItemsList = MyCartItems.cartItemsCodableObject
         print("\n  cart count \(String(describing: MyCartItems.cartItemsCodableObject?.count))")
+        promocodes = PromoCodesViewController()
+        totalAmount.text = "0.0"
         
     }
+  
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+        currencyLabel.text = getCurrency()
+        curencyLabel2.text = getCurrency()
         if getDraftOrdertId() == 0{
             emptyImg.isHidden = false
-           
+            
         }
         else {
             emptyImg.isHidden = true
-           
+            
         }
         myTable.backgroundColor = UIColor(named: "screenbg")
         loading.layer.cornerRadius = 10.0
@@ -74,7 +82,13 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             self.loading.isHidden = true
             
         }
-        
+        self.discount = ShoppingcartViewController.cuponsViewModel.getSelectedDiscount()
+        print ("from bind")
+        let discountValue = (Double(self.totalAmount.text ?? "") ?? 0.0) * 0.20
+        let priceAfterDiscount = (Double(self.totalAmount.text ?? "") ?? 0.0) - discountValue
+        self.discountAmount.text = String(discountValue )
+        self.priceAfterDiscountLabel.text = String(priceAfterDiscount)
+    
     }
     
     
@@ -120,14 +134,14 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
                 item.quantity = (item.quantity ?? 0) - 1
                 self.cell.itemsNum.text = String(item.quantity ?? 0)
                 self.myTable.reloadData()
- 
+                
             }
             self.changePrice(cell: self.cell,  index:indexPath.section,item: item)
             MyCartItems.cartItemsCodableObject![indexPath.section] = item
             
         }
         
-       cell.increaseQuantity = {[weak self] in
+        cell.increaseQuantity = {[weak self] in
             guard let self = self else { return }
             totalPrice = 0.0
             item.quantity = (item.quantity ?? 0) + 1
@@ -223,23 +237,23 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     @IBAction func promoCodeBtn(_ sender: Any) {
-        lazy var promoCodesSection = self.storyboard?.instantiateViewController(withIdentifier: "promoCodesSheet")
+    /*    lazy var promoCodesSection = self.storyboard?.instantiateViewController(withIdentifier: "promoCodesSheet")
         
         guard let sheet = promoCodesSection?.sheetPresentationController else {
             return
         }
         
-        sheet.detents = [.medium(),.large()]
+        sheet.detents = [.medium(),.large(),]
         sheet.prefersGrabberVisible = true
         sheet.preferredCornerRadius = 34
-        self.present(promoCodesSection!, animated: true)
+        self.present(promoCodesSection!, animated: true)*/
         
     }
-
+    
     @IBAction func applyChanges(_ sender: Any) {
         let alert = UIAlertController(title: "Confirmation!", message: "apply chnges..?", preferredStyle: UIAlertController.Style.alert)
         alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: { [self]_ in
-             MyCartItems.cartItemsCodableObject = self.bacupItemsList
+            MyCartItems.cartItemsCodableObject = self.bacupItemsList
             self.viewModel.updateDraftOrder(draftOrderId: getDraftOrdertId(), customer: Customer(id:UserDefaults.standard.integer(forKey: "customerId")), listOfCartItems: MyCartItems.cartItemsCodableObject!)
             createToastMessage(message: "your cart updated succefully", view: self.view)
             self.applyChangesBtn.isHidden = true
@@ -251,7 +265,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             alert.dismiss(animated: true)
             self.viewModel.getDraftOrders(draftOrderId: getDraftOrdertId())
             
-         
+            
         }))
         
         self.present(alert, animated: true, completion: nil)
@@ -278,6 +292,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        totalAmount.text = "0.0"
         if isApplyChangeBtn == true {
             let alert = UIAlertController(title: "Alert!", message: "your changes discarded", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil ))
@@ -291,6 +306,14 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         productInfo.productId = viewModel.lineItems?[indexPath.section].productId ?? 8360376402229
         self.navigationController?.pushViewController(productInfo, animated: true)
     }
+  
 }
 
-
+extension UIViewController: UIAdaptivePresentationControllerDelegate {
+    public func presentationControllerDidDismiss( _ presentationController: UIPresentationController) {
+        if #available(iOS 13, *) {
+            //Call viewWillAppear only in iOS 13
+            viewWillAppear(true)
+        }
+    }
+}
