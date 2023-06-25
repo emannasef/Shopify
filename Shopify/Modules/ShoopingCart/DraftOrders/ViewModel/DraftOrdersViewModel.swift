@@ -243,16 +243,16 @@ class DraftOrderViewModel {
             let draftOrder = createDraftOrder(draftOrderId: draftOrderId, lineItems: lineItems, customer: customer)
             let params = encodeToJson(objectClass: draftOrder) ?? [:]
             network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrderId), params:  params, completionHandeler: { (response:MyDraftOrder?, error )in
-                guard let result = response else {return}
+                guard response != nil else {return}
             })
 }
-/*   func deleteProduct(product:Product){
+    func deleteProduct(product:Product, draftOrderId:Int,customer:Customer){
         
-        var listOfCartItems = MyCartItems.cartItemsCodableObject
+        var listOfCartItems = deleteByProductId(product: product)
   
-        let params:Parameters = encodeToJson(objectClass: createDraftOrder(draftOrderId: draftOrderId, lineItems: listOfCartItems!,customer: customer))!
+        let params:Parameters = encodeToJson(objectClass: createDraftOrder(draftOrderId: draftOrderId, lineItems: listOfCartItems,customer: customer))!
         
-        if listOfCartItems?.count ?? 0 > 0 /*1*/{
+        if listOfCartItems.count > 0 /*1*/{
             network.update(endPoint: .modifieDraftOrder(draftOrderId: draftOrderId), params: params) {(response:MyDraftOrder?, error )in
                 guard let result = response?.draft_order else{
                     print(error ?? "there is an errror while deleting an item from your cart")
@@ -269,14 +269,12 @@ class DraftOrderViewModel {
     }
     
     func deleteByProductId(product:Product) -> [LineItems]{
-        let pro = MyCartItems.cartItemsCodableObject?.remov({ $0.productId == product.id
-        })
-        return pro?[0] ?? LineItems()
-    }*/
-    
-    func convertCurrency(){
-        
+        let itemList = MyCartItems.cartItemsCodableObject?.filter({ $0.variantId != product.variants?[0].id
+        }) ?? []
+        return itemList
     }
+    
+  
     
     func updateDraftOrder(draftOrderId:Int,customer:Customer,listOfCartItems:[LineItems]){
         let params:Parameters = encodeToJson(objectClass: createDraftOrder(draftOrderId: draftOrderId, lineItems: listOfCartItems,customer: customer))!

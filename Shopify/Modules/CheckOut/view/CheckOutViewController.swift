@@ -73,7 +73,7 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate {
         request.supportedCountries = ["EG"]
         request.merchantCapabilities = .capability3DS
         request.countryCode = "EG"
-        request.currencyCode = "EGP"
+        request.currencyCode = getCurrency()
         request.paymentSummaryItems = [PKPaymentSummaryItem(label: "Adidas shoes", amount: 2)]
         return request
     }()

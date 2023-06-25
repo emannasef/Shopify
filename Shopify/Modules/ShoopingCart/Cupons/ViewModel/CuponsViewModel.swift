@@ -9,6 +9,7 @@ class CuponsViewModel {
     var network : NetworkProtocol!
     var bindToViewController :(()->())?
     var bindPricerulesToViewControllers :(()->())?
+    var discount : Discount? = Discount()
     init (network:NetworkProtocol){
         self.network = network
     }
@@ -56,6 +57,13 @@ class CuponsViewModel {
         })
          
         return priceRules
+    }
+    
+    func setSelectedDiscount(discount:Discount){
+       
+    }
+    func getSelectedDiscount() -> Discount{
+        return discount ?? Discount()
     }
 }
 
