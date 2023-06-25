@@ -14,7 +14,8 @@ class MeViewController: UIViewController {
     @IBOutlet weak var wishListCollection: UICollectionView!
     @IBOutlet weak var fullName: UILabel!
     
-    
+    @IBOutlet weak var noItemsImg: UIImageView!
+    @IBOutlet weak var noFavImg: UIImageView!
     @IBOutlet weak var meNavigationItem: UINavigationItem!
     
     let userType =  UserDefaults.standard.string(forKey: "UserType")
@@ -23,6 +24,10 @@ class MeViewController: UIViewController {
     var meViewModel : MeViewModelType!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.isToolbarHidden = true
+        self.ordersTable.isHidden = true
+        self.wishListCollection.isHidden = true
 
         meViewModel = MeViewModel.getInstatnce(network: NetworkManager())
         
@@ -55,11 +60,21 @@ class MeViewController: UIViewController {
             wishListCollection.reloadData()
         }
         
+        if(wishArr.count == 0){
+            noFavImg.isHidden = false
+            wishListCollection.isHidden = true
+        }else{
+            wishListCollection.isHidden = false
+        }
+        
     }
     
     func getOrders(){
         self.meViewModel.bindOrdersToViewController = {[weak self] in
             DispatchQueue.main.async {
+                
+                self?.ordersTable.isHidden = false
+                self?.noItemsImg.isHidden = true
                 self?.ordersTable.reloadData()
             }
         }
@@ -99,6 +114,8 @@ class MeViewController: UIViewController {
 extension MeViewController : UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if(meViewModel.getOrdersCount() == 0){
+           ordersTable.isHidden = true
+           noItemsImg.isHidden = false
             return 0}
         else if(meViewModel.getOrdersCount() == 1){
             return 1

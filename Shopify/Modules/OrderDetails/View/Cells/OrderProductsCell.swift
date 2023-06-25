@@ -14,5 +14,14 @@ class OrderProductsCell: UICollectionViewCell {
     @IBOutlet weak var productName: UILabel!
     @IBOutlet weak var productPrice: UILabel!
     
-
+    @IBOutlet weak var currencyLabel: UILabel!
+    
+    var delegate:ClickDelegate?
+    var cellIndex: IndexPath?
+    
+    @IBAction func favBtnClick(_ sender: Any) {
+        delegate?.clicked(cellIndex!.row)
+    }
+    
+    
 }

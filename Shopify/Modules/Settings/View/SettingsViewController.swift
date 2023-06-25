@@ -9,12 +9,14 @@ class SettingsViewController: UIViewController {
     @IBOutlet weak var currencyMenu: UIButton!
     @IBOutlet weak var region: UITextField!
     var addressViewModel :AdressViewModel!
+    var settingViewModel:SettingsViewModel!
     var network :NetworkProtocol!
     var settingViewModel : SettingsViewModel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         network = Network()
+        settingViewModel = SettingsViewModel(network: network)
         addressViewModel = AdressViewModel(network: network)
         settingViewModel = SettingsViewModel(network: network)
         self.currency.text = getCurrency()
@@ -61,6 +63,14 @@ class SettingsViewController: UIViewController {
         return list
     }
     
+    func setPrice(){
+        settingViewModel.bindResultToviewController = { [weak self] in
+            DispatchQueue.main.async{
+                setCurrencyEquvelant(quote:  self?.settingViewModel.quote ?? 0.0)
+            }
+        }
+        settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: "5")
+    }
     @IBAction func changeAdress(_ sender: Any) {
         
         if addressViewModel.adresses?.count == 0{
@@ -79,16 +89,15 @@ class SettingsViewController: UIViewController {
     
         let menu = UIMenu(title: "", options: .displayInline, children: setCueencies())
         
-       currencyMenu.menu = menu
+        currencyMenu.menu = menu
         currencyMenu.showsMenuAsPrimaryAction = true
     }
     
-
-    
-    @IBAction func displayappInfo(_ sender: Any) {
+    @IBAction func displayAppInfo(_ sender: Any) {
     }
     
     @IBAction func logout(_ sender: Any) {
+        setDraftOrderId(draftOrderId: 0)
         UserDefaults.standard.set(false, forKey: "isLogin")
         UserDefaults.standard.set("", forKey: "customerId")
         UserDefaults.standard.set("", forKey: "customerName")

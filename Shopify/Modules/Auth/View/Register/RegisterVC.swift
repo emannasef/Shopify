@@ -98,6 +98,7 @@ class RegisterVC: UIViewController {
                 self.customer.email = user.profile?.email
                 self.customer.firstName = user.profile?.name
                 self.customer.tags = user.profile?.email
+   
                 
                 self.registerViewModel.registerCustomer(customer: self.customer)
                 

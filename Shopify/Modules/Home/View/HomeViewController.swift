@@ -14,7 +14,7 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     @IBOutlet weak var homeCollection: UICollectionView!
     
    
-    
+    var settingViewModel: SettingsViewModel!
     var viewmodel = HomeViewModel.getInstatnce(network: NetworkManager())
     var cuponsVieModel :CuponsViewModel!
     var network : NetworkProtocol!
@@ -24,11 +24,13 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     override func viewDidLoad() {
         super.viewDidLoad()
         network = Network()
+        settingViewModel = SettingsViewModel(network: network)
+        setPrice()
         cuponsVieModel = CuponsViewModel(network: network)
         settingViewModel = SettingsViewModel(network: network)
         homeCollection.dataSource = self
         homeCollection.delegate = self
-      //  self.navigationController?.navigationItem.title  = "Home"
+        self.navigationController?.isToolbarHidden = true
         
         self.tabBarController?.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "", image: UIImage(named: "baseline-search-24px"), target: self, action: #selector(searchScreen))
         
@@ -71,6 +73,15 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
     override func viewWillAppear(_ animated: Bool) {
         getData()
 
+    }
+    
+    func setPrice(){
+        settingViewModel.bindResultToviewController = { [weak self] in
+            DispatchQueue.main.async{
+                setCurrencyEquvelant(quote:  self?.settingViewModel.quote ?? 0.0)
+            }
+        }
+        settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: "5")
     }
     
     func setCuponsArr (totalCupons:[Discount]){

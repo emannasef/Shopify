@@ -35,11 +35,15 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
     var productsArr:[Product] = []
     var fromScreen:String!
     var copyArr : [Product] = []
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         productsCollection.delegate = self
         productsCollection.dataSource = self
+        let nib = UINib(nibName: "OrderProductsCell", bundle: nil)
+        productsCollection.register(nib, forCellWithReuseIdentifier: "orderProductCell")
+        
         filterView.isHidden = true
        // priceSlider.value = 500
         priceSlider.minimumValue = 0
@@ -61,6 +65,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         let menu = UIMenu(title: "", children: [tapmeitems])
         
         filterBtn.menu = menu
+        
     }
     
     
@@ -152,10 +157,10 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         
         let product = searchedArr[indexPath.row]
         // let product = viewModel.getProductAtIndexPath(row: indexPath.row)
-        let cell = productsCollection.dequeueReusableCell(withReuseIdentifier: "productCell", for: indexPath) as! ProductCell
+        let cell = productsCollection.dequeueReusableCell(withReuseIdentifier: "orderProductCell", for: indexPath) as! OrderProductsCell
         
         cell.productName.text = product.title
-        cell.produtImg.kf.setImage(
+        cell.productImage.kf.setImage(
             with: URL(string: product.image?.src ?? ""),
             placeholder: UIImage(named: "brandplaceholder"),
             options: [
@@ -165,6 +170,7 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
             ])
         
         cell.productPrice.text = product.variants?[0].price
+        cell.currencyLabel.text = getCurrency()
         cell.cellIndex = indexPath
         cell.delegate = self
         
@@ -179,10 +185,10 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
         let favPro = FavProduct(id: product.id,title: product.title,rate: 3.5, price: product.variants?[0].price, image: product.image?.src,userId: "\(String(describing: userId))")
 
         if wishListViewModel.isProductExist(product: favPro) == true{
-            cell.isFavBtn.setImage(UIImage(systemName: "heart.fill" ), for: .normal)
+            cell.isFav.setImage(UIImage(systemName: "heart.fill" ), for: .normal)
         }
         else{
-            cell.isFavBtn.setImage(UIImage(systemName: "heart" ), for: .normal)
+            cell.isFav.setImage(UIImage(systemName: "heart" ), for: .normal)
             
         }
         return cell

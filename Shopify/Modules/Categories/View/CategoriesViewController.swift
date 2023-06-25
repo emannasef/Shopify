@@ -26,29 +26,61 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
 
     
     @IBOutlet weak var categoriesCollection: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
         categoriesSegmentedControl.setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.white], for: UIControl.State.selected)
         
+        
+        let nib = UINib(nibName: "OrderProductsCell", bundle: nil)
+        categoriesCollection.register(nib, forCellWithReuseIdentifier: "orderProductCell")
         categoriesCollection.delegate = self
         categoriesCollection.dataSource = self
+        
+        
+        self.navigationController?.isToolbarHidden = true
         
         let tapmeitems = UIMenu(title: "ProductsType", options: .displayInline, children: [
             UIAction(title: "All", image: UIImage(named: "all"), handler: { _ in self.getData()}),
         UIAction(title: "T-Shirts", image: UIImage(named: "tshirt"), handler:  { [unowned self] _ in
             productType = "T-Shirts"
             subCategoriesList = viewModel.getTShirts()
-            categoriesCollection.reloadData()
+            if(subCategoriesList.count == 0){
+                categoriesCollection.isHidden = true
+                noItemsImg.isHidden = false
+            }else{
+                categoriesCollection.isHidden = false
+                categoriesCollection.reloadData()
+                noItemsImg.isHidden = true
+                
+            }
+            
             }),
         UIAction(title: "FootWear", image: UIImage(named: "shoes"), handler: { [unowned self] _ in
             productType = "FootWear"
             subCategoriesList = viewModel.getFootWear()
-            categoriesCollection.reloadData()
+            if(subCategoriesList.count == 0){
+                categoriesCollection.isHidden = true
+                noItemsImg.isHidden = false
+            }else{
+                categoriesCollection.isHidden = false
+                categoriesCollection.reloadData()
+                noItemsImg.isHidden = true
+            }
+                
             }),
         UIAction(title: "Accessories", image: UIImage(named: "sunglasses"), handler: { [unowned self] _ in
             productType = "Accessories"
             subCategoriesList = viewModel.getAccessories()
-            categoriesCollection.reloadData()
+            if(subCategoriesList.count == 0){
+                categoriesCollection.isHidden = true
+                noItemsImg.isHidden = false
+            }else{
+                categoriesCollection.isHidden = false
+                categoriesCollection.reloadData()
+                noItemsImg.isHidden = true}
+                
         }),
         ])
         let menu = UIMenu(title: "", children: [tapmeitems])
@@ -61,6 +93,7 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
     
     
     override func viewWillAppear(_ animated: Bool) {
+       // self.navigationController?.navigationBar.isHidden = true
         getData()
         subCategoriesList = []
     }
@@ -128,12 +161,12 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let product = viewModel.getProductAtIndexPath(row: indexPath.row)
-        let cell = categoriesCollection.dequeueReusableCell(withReuseIdentifier: "categoriesCell", for: indexPath) as! CategoriesCell
+        let cell = categoriesCollection.dequeueReusableCell(withReuseIdentifier: "orderProductCell", for: indexPath) as! OrderProductsCell
         
         if(productType == "")
         {
-            cell.ProductName.text = product.title
-            cell.productImg.kf.setImage(
+            cell.productName.text = product.title
+            cell.productImage.kf.setImage(
                 with: URL(string: product.image?.src ?? ""),
                 placeholder: UIImage(named: "brandplaceholder"),
                 options: [
@@ -143,8 +176,8 @@ class CategoriesViewController: UIViewController , UICollectionViewDelegate, UIC
                 ])
             cell.productPrice.text = product.variants?[0].price
         }else{
-            cell.ProductName.text = subCategoriesList[indexPath.row].title
-            cell.productImg.kf.setImage(
+            cell.productName.text = subCategoriesList[indexPath.row].title
+            cell.productImage.kf.setImage(
                 with: URL(string: subCategoriesList[indexPath.row].image?.src ?? ""),
                 placeholder: UIImage(named: "brandplaceholder"),
                 options: [

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="VxX-tK-UhO">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="hNX-4h-Qnt">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -17,19 +18,19 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Shopify" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fk9-QZ-M4p">
-                                <rect key="frame" x="16" y="135" width="361" height="63.333333333333343"/>
+                                <rect key="frame" x="16" y="76" width="361" height="63.333333333333343"/>
                                 <fontDescription key="fontDescription" name="Chalkduster" family="Chalkduster" pointSize="50"/>
                                 <color key="textColor" red="0.25098039215686274" green="0.074509803921568626" blue="0.27058823529411763" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Store of your dreams.you will find here everything you want" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8FB-Ue-Qdu">
-                                <rect key="frame" x="16" y="481.33333333333331" width="361" height="48.666666666666686"/>
+                                <rect key="frame" x="16" y="422.33333333333331" width="361" height="48.666666666666686"/>
                                 <fontDescription key="fontDescription" name="NotoSansKannada-Regular" family="Noto Sans Kannada" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VRF-Rz-AM3">
-                                <rect key="frame" x="90" y="562" width="180" height="35"/>
+                                <rect key="frame" x="90" y="503" width="180" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="abf-8f-v9E"/>
                                     <constraint firstAttribute="width" constant="180" id="sgV-qk-ecA"/>
@@ -48,7 +49,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BxN-JL-35e">
-                                <rect key="frame" x="90" y="621" width="180" height="35"/>
+                                <rect key="frame" x="90" y="562" width="180" height="35"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="3RD-Nj-OGO"/>
                                     <constraint firstAttribute="width" constant="180" id="S9z-Bp-PLf"/>
@@ -67,13 +68,13 @@
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cart" translatesAutoresizingMaskIntoConstraints="NO" id="HIO-pR-h2x">
-                                <rect key="frame" x="8" y="222.33333333333337" width="377" height="235"/>
+                                <rect key="frame" x="8" y="163.33333333333337" width="377" height="235"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="235" id="Ypa-Za-nRX"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Already have an account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kve-fc-65u">
-                                <rect key="frame" x="79.999999999999986" y="688" width="186.66666666666663" height="26"/>
+                                <rect key="frame" x="79.999999999999986" y="629" width="186.66666666666663" height="26"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="26" id="WVu-HW-sdE"/>
                                 </constraints>
@@ -82,7 +83,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N58-9c-OFq">
-                                <rect key="frame" x="282.66666666666669" y="688" width="40" height="22"/>
+                                <rect key="frame" x="282.66666666666669" y="629" width="40" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="Xdu-qS-sA4"/>
                                     <constraint firstAttribute="width" constant="40" id="ZYp-gw-DMd"/>
@@ -549,13 +550,31 @@
             </objects>
             <point key="canvasLocation" x="2612.9770992366412" y="-43.661971830985919"/>
         </scene>
+        <!--Splash View Controller-->
+        <scene sceneID="tOO-G7-coP">
+            <objects>
+                <viewController id="hNX-4h-Qnt" customClass="SplashViewController" customModule="Shopify" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="gaE-2A-LVL">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="l49-cw-Mhk"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <connections>
+                        <segue destination="VxX-tK-UhO" kind="presentation" identifier="OpenAuth" modalPresentationStyle="fullScreen" id="OGt-li-Ieu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vAs-gB-FEI" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1705" y="-2"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="3cQ-2S-Xgq">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="VxX-tK-UhO" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="NkB-6K-vcA">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
@@ -574,7 +593,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="a8e-Ha-2GU"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="zOc-35-NSd">
-                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
