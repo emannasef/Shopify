@@ -168,8 +168,8 @@ class ProductsViewController: UIViewController, UICollectionViewDelegate, UIColl
                 .transition(.fade(1)),
                 .cacheOriginalImage
             ])
-        
-        cell.productPrice.text = product.variants?[0].price
+        let price = (Double(product.variants?[0].price ?? "") ?? 0.0) * getCurrencyEquvelant() //  (Double(product.variants?[0].price) * getCurrencyEquvelant())
+        cell.productPrice.text = String(format:"%.2f",price)
         cell.currencyLabel.text = getCurrency()
         cell.cellIndex = indexPath
         cell.delegate = self

@@ -134,11 +134,13 @@ class AddAdressViewController: UIViewController {
         let customerId  = Int(UserDefaults.standard.string(forKey: "customerId")!)
         if staus == "add"{
             viewModel .addAdress(adress: setAdressObj().0,customerId: customerId ?? 0 )
+            self.showToast(message: "Adress Saved Succefully", seconds: 0.8)
             print("added............")
         }
         else {
             
             viewModel.updateSdress(adress: setAdressObj().1,customerId: customerId ?? 0)
+            self.showToast(message: "Adress Updated Succefully", seconds: 0.8)
             print("updated...........")
            /* if adressToBeUpdated != setAdressObj().1.address{
                 viewModel.updateSdress(adress: setAdressObj().1,customerId: 7046569754933)
@@ -149,8 +151,18 @@ class AddAdressViewController: UIViewController {
             }*/
         }
         
-        self.navigationController?.popViewController(animated: true)
+        //self.navigationController?.popViewController(animated: true)
         
+    }
+    func showToast(message : String, seconds: Double){
+        
+        let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
+        alert.view.backgroundColor = UIColor(named: "AccentColor")
+        alert.view.layer.cornerRadius = 15
+        self.present(alert, animated: true)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
+            alert.dismiss(animated: true)
+        }
     }
 }
 

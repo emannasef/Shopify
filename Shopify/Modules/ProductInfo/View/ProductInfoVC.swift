@@ -25,8 +25,7 @@ class ProductInfoVC: UIViewController{
     @IBOutlet weak var slider: UIPageControl!
     @IBOutlet weak var imsgesCollectionView: UICollectionView!
     @IBOutlet weak var productName: UILabel!
-    
-    //var favBtn : UIBarButtonItem!
+    var cartImgStatus = "notAdded"
     var productId = 8360376402229
     var viewModel:ProductInfoViewModel = ProductInfoViewModel(network: Network())
     var wishListViewModel = WishListViewModel(myCoreData: MyCoreData.sharedInstance,network: Network())
@@ -84,7 +83,13 @@ class ProductInfoVC: UIViewController{
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        isItemAdded()
+        if cartImgStatus == "added"{
+            cartBtn.imageView?.image = UIImage(systemName: "cart.fill.badge.plus")
+        }
+        else{
+            cartBtn.imageView?.image = UIImage(systemName: "cart")
+        }
+       // isItemAdded()
     }
     
     func setUpSize(size: [ProductVariant]){
@@ -110,6 +115,10 @@ class ProductInfoVC: UIViewController{
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        cartImgStatus = "notAdded"
+    }
     
     @IBAction func addToCart(_ sender: Any) {
        

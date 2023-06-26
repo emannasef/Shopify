@@ -25,19 +25,40 @@ class PromoCodesViewController: UIViewController,UITableViewDelegate,UITableView
                 print("IDES COUNT \(String(describing: self?.viewModel.priceRuleIdes?.count))")
                     let id = self?.viewModel.priceRuleIdes?[i]
                     self?.viewModel.getCupons(priceruleId:id ?? 0)
-              
-                    
+
             }
         }
         viewModel.bindToViewController = {  [weak self] in
             DispatchQueue.main.async {
                 //self?.setCuponsArr(totalCupons: self?.viewModel.totalCupons ?? [])
                 print("your cupons...\(String(describing: self?.viewModel.cupons?.count))")
+                self?.isCuponTaken(cupons: self?.viewModel.cupons ?? [])
+                }
                 self?.cuponsTable.reloadData()
             }
-        }
+        
         viewModel.getPriceRules()
     }
+    
+    
+    func unUsedArr(arr:[AdsAttachedData]) -> [AdsAttachedData]{
+     
+        let arr = discountsArr?.filter({ $0.status == "unUsed" }) ?? []
+        return arr
+    }
+    
+    func isCuponTaken(cupons:[Discount]){
+        
+        var i = 0
+        while i < discountsArr?.count ?? 0 {
+            var arr = discountsArr?.filter({ $0.discount == cupons[i] })
+            if  arr?.count == 0 {
+                discountsArr?.append(AdsAttachedData(status: "unUsed", discount: cupons[i]))
+            }
+        }
+        //MyDraftOrder(myDraftOrder: getDraftOrdertId())
+    }
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -50,20 +71,20 @@ class PromoCodesViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return  self.viewModel.cupons?.count ?? 0 //discountsArr?.count ?? 0
+        return  unUsedArr(arr: discountsArr ?? []).count //self.viewModel.cupons?.count ?? 0 //discountsArr?.count ?? 0
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cuponsTable.dequeueReusableCell(withIdentifier: "promocodecell") as! promocodeTableViewCell
-        let discount = viewModel.cupons?[indexPath.section]
+        let discount = unUsedArr(arr: discountsArr ?? [])[indexPath.section].discount //viewModel.cupons?[indexPath.section]
+        discountsArr?[indexPath.section].status = "used"
         cell.offerLabel.text = viewModel.cupons?[indexPath.section].code//discountsArr?[indexPath.section].discount?.code//viewModel.cupons?[indexPath.section].code
-        
         cell.layer.cornerRadius = 10.0
         cell.offerBg.layer.cornerRadius = 10.0
         cell.bindApplyActionToViewController = { [weak self] in
-            self?.viewModel.setSelectedDiscount(discount: discount! )
+            self?.viewModel.setSelectedDiscount(discount: discount ?? Discount() )
             ShoppingcartViewController.cuponsViewModel.setSelectedDiscount(discount: discount!)
         }
         

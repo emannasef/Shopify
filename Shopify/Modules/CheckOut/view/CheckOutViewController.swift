@@ -21,7 +21,7 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate, UICollect
     var network : NetworkProtocol!
     var isapplyBtnappear : Bool = false
     var lineItems : [LineItems]!
-    var totalPrice:Double!
+    var totalPrice:Double = 0.0 
     var isPayed:Bool!
     
     override func viewDidLoad() {
@@ -41,6 +41,17 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate, UICollect
         lineItems = postOrderViewModel.getLineItems()
         totalPriceText.text = String(format: "%0.2f", totalPrice)
         currencyLabel.text = getCurrency()
+        
+        
+        adressViewModel.bindAdressesToViewController = { [weak self] in
+            DispatchQueue.main.async{
+                self?.setUserAddress()
+                
+            }
+            
+        }
+        
+        adressViewModel.getCustomerAdresses(customerId:Int(UserDefaults.standard.string(forKey: "customerId") ?? "") ?? 0 )
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,12 +64,11 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate, UICollect
             }
             
         }
+        
         adressViewModel.getCustomerAdresses(customerId:Int(UserDefaults.standard.string(forKey: "customerId") ?? "") ?? 0 )
     }
     
     func setUserAddress(){
-        
-        
         if (adressViewModel.adresses?.count ?? 0 > 0){
             let defaultAddress = adressViewModel.getDefaultAdress()
             userName.text = defaultAddress.name

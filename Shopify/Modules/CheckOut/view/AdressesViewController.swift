@@ -30,9 +30,14 @@ class AdressesViewController: UIViewController,UITableViewDelegate,UITableViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        viewModel.getDefaultAdress()
-        viewModel.getCustomerAdresses(customerId: id ?? 0 )
-        adressTable.reloadData()
+        
+        viewModel.bindAdressesToViewController = { [weak self] in
+            DispatchQueue.main.async{ [self] in
+                self?.viewModel.getDefaultAdress()
+                self?.adressTable.reloadData()
+            }
+        }
+        self.viewModel.getCustomerAdresses(customerId: self.id ?? 0 )
     }
    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

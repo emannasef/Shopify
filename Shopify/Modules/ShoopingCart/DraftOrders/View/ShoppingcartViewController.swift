@@ -27,7 +27,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     var isApplyChangeBtn : Bool = false
     var discount : Discount!
     var promocodes:PromoCodesViewController!
-    var priceAfterDiscount  = 0
+    var priceAfterDiscount  = 0.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         print("\n  cart count \(String(describing: MyCartItems.cartItemsCodableObject?.count))")
         promocodes = PromoCodesViewController()
         totalAmount.text = "0.0"
-        
+        totalPrice = 0.0
     }
   
     
@@ -48,7 +48,9 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         super.viewWillAppear(true)
         currencyLabel.text = getCurrency()
         curencyLabel2.text = getCurrency()
-        if getDraftOrdertId() == 0{
+        totalPrice = 0.0
+        self.totalAmount.text = "0.0"
+        if MyCartItems.cartItemsCodableObject?.count == 0{
             emptyImg.isHidden = false
             
         }
@@ -82,12 +84,19 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
             self.loading.isHidden = true
             
         }
+        
         self.discount = ShoppingcartViewController.cuponsViewModel.getSelectedDiscount()
         print ("from bind")
         let discountValue = (Double(self.totalAmount.text ?? "") ?? 0.0) * 0.20
         let priceAfterDiscount = (Double(self.totalAmount.text ?? "") ?? 0.0) - discountValue
         self.discountAmount.text = String(discountValue )
         self.priceAfterDiscountLabel.text = String(priceAfterDiscount)
+        
+        if MyCartItems.cartItemsCodableObject?.count == 0 {
+            self.totalPrice = 0
+            self.totalAmount.text = "0.0"
+        
+        }
     
     }
     
@@ -129,8 +138,11 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         
         cell.decreaseQuantity = {[weak self] in
             guard let self = self else { return }
-            totalPrice = 0.0
+           
+            self.totalAmount.text = "0.0"
             if item.quantity! > 1{
+                totalPrice = 0.0
+                self.totalAmount.text = "0.0"
                 item.quantity = (item.quantity ?? 0) - 1
                 self.cell.itemsNum.text = String(item.quantity ?? 0)
                 self.myTable.reloadData()
@@ -144,6 +156,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         cell.increaseQuantity = {[weak self] in
             guard let self = self else { return }
             totalPrice = 0.0
+            self.totalAmount.text = "0.0"
             item.quantity = (item.quantity ?? 0) + 1
             self.cell.itemsNum.text = String(item.quantity ?? 0)
             self.myTable.reloadData()
@@ -187,7 +200,7 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
     
     func setCellData(cell:orderdItemTableCell, item:LineItems, index:Int){
         cell.itemsNum.text = String(item.quantity ?? 0)
-        let itemPrice = Double(item.quantity ?? 0) * /*( getCurrencyEquvelant() * */(Double(item.price ?? "") ?? 0.0)//)
+        let itemPrice = Double(item.quantity ?? 0) * ( getCurrencyEquvelant() * (Double(item.price ?? "") ?? 0.0))
         cell.itemPrice.text = String(format: "%.2f",itemPrice)
         self.totalPrice = Double(self.totalPrice + itemPrice)
         self.totalAmount.text = String(format: "%.2f",totalPrice)
@@ -294,13 +307,24 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         }
         else {
             
-            let paymentScreen = self.storyboard?.instantiateViewController(identifier: "CheckOutViewController") as! CheckOutViewController
-            self.navigationController?.pushViewController(paymentScreen, animated: true)
+            let reachability = try! Reachability()
+            if reachability.connection != .unavailable{
+                let paymentScreen = self.storyboard?.instantiateViewController(identifier: "CheckOutViewController") as! CheckOutViewController
+                self.navigationController?.pushViewController(paymentScreen, animated: true)
+            }
+            else{
+                let alert : UIAlertController = UIAlertController(title: "ALERT!", message: "Connect To Network To Complete your order", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .cancel,handler: nil))
+                self.present(alert, animated: true, completion: nil)
+            }
+            
+          
         }
         
     }
     
     override func viewWillDisappear(_ animated: Bool) {
+        totalPrice = 0.0
         totalAmount.text = "0.0"
         if isApplyChangeBtn == true {
             let alert = UIAlertController(title: "Alert!", message: "your changes discarded", preferredStyle: UIAlertController.Style.alert)
@@ -310,10 +334,22 @@ class ShoppingcartViewController: UIViewController,UITableViewDelegate,UITableVi
         applyChangesBtn.isHidden = true
     }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let productInfo = UIStoryboard(name: "ProductInfo", bundle: nil).instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
-        print("productId..\(String(describing: viewModel.lineItems?[indexPath.section].productId) )")
-        productInfo.productId = viewModel.lineItems?[indexPath.section].productId ?? 8360376402229
-        self.navigationController?.pushViewController(productInfo, animated: true)
+        let reachability = try! Reachability()
+        if reachability.connection != .unavailable{
+            let productInfo = UIStoryboard(name: "ProductInfo", bundle: nil).instantiateViewController(withIdentifier: "ProductInfoVC") as! ProductInfoVC
+            print("productId..\(String(describing: viewModel.lineItems?[indexPath.section].productId) )")
+            productInfo.productId = viewModel.lineItems?[indexPath.section].productId ?? 8360376402229
+            productInfo.cartImgStatus = "added"
+            self.navigationController?.pushViewController(productInfo, animated: true)
+        }
+        else{
+            let alert : UIAlertController = UIAlertController(title: "ALERT!", message: "Connect To Network", preferredStyle: .alert)
+            
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel,handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        
+      
     }
   
 }

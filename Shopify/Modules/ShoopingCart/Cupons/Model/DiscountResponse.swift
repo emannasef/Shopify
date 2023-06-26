@@ -11,7 +11,7 @@ struct DiscountsResponse : Codable{
 }
 
 
-struct Discount :Codable {
+struct Discount :Codable, Equatable {
     
     var id : Int = 0
     var price_rule_id : Int = 0
