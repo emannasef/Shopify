@@ -3,7 +3,7 @@
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21678"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -249,8 +249,8 @@
                                                     <constraint firstItem="kX5-64-Wz1" firstAttribute="leading" secondItem="nc5-hJ-Ofl" secondAttribute="leading" id="wn4-73-OKQ"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrB-xO-rdf">
-                                                <rect key="frame" x="187" y="648.66666666666663" width="19" height="20.333333333333371"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or Signup with " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrB-xO-rdf">
+                                                <rect key="frame" x="138.33333333333334" y="648.66666666666663" width="116.66666666666666" height="20.333333333333371"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -301,52 +301,48 @@
                                                     </button>
                                                 </subviews>
                                             </stackView>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="xED-9v-rXH">
-                                                <rect key="frame" x="128.66666666666666" y="689" width="135.99999999999997" height="38"/>
-                                                <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8O-ax-Amj">
-                                                        <rect key="frame" x="0.0" y="0.0" width="48" height="38"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="google"/>
-                                                        <connections>
-                                                            <action selector="signUpGoogle:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Zma-tr-0wR"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="veA-3s-p07">
-                                                        <rect key="frame" x="88" y="0.0" width="48" height="38"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="facebook"/>
-                                                        <connections>
-                                                            <action selector="signUpFacebook:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="aVP-hg-UWk"/>
-                                                        </connections>
-                                                    </button>
-                                                </subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="xED-9v-rXH">
+                                                <rect key="frame" x="229" y="639" width="48" height="38"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8O-ax-Amj">
+                                                <rect key="frame" x="173" y="689" width="48" height="38"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="48" id="9h1-2d-w4j"/>
+                                                    <constraint firstAttribute="height" constant="38" id="ead-lt-nml"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" image="google"/>
+                                                <connections>
+                                                    <action selector="signUpGoogle:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Zma-tr-0wR"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="SgY-Wl-qCb" firstAttribute="top" secondItem="aCC-Ja-d41" secondAttribute="bottom" constant="10" id="0An-od-Pv0"/>
+                                            <constraint firstItem="lrB-xO-rdf" firstAttribute="centerX" secondItem="z5M-xa-ZrI" secondAttribute="centerX" id="1tL-nb-Qk0"/>
                                             <constraint firstAttribute="trailing" secondItem="nc5-hJ-Ofl" secondAttribute="trailing" constant="10" id="4R3-9y-nj5"/>
                                             <constraint firstItem="nc5-hJ-Ofl" firstAttribute="top" secondItem="97x-Fi-XAI" secondAttribute="bottom" constant="10" id="5aj-Ss-LgA"/>
                                             <constraint firstItem="aCC-Ja-d41" firstAttribute="centerX" secondItem="z5M-xa-ZrI" secondAttribute="centerX" id="5pm-Uw-86c"/>
+                                            <constraint firstItem="lrB-xO-rdf" firstAttribute="top" secondItem="Xle-g0-fnH" secondAttribute="bottom" constant="20" id="9Ka-ou-Uam"/>
+                                            <constraint firstItem="a8O-ax-Amj" firstAttribute="top" secondItem="lrB-xO-rdf" secondAttribute="bottom" constant="20" id="BUl-GR-uS1"/>
                                             <constraint firstItem="iVE-Oe-CYr" firstAttribute="centerX" secondItem="z5M-xa-ZrI" secondAttribute="centerX" id="D2m-MB-wHB"/>
-                                            <constraint firstItem="lrB-xO-rdf" firstAttribute="top" secondItem="Xle-g0-fnH" secondAttribute="bottom" constant="20" id="Gdt-49-uIj"/>
                                             <constraint firstItem="aCC-Ja-d41" firstAttribute="top" secondItem="z5M-xa-ZrI" secondAttribute="top" constant="50" id="IAW-31-WAR"/>
                                             <constraint firstAttribute="trailing" secondItem="SgY-Wl-qCb" secondAttribute="trailing" constant="10" id="ISP-5d-WAk"/>
                                             <constraint firstAttribute="trailing" secondItem="Xle-g0-fnH" secondAttribute="trailing" constant="50" id="JHw-XE-O1G"/>
                                             <constraint firstAttribute="trailing" secondItem="oUR-05-gif" secondAttribute="trailing" constant="10" id="NNb-fI-bau"/>
+                                            <constraint firstItem="a8O-ax-Amj" firstAttribute="leading" secondItem="z5M-xa-ZrI" secondAttribute="leading" constant="173" id="Ndx-7r-YYr"/>
                                             <constraint firstItem="iVE-Oe-CYr" firstAttribute="top" secondItem="nc5-hJ-Ofl" secondAttribute="bottom" constant="10" id="T35-Sv-fey"/>
                                             <constraint firstItem="97x-Fi-XAI" firstAttribute="top" secondItem="H1f-xX-rvI" secondAttribute="bottom" constant="20" id="UIZ-S3-grX"/>
                                             <constraint firstItem="oUR-05-gif" firstAttribute="leading" secondItem="z5M-xa-ZrI" secondAttribute="leading" constant="10" id="VJn-SS-AlI"/>
-                                            <constraint firstItem="lrB-xO-rdf" firstAttribute="centerX" secondItem="z5M-xa-ZrI" secondAttribute="centerX" id="avm-Do-5Xs"/>
                                             <constraint firstItem="SgY-Wl-qCb" firstAttribute="leading" secondItem="z5M-xa-ZrI" secondAttribute="leading" constant="10" id="bca-jG-MdM"/>
                                             <constraint firstAttribute="trailing" secondItem="H1f-xX-rvI" secondAttribute="trailing" constant="10" id="bdg-aB-pMB"/>
                                             <constraint firstItem="H1f-xX-rvI" firstAttribute="top" secondItem="oUR-05-gif" secondAttribute="bottom" constant="20" id="f6j-0y-XI5"/>
-                                            <constraint firstItem="xED-9v-rXH" firstAttribute="centerX" secondItem="z5M-xa-ZrI" secondAttribute="centerX" id="lQZ-dC-Bkw"/>
                                             <constraint firstItem="Xle-g0-fnH" firstAttribute="top" secondItem="iVE-Oe-CYr" secondAttribute="bottom" constant="20" id="rMg-XL-HdN"/>
                                             <constraint firstItem="oUR-05-gif" firstAttribute="top" secondItem="SgY-Wl-qCb" secondAttribute="bottom" constant="10" id="sp3-N2-9wb"/>
-                                            <constraint firstItem="xED-9v-rXH" firstAttribute="top" secondItem="lrB-xO-rdf" secondAttribute="bottom" constant="20" id="t4T-Qf-24o"/>
                                             <constraint firstItem="nc5-hJ-Ofl" firstAttribute="leading" secondItem="z5M-xa-ZrI" secondAttribute="leading" constant="10" id="tJB-ab-Ex1"/>
+                                            <constraint firstAttribute="trailing" secondItem="a8O-ax-Amj" secondAttribute="trailing" constant="172" id="teZ-1W-KDN"/>
                                             <constraint firstItem="Xle-g0-fnH" firstAttribute="leading" secondItem="z5M-xa-ZrI" secondAttribute="leading" constant="50" id="vAB-vF-w0x"/>
                                             <constraint firstAttribute="trailing" secondItem="97x-Fi-XAI" secondAttribute="trailing" constant="10" id="x4R-vK-oV4"/>
                                             <constraint firstItem="H1f-xX-rvI" firstAttribute="leading" secondItem="z5M-xa-ZrI" secondAttribute="leading" constant="10" id="yKr-wL-XzU"/>
@@ -492,13 +488,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or Login with " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jcu-3q-14g">
-                                <rect key="frame" x="144" y="553" width="105.33333333333331" height="20.333333333333371"/>
+                                <rect key="frame" x="144" y="533" width="105.33333333333331" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="51" translatesAutoresizingMaskIntoConstraints="NO" id="2Ii-ue-hvw">
-                                <rect key="frame" x="123" y="593.33333333333337" width="147" height="38"/>
+                                <rect key="frame" x="172.66666666666666" y="573.33333333333337" width="48" height="38"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvI-1I-Kr0">
                                         <rect key="frame" x="0.0" y="0.0" width="48" height="38"/>
@@ -507,11 +503,6 @@
                                         <connections>
                                             <action selector="googleLogin:" destination="XEV-Z3-WIL" eventType="touchUpInside" id="4rB-1y-uDl"/>
                                         </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxK-Z3-55j">
-                                        <rect key="frame" x="99" y="0.0" width="48" height="38"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="facebook"/>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -538,7 +529,7 @@
                             <constraint firstItem="rxb-nd-JRs" firstAttribute="top" secondItem="lJZ-lW-r0U" secondAttribute="bottom" constant="24" id="hmN-uc-fUQ"/>
                             <constraint firstItem="lJZ-lW-r0U" firstAttribute="top" secondItem="Sci-Of-MQs" secondAttribute="bottom" constant="40" id="kJY-Sk-y4T"/>
                             <constraint firstItem="UoN-ju-sgs" firstAttribute="trailing" secondItem="Sci-Of-MQs" secondAttribute="trailing" constant="10" id="rwQ-CK-hu0"/>
-                            <constraint firstItem="Jcu-3q-14g" firstAttribute="top" secondItem="Vpc-Jw-6sy" secondAttribute="bottom" constant="50" id="s7b-be-Urt"/>
+                            <constraint firstItem="Jcu-3q-14g" firstAttribute="top" secondItem="Vpc-Jw-6sy" secondAttribute="bottom" constant="30" id="s7b-be-Urt"/>
                         </constraints>
                     </view>
                     <connections>
@@ -589,7 +580,6 @@
     </scenes>
     <resources>
         <image name="cart" width="1820" height="1214"/>
-        <image name="facebook" width="24" height="24"/>
         <image name="google" width="24" height="24"/>
         <image name="login" width="16" height="8"/>
         <image name="shop" width="612" height="510"/>

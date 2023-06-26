@@ -19,7 +19,7 @@ class WelcomeVC: UIViewController {
         UserDefaults.standard.set("guest", forKey: "UserType")
         let storyboard = UIStoryboard(name: "HomeStoryboard", bundle: nil)
         let mainTabBarController = storyboard.instantiateViewController(identifier: "mainVC") as! UITabBarController
-        navigationController?.pushViewController(mainTabBarController, animated: true)
+        self.navigationController?.pushViewController(mainTabBarController, animated: true)
     }
     
     @IBAction func signUp(_ sender: Any) {
