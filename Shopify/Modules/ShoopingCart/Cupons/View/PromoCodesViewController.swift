@@ -79,15 +79,24 @@ class PromoCodesViewController: UIViewController,UITableViewDelegate,UITableView
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cuponsTable.dequeueReusableCell(withIdentifier: "promocodecell") as! promocodeTableViewCell
         let discount =  viewModel.cupons?[indexPath.section] //unUsedArr(arr: discountsArr ?? [])[indexPath.section].discount
-        discountsArr?[indexPath.section].status = "used"
         cell.offerLabel.text = viewModel.cupons?[indexPath.section].code//discountsArr?[indexPath.section].discount?.code//viewModel.cupons?[indexPath.section].code
         cell.layer.cornerRadius = 10.0
         cell.offerBg.layer.cornerRadius = 10.0
         cell.bindApplyActionToViewController = { [weak self] in
-            self?.viewModel.setSelectedDiscount(discount: discount ?? Discount() )
-            ShoppingcartViewController.cuponsViewModel.setSelectedDiscount(discount: discount!)
+            if discountsArr?[indexPath.section].status == "unUsed"{
+                self?.viewModel.setSelectedDiscount(discount: discount ?? Discount() )
+                ShoppingcartViewController.cuponsViewModel.setSelectedDiscount(discount: discount!)
+                discountsArr?.remove(at: indexPath.section)
+                discountsArr?[indexPath.section].status = "used"
+                self?.cuponsTable.reloadData()
+            }
+            else {
+                let alert = UIAlertController(title: "Alert!", message: "Discount Already Used", preferredStyle: UIAlertController.Style.alert)
+                alert.addAction(UIAlertAction(title: "Ok", style: UIAlertAction.Style.default, handler: nil ))
+                self?.present(alert, animated: true, completion: nil)
+            }
+            
         }
-        
         return cell
         
     }

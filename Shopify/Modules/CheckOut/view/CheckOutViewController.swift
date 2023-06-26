@@ -127,7 +127,7 @@ class CheckOutViewController: UIViewController, RTCustomAlertDelegate, UICollect
             request.merchantCapabilities = .capability3DS
             request.countryCode = "EG"
             request.currencyCode = getCurrency()
-            request.paymentSummaryItems = [PKPaymentSummaryItem(label: "Adidas shoes", amount:NSDecimalNumber(value: UInt8(totalPrice)))]
+            request.paymentSummaryItems = [PKPaymentSummaryItem(label: "Adidas shoes", amount:NSDecimalNumber(value: totalPrice))]
             return request
             
             

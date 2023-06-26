@@ -143,7 +143,6 @@ class ProductInfoVC: UIViewController{
               
                 viewModel.addToCart(draftOrdrId:getDraftOrdertId(), product: (viewModel.product?.product) ?? Product())
                 cartBtn.imageView?.image = UIImage(systemName: "cart.fill.badge.plus")
-              //  createToastMessage(message: "new item added to your cart",view: self.view)
                 self.showToast(message: "New item added to your cart", seconds: 2.0)
             }
         }

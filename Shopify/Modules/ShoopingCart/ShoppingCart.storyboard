@@ -188,7 +188,7 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="61l-7N-BzS"/>
                                 </connections>
                             </tableView>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="  Choose a Discount To Apply" placeholder=" Enter your promo code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Qp-Ql-LOd">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="0Qp-Ql-LOd">
                                 <rect key="frame" x="16" y="618" width="333" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -242,7 +242,6 @@
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="promoCodeBtn:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Ka5-lg-Vfq"/>
-                                    <segue destination="0Xn-Ah-wzB" kind="push" id="hwN-Rg-HPX"/>
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8w-DP-OBZ">
@@ -400,7 +399,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" Enter your promo code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Tq4-Ss-yYU">
-                                <rect key="frame" x="16" y="168" width="335" height="34"/>
+                                <rect key="frame" x="16" y="124" width="335" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="0Od-CQ-6KB"/>
@@ -409,7 +408,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="your Promo Codes" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tSe-BY-yFN">
-                                <rect key="frame" x="16" y="234" width="164" height="24.333333333333314"/>
+                                <rect key="frame" x="16" y="190" width="164" height="24.333333333333343"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="164" id="soA-Oj-so1"/>
                                 </constraints>
@@ -418,7 +417,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Iu3-eE-5MX">
-                                <rect key="frame" x="16" y="284" width="361" height="534"/>
+                                <rect key="frame" x="16" y="240" width="361" height="578"/>
                                 <color key="backgroundColor" name="screenBg"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
                                 <color key="separatorColor" name="screenBg"/>
@@ -525,7 +524,7 @@
                                 </connections>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekj-ZY-Tqq">
-                                <rect key="frame" x="341" y="166" width="36" height="36"/>
+                                <rect key="frame" x="341" y="122" width="36" height="36"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="36" id="cQq-Kh-9Id"/>

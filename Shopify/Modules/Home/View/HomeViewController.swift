@@ -63,14 +63,15 @@ class HomeViewController: UIViewController , UICollectionViewDelegate, UICollect
         
         settingViewModel.bindResultToviewController = { [weak self] in
             DispatchQueue.main.async{
-                setCurrencyEquvelant(quote:  self?.settingViewModel.quote ?? 0.0)
+                setCurrencyEquvelant(quote: self?.settingViewModel.quote ?? 0.0)
             }
         }
-        settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: "5")
+        settingViewModel.convertCurrency(to: getCurrency(), from: "USD", amount: "10")
     }
     
     override func viewWillAppear(_ animated: Bool) {
         getData()
+        setPrice()
 
     }
 

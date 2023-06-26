@@ -77,7 +77,7 @@ class RegisterVC: UIViewController {
     func showToast(message : String, seconds: Double){
         
         let alert = UIAlertController(title: nil, message: message, preferredStyle: .actionSheet)
-        alert.view.backgroundColor = .cyan
+        alert.view.backgroundColor = UIColor(named: "AccentColor")
         alert.view.layer.cornerRadius = 15
         self.present(alert, animated: true)
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + seconds) {
@@ -109,62 +109,7 @@ class RegisterVC: UIViewController {
         
     }
     
-    
-    @IBAction func signUpFacebook(_ sender: Any) {
-        let loginManager = LoginManager()
-        loginManager.logIn(permissions: ["public_profile","email"], from: self, handler: { result, error in
-            if error != nil {
-                print("ERROR: Trying to get login results")
-            } else if result?.isCancelled != nil {
-                print("The token is \(result?.token?.tokenString ?? "")")
-                if result?.token?.tokenString != nil {
-                    print("Logged in")
-                    self.getUserProfile(token: result?.token, userId: result?.token?.userID)
-                    
-                } else {
-                    print("Cancelled")
-                }
-            }
-        })
-    }
-    func getUserProfile(token: AccessToken?, userId: String?) {
-        let graphRequest: GraphRequest = GraphRequest(graphPath: "me", parameters: ["fields": "id, first_name, middle_name, last_name, name, picture, email"])
-        graphRequest.start { _, result, error in
-            if error == nil {
-                let data: [String: AnyObject] = result as! [String: AnyObject]
-                var faceEmail = ""
-                var faceFirstname = ""
-                //var faceId = ""
-                //                    if let facebookId = data["id"] as? String {
-                //                       faceId = facebookId
-                //                    } else {
-                //                        print("Facebook Id: Not exists")
-                //                    }
-                if let facebookFirstName = data["first_name"] as? String {
-                    print("Facebook First Name: \(facebookFirstName)")
-                    faceFirstname = facebookFirstName
-                } else {
-                    print("Facebook First Name: Not exists")
-                }
-                if let facebookEmail = data["email"] as? String {
-                    print("Facebook Email: \(facebookEmail)")
-                    faceEmail = facebookEmail
-                } else {
-                    print("Facebook Email: Not exists")
-                }
-                
-                self.customer.email = faceEmail
-                self.customer.firstName = faceFirstname
-                self.customer.tags = faceEmail
-                
-                self.registerViewModel.registerCustomer(customer: self.customer)
-                
-            } else {
-                print("Error: Trying to get user's info")
-            }
-        }
-    }
-    
+
     
     
 }

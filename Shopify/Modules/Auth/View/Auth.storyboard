@@ -249,8 +249,8 @@
                                                     <constraint firstItem="kX5-64-Wz1" firstAttribute="leading" secondItem="nc5-hJ-Ofl" secondAttribute="leading" id="wn4-73-OKQ"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrB-xO-rdf">
-                                                <rect key="frame" x="187" y="648.66666666666663" width="19" height="20.333333333333371"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or SignUp With" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lrB-xO-rdf">
+                                                <rect key="frame" x="137.66666666666666" y="648.66666666666663" width="118" height="20.333333333333371"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -302,7 +302,7 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="xED-9v-rXH">
-                                                <rect key="frame" x="128.66666666666666" y="689" width="135.99999999999997" height="38"/>
+                                                <rect key="frame" x="172.66666666666666" y="689" width="48" height="38"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8O-ax-Amj">
                                                         <rect key="frame" x="0.0" y="0.0" width="48" height="38"/>
@@ -312,20 +312,13 @@
                                                             <action selector="signUpGoogle:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="Zma-tr-0wR"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="veA-3s-p07">
-                                                        <rect key="frame" x="88" y="0.0" width="48" height="38"/>
-                                                        <state key="normal" title="Button"/>
-                                                        <buttonConfiguration key="configuration" style="plain" image="facebook"/>
-                                                        <connections>
-                                                            <action selector="signUpFacebook:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="aVP-hg-UWk"/>
-                                                        </connections>
-                                                    </button>
                                                 </subviews>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstItem="SgY-Wl-qCb" firstAttribute="top" secondItem="aCC-Ja-d41" secondAttribute="bottom" constant="10" id="0An-od-Pv0"/>
+                                            <constraint firstItem="xED-9v-rXH" firstAttribute="leading" secondItem="z5M-xa-ZrI" secondAttribute="leading" constant="172.66999999999999" id="326-9e-dVk"/>
                                             <constraint firstAttribute="trailing" secondItem="nc5-hJ-Ofl" secondAttribute="trailing" constant="10" id="4R3-9y-nj5"/>
                                             <constraint firstItem="nc5-hJ-Ofl" firstAttribute="top" secondItem="97x-Fi-XAI" secondAttribute="bottom" constant="10" id="5aj-Ss-LgA"/>
                                             <constraint firstItem="aCC-Ja-d41" firstAttribute="centerX" secondItem="z5M-xa-ZrI" secondAttribute="centerX" id="5pm-Uw-86c"/>
@@ -335,6 +328,7 @@
                                             <constraint firstAttribute="trailing" secondItem="SgY-Wl-qCb" secondAttribute="trailing" constant="10" id="ISP-5d-WAk"/>
                                             <constraint firstAttribute="trailing" secondItem="Xle-g0-fnH" secondAttribute="trailing" constant="50" id="JHw-XE-O1G"/>
                                             <constraint firstAttribute="trailing" secondItem="oUR-05-gif" secondAttribute="trailing" constant="10" id="NNb-fI-bau"/>
+                                            <constraint firstAttribute="trailing" secondItem="xED-9v-rXH" secondAttribute="trailing" constant="172.33000000000001" id="Rqx-mV-dOg"/>
                                             <constraint firstItem="iVE-Oe-CYr" firstAttribute="top" secondItem="nc5-hJ-Ofl" secondAttribute="bottom" constant="10" id="T35-Sv-fey"/>
                                             <constraint firstItem="97x-Fi-XAI" firstAttribute="top" secondItem="H1f-xX-rvI" secondAttribute="bottom" constant="20" id="UIZ-S3-grX"/>
                                             <constraint firstItem="oUR-05-gif" firstAttribute="leading" secondItem="z5M-xa-ZrI" secondAttribute="leading" constant="10" id="VJn-SS-AlI"/>
@@ -492,13 +486,13 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Or Login with " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jcu-3q-14g">
-                                <rect key="frame" x="144" y="553" width="105.33333333333331" height="20.333333333333371"/>
+                                <rect key="frame" x="144" y="533" width="105.33333333333331" height="20.333333333333371"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" spacing="51" translatesAutoresizingMaskIntoConstraints="NO" id="2Ii-ue-hvw">
-                                <rect key="frame" x="123" y="593.33333333333337" width="147" height="38"/>
+                                <rect key="frame" x="172.66666666666666" y="573.33333333333337" width="48" height="38"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jvI-1I-Kr0">
                                         <rect key="frame" x="0.0" y="0.0" width="48" height="38"/>
@@ -507,11 +501,6 @@
                                         <connections>
                                             <action selector="googleLogin:" destination="XEV-Z3-WIL" eventType="touchUpInside" id="4rB-1y-uDl"/>
                                         </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mxK-Z3-55j">
-                                        <rect key="frame" x="99" y="0.0" width="48" height="38"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="facebook"/>
                                     </button>
                                 </subviews>
                             </stackView>
@@ -538,7 +527,7 @@
                             <constraint firstItem="rxb-nd-JRs" firstAttribute="top" secondItem="lJZ-lW-r0U" secondAttribute="bottom" constant="24" id="hmN-uc-fUQ"/>
                             <constraint firstItem="lJZ-lW-r0U" firstAttribute="top" secondItem="Sci-Of-MQs" secondAttribute="bottom" constant="40" id="kJY-Sk-y4T"/>
                             <constraint firstItem="UoN-ju-sgs" firstAttribute="trailing" secondItem="Sci-Of-MQs" secondAttribute="trailing" constant="10" id="rwQ-CK-hu0"/>
-                            <constraint firstItem="Jcu-3q-14g" firstAttribute="top" secondItem="Vpc-Jw-6sy" secondAttribute="bottom" constant="50" id="s7b-be-Urt"/>
+                            <constraint firstItem="Jcu-3q-14g" firstAttribute="top" secondItem="Vpc-Jw-6sy" secondAttribute="bottom" constant="30" id="s7b-be-Urt"/>
                         </constraints>
                     </view>
                     <connections>
@@ -589,7 +578,6 @@
     </scenes>
     <resources>
         <image name="cart" width="1820" height="1214"/>
-        <image name="facebook" width="24" height="24"/>
         <image name="google" width="24" height="24"/>
         <image name="login" width="16" height="8"/>
         <image name="shop" width="612" height="510"/>
