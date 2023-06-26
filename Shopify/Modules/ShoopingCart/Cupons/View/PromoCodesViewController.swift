@@ -32,7 +32,7 @@ class PromoCodesViewController: UIViewController,UITableViewDelegate,UITableView
             DispatchQueue.main.async {
                 //self?.setCuponsArr(totalCupons: self?.viewModel.totalCupons ?? [])
                 print("your cupons...\(String(describing: self?.viewModel.cupons?.count))")
-                self?.isCuponTaken(cupons: self?.viewModel.cupons ?? [])
+               // self?.isCuponTaken(cupons: self?.viewModel.cupons ?? [])
                 }
                 self?.cuponsTable.reloadData()
             }
@@ -71,14 +71,14 @@ class PromoCodesViewController: UIViewController,UITableViewDelegate,UITableView
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return  unUsedArr(arr: discountsArr ?? []).count //self.viewModel.cupons?.count ?? 0 //discountsArr?.count ?? 0
+        return  self.viewModel.cupons?.count ?? 0 //discountsArr?.count ?? 0 //unUsedArr(arr: discountsArr ?? []).count
     }
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 10
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cuponsTable.dequeueReusableCell(withIdentifier: "promocodecell") as! promocodeTableViewCell
-        let discount = unUsedArr(arr: discountsArr ?? [])[indexPath.section].discount //viewModel.cupons?[indexPath.section]
+        let discount =  viewModel.cupons?[indexPath.section] //unUsedArr(arr: discountsArr ?? [])[indexPath.section].discount
         discountsArr?[indexPath.section].status = "used"
         cell.offerLabel.text = viewModel.cupons?[indexPath.section].code//discountsArr?[indexPath.section].discount?.code//viewModel.cupons?[indexPath.section].code
         cell.layer.cornerRadius = 10.0
